@@ -21,6 +21,7 @@ ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS duration             text;
 ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS fee                  numeric(10,2);
 ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS discount             numeric(10,2);
 ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS certificate          text;
+ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS description          text;
 ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS topics               text[]  DEFAULT '{}';
 ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS outcomes             text[]  DEFAULT '{}';
 ALTER TABLE public.courses ADD COLUMN IF NOT EXISTS featured             boolean DEFAULT false;
