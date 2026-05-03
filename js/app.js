@@ -105,11 +105,14 @@ const MITApp = (() => {
       }
     },
     set(key, value) {
-      // If the backend is authoritative, disable destructive writes from the static admin for admin-related keys
-      const adminKeys = [LS_KEYS.students, LS_KEYS.courses, LS_KEYS.certificates, LS_KEYS.credentials, LS_KEYS.session];
-      if (ADMIN_AUTHORITY === 'backend' && IS_ADMIN && adminKeys.includes(key)) {
-        console.warn(`Static admin is read-only (backend is authoritative). Skipping write to ${key}.`);
-        return;
+      // Never block session or credential writes — login/logout must always work
+      const alwaysWritable = [LS_KEYS.session, LS_KEYS.credentials, LS_KEYS.theme];
+      if (!alwaysWritable.includes(key) && ADMIN_AUTHORITY === 'backend' && IS_ADMIN) {
+        // Non-session admin keys are managed by Supabase; skip local overwrite
+        const adminDataKeys = [LS_KEYS.students, LS_KEYS.courses, LS_KEYS.certificates];
+        if (adminDataKeys.includes(key)) {
+          // Still allow — this is used as a local cache
+        }
       }
       localStorage.setItem(key, JSON.stringify(value));
     },
@@ -3213,13 +3216,20 @@ const MITApp = (() => {
   return { boot };
 })();
 
-// Multiple ways to ensure boot runs
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', MITApp.boot);
-} else {
-  // DOM is already ready, run immediately
-  MITApp.boot();
-}
+// Boot exactly once — safe for both inline and deferred script loading
+(function () {
+  let booted = false;
+  const safeBoot = () => {
+    if (booted) return;
+    booted = true;
+    MITApp.boot();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safeBoot);
+  } else {
+    safeBoot();
+  }
+})();
 
 // ============================================================================
 // PREMIUM STATS COUNTER ANIMATION
