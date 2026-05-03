@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#4F7CFF" />
+  <title>MIT Student Portal</title>
+  <meta name="description"
+    content="View course materials, homework, and announcements for your Markiety IT Institute program." />
+  <link rel="icon" type="image/jpeg" href="/assets/logo.jpg" />
+  <link rel="shortcut icon" href="/assets/logo.jpg" />
+  <link rel="apple-touch-icon" href="/assets/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body data-theme="dark" data-page="student-portal">
+  <!-- Premium Header -->
+  <header class="site-header portal-header">
+    <div class="container nav">
+      <a class="brand" href="../index.html">
+        <img src="../assets/logo.jpg" alt="MIT logo" class="logo" width="44" height="44" />
+        <div class="brand-copy">
+          <span class="brand-name">MIT Student Portal</span>
+          <span class="brand-tagline">Your Learning Hub</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline" id="studentLogout">🚪 Logout</button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
+          <span class="icon-sun" aria-hidden="true"></span>
+          <span class="icon-moon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section student-portal">
+    <div class="container">
+      <!-- Welcome Hero Card -->
+      <header class="portal-hero">
+        <div class="portal-photo-wrap"><img id="portalStudentPhoto" class="portal-photo" src="" alt="Photo"
+            onerror="this.style.display='none'" /></div>
+        <div class="portal-welcome">
+          <p class="muted small">👋 Welcome back</p>
+          <h1 id="portalStudentName">MIT Student</h1>
+          <p class="muted small">🎫 Tracking No: <strong id="portalTracking">MIT-0000</strong></p>
+        </div>
+        <div class="portal-meta">
+          <p class="muted small">📚 Your Course</p>
+          <h3 id="portalCourseName">MIT Course</h3>
+          <p class="muted small">👨‍🏫 Instructor: <span id="portalInstructor">MIT Mentor</span></p>
+          <p class="muted small">🔐 Your PIN: <strong id="portalPin">----</strong></p>
+        </div>
+      </header>
+
+      <!-- Quick Info Banner -->
+      <section class="portal-info">
+        <div>
+          <strong>Need Help?</strong> Contact the MIT office at <a id="contactPhoneLink" href="tel:+8801624547667">+880
+            1624-547667</a>
+          or email <a href="mailto:markietyitinstitute@gmail.com">markietyitinstitute@gmail.com</a>
+        </div>
+      </section>
+
+      <!-- Resources Grid -->
+      <section class="portal-grid">
+        <article class="resource-card">
+          <h2>Course Materials</h2>
+          <ul id="materialsList">
+            <li class="empty-message">No materials added yet</li>
+          </ul>
+        </article>
+        <article class="resource-card">
+          <h2>Homework & Tasks</h2>
+          <ul id="homeworkList">
+            <li class="empty-message">No homework assigned yet</li>
+          </ul>
+        </article>
+        <article class="resource-card">
+          <h2>Important Links</h2>
+          <ul id="linksList">
+            <li class="empty-message">No links added yet</li>
+          </ul>
+        </article>
+        <article class="resource-card">
+          <h2>Slides & Sheets</h2>
+          <ul id="slidesList">
+            <li class="empty-message">No slides available yet</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- Available Courses -->
+      <section class="portal-course-access">
+        <header>
+          <div>
+            <p class="muted small">🎓 Available Courses</p>
+            <h2>Upgrade your skills</h2>
+            <p class="muted small">Unlock additional courses to expand your knowledge</p>
+          </div>
+        </header>
+        <div id="courseAccessGrid" class="portal-course-grid"></div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="portal-footer">
+        <p class="muted small">© 2025 Markiety IT Institute. All Rights Reserved.</p>
+        <p class="muted small">Need support? <a href="tel:+8801624547667">+880 1624-547667</a></p>
+      </footer>
+    </div>
+  </main>
+
+  <!-- Supabase Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/services/supabase-service.js"></script>
+  <script src="../js/toast.js"></script>
+  <script src="../js/app.js" defer></script>
+</body>
+
+</html>

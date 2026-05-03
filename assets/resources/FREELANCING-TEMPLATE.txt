@@ -1,0 +1,110 @@
+===============================================
+FREELANCING & CAREER DEVELOPMENT - TEMPLATE
+===============================================
+
+COURSE: Freelancing & Career Development (2 Months)
+INSTRUCTOR: Md. Tuhin Khandakar
+FEE: 4,000 BDT (Discount: 3,500 BDT)
+
+===============================================
+RECOMMENDED POWERPOINT STRUCTURE
+===============================================
+
+Slide 1: Title Slide
+- Freelancing & Career Mastery
+- Markiety IT Institute (MIT)
+- Instructor: Md. Tuhin Khandakar
+
+Slide 2-5: Module 1 - Fiverr Profile Optimization
+- Creating a winning Fiverr profile
+- Profile photo and banner design
+- Writing compelling gig descriptions
+- Keyword research for Fiverr SEO
+- Practical exercise: Set up your Fiverr profile
+
+Slide 6-10: Module 2 - Upwork Strategies
+- Upwork profile setup
+- JSS (Job Success Score) explained
+- Finding the right jobs
+- Submitting proposals that win
+- Practical exercise: Write 3 winning proposals
+
+Slide 11-15: Module 3 - Client Communication
+- Professional email templates
+- Setting expectations
+- Handling difficult clients
+- Requesting testimonials
+- Building long-term relationships
+
+Slide 16-20: Module 4 - Portfolio Building
+- What to include in your portfolio
+- Case study format
+- Before/after showcase
+- Personal website vs Behance/Dribbble
+- Practical exercise: Build your portfolio website
+
+Slide 21-25: Pricing & Business
+- How to price your services
+- Packages vs hourly rates
+- Invoicing and payments
+- Tax basics for freelancers
+- Scaling your freelance business
+
+===============================================
+HOMEWORK ASSIGNMENTS
+===============================================
+
+Week 1: Set up optimized Fiverr and Upwork profiles
+Week 2: Write 3 compelling proposals for sample projects
+Week 3: Build a portfolio website with 5 case studies
+Week 4: Create service packages and pricing strategy
+
+===============================================
+USEFUL RESOURCES TO INCLUDE
+===============================================
+
+1. Fiverr - https://fiverr.com
+2. Upwork - https://upwork.com
+3. Freelancer.com - https://freelancer.com
+4. Behance (Portfolio) - https://behance.net
+5. PayPal/Payoneer (Payments) - https://payoneer.com
+6. Notion (Project management) - https://notion.so
+
+===============================================
+TEMPLATES TO INCLUDE
+===============================================
+
+1. Fiverr Gig Description Template
+2. Upwork Cover Letter Template
+3. Client Onboarding Email
+4. Project Completion Email
+5. Testimonial Request Template
+6. Invoice Template
+7. Service Package Pricing Sheet
+
+===============================================
+CASE STUDIES TO DISCUSS
+===============================================
+
+1. How MIT student landed first client in 2 weeks
+2. Going from $5/hour to $50/hour strategy
+3. Building a $3K/month freelance income
+4. Transitioning from part-time to full-time
+5. Diversifying income streams
+
+===============================================
+TO CREATE ACTUAL COURSE FILE:
+===============================================
+
+1. Open Microsoft PowerPoint or Google Slides
+2. Use the structure above as a guide
+3. Add screenshots of Fiverr and Upwork profiles
+4. Include real proposal examples (anonymized)
+5. Add pricing strategy worksheets
+6. Include success stories from MIT students
+7. Save as: freelancing-course.pptx
+8. Replace this file in: /assets/resources/
+
+===============================================
+FILE SIZE RECOMMENDATION: 10-20 MB
+===============================================

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /students/
+
+Sitemap: https://markietyitinstitute.netlify.app/sitemap.xml

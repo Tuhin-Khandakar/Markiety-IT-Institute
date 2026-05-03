@@ -1,0 +1,87 @@
+===============================================
+GRAPHICS DESIGN COURSE - MATERIAL TEMPLATE
+===============================================
+
+COURSE: Graphics Design (3 Months)
+INSTRUCTOR: Iqbal
+FEE: 5,000 BDT (Discount: 4,500 BDT)
+
+===============================================
+RECOMMENDED POWERPOINT STRUCTURE
+===============================================
+
+Slide 1: Title Slide
+- Graphics Design Mastery
+- Markiety IT Institute (MIT)
+- Instructor: Iqbal
+
+Slide 2-5: Module 1 - Canva for Social Media
+- Introduction to Canva interface
+- Social media dimensions (Instagram, Facebook, LinkedIn)
+- Brand kit creation
+- Template customization
+- Practical exercise: Create 5 social media posts
+
+Slide 6-10: Module 2 - Adobe Photoshop Basics
+- Photoshop workspace overview
+- Layers and selections
+- Photo retouching techniques
+- Color correction and grading
+- Practical exercise: Edit a product photo
+
+Slide 11-15: Module 3 - Illustrator Logo Design
+- Vector vs Raster graphics
+- Pen tool mastery
+- Logo grid system
+- Typography in logos
+- Practical exercise: Design a logo concept
+
+Slide 16-20: Module 4 - Brand Identity Principles
+- Color psychology
+- Typography pairing
+- Brand style guide creation
+- Mockup presentation
+- Practical exercise: Build a brand style guide
+
+Slide 21-25: Portfolio & Career
+- Building a design portfolio
+- Freelancing as a designer
+- Client communication
+- Pricing your work
+- Finding clients on Fiverr/Upwork
+
+===============================================
+HOMEWORK ASSIGNMENTS
+===============================================
+
+Week 1: Create 5 social media posts for a local brand
+Week 2: Design a brand logo using Illustrator
+Week 3: Build a complete brand style guide (colors, fonts, logo variations)
+
+===============================================
+USEFUL RESOURCES TO INCLUDE
+===============================================
+
+1. Canva - https://canva.com
+2. Adobe Creative Cloud - https://adobe.com
+3. Behance (Portfolio inspiration) - https://behance.net
+4. Dribbble - https://dribbble.com
+5. Google Fonts - https://fonts.google.com
+6. Coolors (Color palette generator) - https://coolors.co
+
+===============================================
+TO CREATE ACTUAL COURSE FILE:
+===============================================
+
+1. Open Microsoft PowerPoint or Google Slides
+2. Use the structure above as a guide
+3. Add visual examples for each module
+4. Include screenshots of Canva/Photoshop/Illustrator
+5. Add real design examples
+6. Include student exercises with step-by-step instructions
+7. Save as: graphics-design-course.pptx
+8. Replace this file in: /assets/resources/
+
+===============================================
+FILE SIZE RECOMMENDATION: 15-30 MB
+===============================================

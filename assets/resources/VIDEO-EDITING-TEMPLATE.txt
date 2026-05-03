@@ -1,0 +1,97 @@
+===============================================
+VIDEO EDITING COURSE - MATERIAL TEMPLATE
+===============================================
+
+COURSE: Video Editing (3 Months)
+INSTRUCTOR: Md. Mahin
+FEE: 5,000 BDT (Discount: 4,500 BDT)
+
+===============================================
+RECOMMENDED POWERPOINT STRUCTURE
+===============================================
+
+Slide 1: Title Slide
+- Video Editing Mastery
+- Markiety IT Institute (MIT)
+- Instructor: Md. Mahin
+
+Slide 2-6: Module 1 - Premiere Pro Essentials
+- Premiere Pro interface tour
+- Timeline navigation
+- Importing and organizing footage
+- Basic cuts and transitions
+- Practical exercise: Edit a 30-second promo
+
+Slide 7-11: Module 2 - CapCut Pro Techniques
+- CapCut Pro vs Premiere Pro
+- Mobile-first editing
+- YouTube Shorts and Reels workflow
+- Auto-captions and effects
+- Practical exercise: Create a YouTube Shorts video
+
+Slide 12-16: Module 3 - Color Grading Fundamentals
+- Understanding LUTs
+- Color wheels and curves
+- Skin tone correction
+- Creating cinematic looks
+- Practical exercise: Color grade a short clip
+
+Slide 17-21: Module 4 - Motion Graphics & Sound
+- Motion graphics basics
+- Lower thirds and titles
+- Sound mixing fundamentals
+- Background music selection
+- Practical exercise: Add graphics to a video
+
+Slide 22-26: Advanced Techniques
+- Multi-camera editing
+- Green screen keying
+- Stabilization and speed ramping
+- Export settings for different platforms
+- Portfolio building
+
+===============================================
+HOMEWORK ASSIGNMENTS
+===============================================
+
+Week 1: Edit a 30-second promotional video with transitions
+Week 2: Create a YouTube intro with motion graphics
+Week 3: Color grade and sound mix a complete 2-minute video
+
+===============================================
+USEFUL RESOURCES TO INCLUDE
+===============================================
+
+1. Adobe Premiere Pro - https://adobe.com/premiere
+2. CapCut - https://capcut.com
+3. Epidemic Sound (Music) - https://epidemicsound.com
+4. Mixkit (Free footage) - https://mixkit.co
+5. LUT Library - https://lutify.me
+6. Artgrid (Stock footage) - https://artgrid.io
+
+===============================================
+PRACTICE EXERCISES
+===============================================
+
+1. Edit a client testimonial video
+2. Create a brand story video
+3. Design a social media ad (15 seconds)
+4. Make a tutorial video with screen recording
+5. Produce a cinematic b-roll sequence
+
+===============================================
+TO CREATE ACTUAL COURSE FILE:
+===============================================
+
+1. Open Microsoft PowerPoint or Google Slides
+2. Use the structure above as a guide
+3. Add screenshots from Premiere Pro and CapCut
+4. Include before/after examples of color grading
+5. Add timeline screenshots showing editing workflow
+6. Include export settings for YouTube, Instagram, Facebook
+7. Save as: video-editing-course.pptx
+8. Replace this file in: /assets/resources/
+
+===============================================
+FILE SIZE RECOMMENDATION: 20-40 MB
+===============================================

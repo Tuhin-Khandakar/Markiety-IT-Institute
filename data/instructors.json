@@ -1,0 +1,49 @@
+[
+    {
+        "id": "tuhin-khandakar",
+        "name": "Md. Tuhin Khandakar",
+        "title": "Founder & Lead Instructor",
+        "photo": "assets/instructors/TUHIN.jpeg",
+        "bio": "Founder of Markiety IT Institute with extensive experience in digital marketing, freelancing, and tech education. Passionate about empowering Bangladeshi youth with globally competitive skills.",
+        "specialties": [
+            "Digital Marketing",
+            "Basic Computer Course",
+            "Freelancing & Career Development"
+        ],
+        "social": {
+            "portfolio": "https://tuhinkhandakar.com/",
+            "linkedin": "https://www.linkedin.com/in/tuhink-abir/",
+            "facebook": "https://www.facebook.com/AbirSixT9",
+            "instagram": "https://www.instagram.com/abir_6996/",
+            "youtube": "https://www.youtube.com/@tuhin-khandakar"
+        }
+    },
+    {
+        "id": "iqbal",
+        "name": "Iqbal",
+        "title": "Graphics Design Instructor",
+        "photo": "assets/instructors/IQBAL.jpeg",
+        "bio": "Professional graphic designer specializing in brand identity, social media design, and creative content creation.",
+        "specialties": [
+            "Graphics Design",
+            "Canva",
+            "Adobe Photoshop",
+            "Adobe Illustrator"
+        ],
+        "social": {}
+    },
+    {
+        "id": "mahin",
+        "name": "Md. Mahin",
+        "title": "Video Editing Instructor",
+        "photo": "assets/instructors/MAHIN.jpeg",
+        "bio": "Expert video editor with a focus on cinematic storytelling, social media content, and motion graphics.",
+        "specialties": [
+            "Video Editing",
+            "Premiere Pro",
+            "CapCut Pro",
+            "Color Grading"
+        ],
+        "social": {}
+    }
+]

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1b2335"/>
+      <stop offset="100%" stop-color="#22304a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <circle cx="250" cy="220" r="220" fill="rgba(122,255,184,0.18)"/>
+  <circle cx="980" cy="650" r="180" fill="rgba(79,124,255,0.18)"/>
+  <text x="50%" y="55%" text-anchor="middle" font-size="220" font-family="Segoe UI, Roboto, Arial, sans-serif" fill="#e8eefc" opacity=".8">MIT</text>
+</svg>
+

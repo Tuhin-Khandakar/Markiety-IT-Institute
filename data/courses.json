@@ -1,0 +1,123 @@
+[
+  {
+    "title": "Basic Computer Course",
+    "instructor": "Md. Tuhin Khandakar",
+    "instructorPhoto": "assets/instructors/TUHIN.jpeg",
+    "image": "assets/BASIC-COMPUTER-COURSE.jpg",
+    "duration": "2.5 Months",
+    "fee": "3000 BDT",
+    "discount": "2500 BDT",
+    "discountSeatsLimit": 20,
+    "discountSeatsLeft": 20,
+    "certificate": "Government-Approved",
+    "topics": [
+      "Microsoft Word / Excel / PowerPoint / Access",
+      "Internet & Email Management",
+      "File Handling & Google Workspace",
+      "Intro to AI Tools (ChatGPT, Copilot)"
+    ],
+    "outcomes": [
+      "Work confidently with Microsoft Office Suite",
+      "Create professional documents and presentations",
+      "Understand computer maintenance and digital productivity"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Digital Marketing",
+    "instructor": "Md. Tuhin Khandakar",
+    "instructorPhoto": "assets/instructors/TUHIN.jpeg",
+    "image": "assets/DIGITAL-MARKETING-COURSE.jpg",
+    "duration": "3 Months",
+    "fee": "6000 BDT",
+    "discount": "5500 BDT",
+    "discountSeatsLimit": 20,
+    "discountSeatsLeft": 20,
+    "certificate": "Government-Approved",
+    "topics": [
+      "SEO & Analytics",
+      "Social Media Marketing (Facebook, Instagram, YouTube)",
+      "Google Ads & Meta Ads",
+      "Email & Content Marketing",
+      "Branding & AI Tools"
+    ],
+    "outcomes": [
+      "Run profitable ad campaigns",
+      "Develop brand growth strategies",
+      "Master AI-powered marketing tools"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Graphics Design",
+    "instructor": "Iqbal",
+    "instructorPhoto": "assets/instructors/IQBAL.jpeg",
+    "image": "assets/GRAPHICS-DESIGN-COURSE.jpg",
+    "duration": "3 Months",
+    "fee": "5000 BDT",
+    "discount": "4500 BDT",
+    "discountSeatsLimit": 20,
+    "discountSeatsLeft": 20,
+    "certificate": "Government-Approved",
+    "topics": [
+      "Canva for Social Media & Branding",
+      "Photoshop Editing",
+      "Illustrator Logo Design",
+      "Brand Identity Basics"
+    ],
+    "outcomes": [
+      "Design brand kits and social posts",
+      "Understand typography & color theory",
+      "Create logos for real clients"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Video Editing",
+    "instructor": "Md. Mahin",
+    "instructorPhoto": "assets/instructors/MAHIN.jpeg",
+    "image": "assets/VIDEO-EDITING-COURSE.jpg",
+    "duration": "3 Months",
+    "fee": "5000 BDT",
+    "discount": "4500 BDT",
+    "discountSeatsLimit": 20,
+    "discountSeatsLeft": 20,
+    "certificate": "Government-Approved",
+    "topics": [
+      "Premiere Pro / CapCut Pro",
+      "YouTube & Reels Editing",
+      "Color Grading & Sound Sync",
+      "Motion Graphics Basics"
+    ],
+    "outcomes": [
+      "Edit cinematic and social media videos",
+      "Add transitions, sync sound, and export properly",
+      "Work with creators & brands professionally"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Freelancing & Career Development",
+    "instructor": "Md. Tuhin Khandakar",
+    "instructorPhoto": "assets/instructors/TUHIN.jpeg",
+    "image": "assets/FREELANCING-COURSE.jpg",
+    "duration": "2 Months",
+    "fee": "4000 BDT",
+    "discount": "3500 BDT",
+    "discountSeatsLimit": 20,
+    "discountSeatsLeft": 20,
+    "certificate": "Government-Approved",
+    "topics": [
+      "Fiverr & Upwork Setup",
+      "Proposal Writing & Client Communication",
+      "Portfolio & Personal Branding",
+      "Pricing & Gig Optimization"
+    ],
+    "outcomes": [
+      "Set up freelance profiles & attract clients",
+      "Communicate professionally with clients",
+      "Build a sustainable freelance career"
+    ],
+    "featured": false
+  }
+]
