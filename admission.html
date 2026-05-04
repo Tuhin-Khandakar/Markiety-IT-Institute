@@ -24,6 +24,8 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/advanced-features.css" />
+  <link rel="stylesheet" href="css/payment-gateway.css" />
 </head>
 
 <body data-theme="light" data-page="admission">
@@ -55,6 +57,9 @@
         </ul>
       </nav>
       <div class="header-actions">
+        <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
         <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
           <span class="icon-sun" aria-hidden="true"></span>
           <span class="icon-moon" aria-hidden="true"></span>
@@ -376,8 +381,52 @@
   <!-- Supabase Integration -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/services/supabase-service.js"></script>
+  <script src="js/seo-enhancement.js"></script>
   <script src="js/toast.js"></script>
+  <script src="js/enhancements.js"></script>
+  <script src="js/advanced-features.js"></script>
+  <script src="js/performance-optimizer.js"></script>
+  <script src="js/payment-gateway.js"></script>
   <script src="js/app.js" defer></script>
+
+  <script>
+    // Add payment trigger to admission form submission
+    document.addEventListener('DOMContentLoaded', () => {
+      const admissionForm = document.getElementById('admissionForm');
+      if (admissionForm) {
+        admissionForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // Get form data
+          const formData = new FormData(e.target);
+          const data = {
+            studentName: formData.get('fullName'),
+            phone: formData.get('phone'),
+            courseName: document.querySelector('select[name="course"]')?.selectedOptions[0]?.text,
+            amount: getCourseAmount(formData.get('course'))
+          };
+
+          // Open payment modal
+          if (window.MITPayments) {
+            window.MITPayments.openPaymentModal(data);
+          } else {
+            window.toast?.error('Payment system not loaded. Please refresh the page.');
+          }
+        });
+      }
+    });
+
+    function getCourseAmount(courseId) {
+      const courseFees = {
+        'digital-marketing': 5500,
+        'graphics-design': 4500,
+        'video-editing': 4000,
+        'basic-computer': 2500,
+        'freelancing': 3000
+      };
+      return courseFees[courseId] || 0;
+    }
+  </script>
 </body>
 
 </html>

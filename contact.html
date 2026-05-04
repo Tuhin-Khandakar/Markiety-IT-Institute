@@ -24,6 +24,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/advanced-features.css" />
 </head>
 
 <body data-theme="light" data-page="contact">
@@ -55,6 +56,9 @@
         </ul>
       </nav>
       <div class="header-actions">
+        <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
         <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
           <span class="icon-sun" aria-hidden="true"></span>
           <span class="icon-moon" aria-hidden="true"></span>
@@ -123,10 +127,16 @@
     <section class="section muted">
       <div class="container">
         <h2>Locate Us</h2>
+        <p class="lead text-center">Visit Markiety IT Institute at Nodi Bangla Manik Palace, Madhabdi, Narsingdi</p>
         <div class="map-wrap">
-          <iframe title="Markiety IT Institute location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7319.670595281943!2d90.7850107!3d23.9345582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375436bea5c9ddb7%3A0xe44d633bd4b8bb5b!2sMadhabdi!5e0!3m2!1sen!2sbd!4v1700000000000"
-            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe title="Markiety IT Institute - Best IT Training Center in Madhabdi"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.1848930921938!2d90.67036257432936!3d23.847567385041057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3754357db1a60efb%3A0xcaa3eeb3a429e3f4!2sMARKIETY%20IT%20INSTITUTE!5e0!3m2!1sen!2sbd!4v1777912606443!5m2!1sen!2sbd"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="map-directions" style="text-align: center; margin-top: 1.5rem;">
+          <a href="https://maps.app.goo.gl/Vebu5WxQRrY8dPhG8" target="_blank" rel="noopener" class="btn btn-gradient">
+            📍 Get Directions
+          </a>
         </div>
       </div>
     </section>
@@ -207,7 +217,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/services/supabase-service.js"></script>
+  <script src="js/seo-enhancement.js"></script>
   <script src="js/toast.js"></script>
+  <script src="js/enhancements.js"></script>
+  <script src="js/advanced-features.js"></script>
+  <script src="js/performance-optimizer.js"></script>
   <script src="js/app.js" defer></script>
 </body>
 

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#4F7CFF" />
+  <title>Blog & News &mdash; Markiety IT Institute (MIT)</title>
+  <meta name="description"
+    content="Read latest articles, tips, and success stories from Markiety IT Institute. Learn about IT careers, freelancing, digital marketing, and student achievements." />
+  <link rel="canonical" href="https://markietyitinstitute.netlify.app/blog.html" />
+  <meta property="og:title" content="Blog & News &mdash; Markiety IT Institute (MIT)" />
+  <meta property="og:description"
+    content="Expert insights, career tips, and student success stories from MIT Madhabdi." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://markietyitinstitute.netlify.app/blog.html" />
+  <meta property="og:image" content="https://markietyitinstitute.netlify.app/assets/logo.jpg" />
+  <link rel="icon" type="image/jpeg" href="/assets/logo.jpg" />
+  <link rel="shortcut icon" href="/assets/logo.jpg" />
+  <link rel="apple-touch-icon" href="/assets/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/advanced-features.css" />
+  <style>
+    .blog-grid {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .blog-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .blog-card {
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .blog-card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .blog-card-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-card-category {
+      padding: 0.25rem 0.75rem;
+      background: rgba(79, 124, 255, 0.1);
+      color: var(--blue);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .blog-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.75rem;
+      line-height: 1.4;
+    }
+
+    .blog-card-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .blog-card-title a:hover {
+      color: var(--blue);
+    }
+
+    .blog-card-excerpt {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .blog-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .blog-card-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .blog-card-author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .blog-card-author-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .blog-card-read-more {
+      font-size: 0.9rem;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: gap 0.2s ease;
+    }
+
+    .blog-card-read-more:hover {
+      gap: 0.5rem;
+    }
+
+    .blog-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .blog-filter-btn {
+      padding: 0.5rem 1.25rem;
+      border: 1.5px solid #e2e8f0;
+      background: transparent;
+      color: var(--text);
+      border-radius: 24px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .blog-filter-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .blog-filter-btn.active {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+
+    .featured-post {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 2rem;
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .featured-post {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .featured-post-image {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      object-fit: cover;
+    }
+
+    .featured-post-content {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, #4F7CFF, #00C9A7);
+      color: white;
+      border-radius: 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+
+    body[data-theme="dark"] .blog-card {
+      background: #1e293b;
+    }
+
+    body[data-theme="dark"] .blog-card-footer {
+      border-top-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body[data-theme="dark"] .blog-filter-btn {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body[data-theme="dark"] .featured-post {
+      background: #1e293b;
+    }
+  </style>
+</head>
+
+<body data-theme="light" data-page="blog">
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.jpg" alt="Markiety IT Institute logo" class="logo" width="44" height="44" />
+        <div class="brand-copy">
+          <span class="brand-name">Markiety IT Institute</span>
+          <span class="brand-tagline">Learn. Build. Earn.</span>
+        </div>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span class="sr-only">Toggle navigation</span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links" id="navMenu">
+          <li><a href="index.html" data-nav="index">Home</a></li>
+          <li><a href="about.html" data-nav="about">About</a></li>
+          <li><a href="courses.html" data-nav="courses">Courses</a></li>
+          <li><a href="index.html#testimonials" data-nav="testimonials">Success Stories</a></li>
+          <li><a href="instructors.html" data-nav="instructors">Instructors</a></li>
+          <li><a href="admission.html" data-nav="admission">Admission</a></li>
+          <li><a href="contact.html" data-nav="contact">Contact</a></li>
+          <li class="nav-cta"><a class="btn btn-gradient" href="admission.html">Apply Now</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
+          <span class="icon-sun" aria-hidden="true"></span>
+          <span class="icon-moon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Blog & News</h1>
+        <p class="lead">Expert insights, career tips, and success stories from MIT</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="blog-filters">
+          <button class="blog-filter-btn active" data-filter="all">All Posts</button>
+          <button class="blog-filter-btn" data-filter="career">Career Tips</button>
+          <button class="blog-filter-btn" data-filter="success">Success Stories</button>
+          <button class="blog-filter-btn" data-filter="tutorial">Tutorials</button>
+          <button class="blog-filter-btn" data-filter="news">Institute News</button>
+        </div>
+
+        <div class="blog-grid">
+          <!-- Featured Post -->
+          <article class="featured-post" data-category="success">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Success story" class="featured-post-image" loading="lazy">
+            <div class="featured-post-content">
+              <span class="featured-badge">⭐ Featured Story</span>
+              <span class="blog-card-category">Success Story</span>
+              <h2 class="blog-card-title" style="font-size: 2rem; margin-top: 0.5rem;">
+                <a href="#post-1">From MIT Student to $2000/Month Freelancer in 6 Months</a>
+              </h2>
+              <p class="blog-card-excerpt" style="font-size: 1.1rem;">
+                Meet Tahsin Ahmed, our Digital Marketing graduate who went from zero to earning $2000 monthly on Fiverr. Learn his exact strategy, the challenges he faced, and how MIT's training prepared him for success in the competitive freelancing world.
+              </p>
+              <div style="margin-top: 1rem;">
+                <span style="color: var(--muted); font-size: 0.9rem;">📅 May 2, 2026 • ⏱️ 8 min read</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Regular Posts -->
+          <article class="blog-card" data-category="career">
+            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=400&h=300&fit=crop" alt="Career guide" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Career Tips</span>
+                <span>📅 April 28, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-2">10 Digital Marketing Skills in High Demand for 2026</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                The digital marketing landscape is evolving rapidly. Here are the top 10 skills employers and clients are actively seeking, and how MIT's curriculum covers them all.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=12" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">Fahim Hossain</span>
+                </div>
+                <a href="#post-2" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="tutorial">
+            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop" alt="Design tutorial" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Tutorial</span>
+                <span>📅 April 25, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-3">Beginner's Guide to Creating Professional Logos</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                Learn the fundamental principles of logo design with this step-by-step tutorial. Perfect for graphics design students just starting their journey.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=25" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">Sadia Rahman</span>
+                </div>
+                <a href="#post-3" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="news">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop" alt="Institute news" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Institute News</span>
+                <span>📅 April 20, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-4">MIT Batch 13 Graduation: 52 Students Certified!</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                We celebrated the graduation of Batch 13 with 52 students receiving government-approved certificates. See photos and hear from our graduates about their journey.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=33" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">MIT Admin</span>
+                </div>
+                <a href="#post-4" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="career">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop" alt="Freelancing tips" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Career Tips</span>
+                <span>📅 April 18, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-5">How to Get Your First Client on Fiverr: A Complete Guide</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                Breaking into freelancing can be challenging. This comprehensive guide walks you through setting up your Fiverr profile, pricing strategies, and landing that crucial first order.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=8" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">Habib Khan</span>
+                </div>
+                <a href="#post-5" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="success">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop" alt="Success story" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Success Story</span>
+                <span>📅 April 15, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-6">Sadia's Journey: From Housewife to Level 2 Fiverr Seller</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                Sadia Rahman balanced family responsibilities while mastering graphics design at MIT. Now she's a successful freelancer earning BDT 40,000+ monthly. Here's her inspiring story.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=25" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">Sadia Rahman</span>
+                </div>
+                <a href="#post-6" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="tutorial">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=300&fit=crop" alt="Video editing" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Tutorial</span>
+                <span>📅 April 12, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-7">5 Premiere Pro Effects Every Video Editor Should Master</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                Elevate your video editing game with these 5 essential Adobe Premiere Pro effects. Includes step-by-step instructions and downloadable project files.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=15" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">Rahim Uddin</span>
+                </div>
+                <a href="#post-7" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="news">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop" alt="Tech fest" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Institute News</span>
+                <span>📅 April 10, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-8">MIT Tech Fest 2026: Students Showcase Innovative Projects</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                Our annual tech fest brought together over 200 students to display their creative work. From e-commerce sites to social media campaigns, the talent was impressive.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=33" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">MIT Admin</span>
+                </div>
+                <a href="#post-8" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="blog-card" data-category="career">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" alt="Social media marketing" class="blog-card-image" loading="lazy">
+            <div class="blog-card-content">
+              <div class="blog-card-meta">
+                <span class="blog-card-category">Career Tips</span>
+                <span>📅 April 8, 2026</span>
+              </div>
+              <h3 class="blog-card-title">
+                <a href="#post-9">Social Media Marketing Trends to Watch in 2026</a>
+              </h3>
+              <p class="blog-card-excerpt">
+                Stay ahead of the curve with these emerging social media marketing trends. Learn what brands are looking for and how to position yourself as an expert.
+              </p>
+              <div class="blog-card-footer">
+                <div class="blog-card-author">
+                  <img src="https://i.pravatar.cc/150?img=12" alt="Author" class="blog-card-author-avatar">
+                  <span class="blog-card-author-name">Fahim Hossain</span>
+                </div>
+                <a href="#post-9" class="blog-card-read-more">Read More →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-banner gradient">
+      <div class="container cta-content">
+        <div class="cta-copy">
+          <h2>Start Your Success Story Today</h2>
+          <p>Join MIT and transform your career like these students</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-light" href="admission.html">Apply Now</a>
+          <a class="btn btn-outline white" href="courses.html">View Courses</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <img src="assets/logo.jpg" alt="" class="logo" width="44" height="44" />
+          <div class="brand-copy">
+            <span class="brand-name">Markiety IT Institute</span>
+            <span class="brand-tagline">Learn. Build. Earn.</span>
+          </div>
+        </a>
+        <p class="footer-text">A modern tech learning hub by Markiety, empowering Bangladeshi youth with globally
+          competitive skills.</p>
+      </div>
+      <div>
+        <h3>Visit Us</h3>
+        <p>Markiety IT Institute (MIT)<br />Madhabdi, Narsingdi, Bangladesh</p>
+        <p><a id="contactEmailLink"
+            href="mailto:markietyitinstitute@gmail.com">markietyitinstitute@gmail.com</a><br /><a id="contactPhoneLink"
+            href="tel:+8801624547667">+880 1624-547667</a></p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="admission.html">Admission</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="students/index.html">Student Login</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow MIT</h3>
+        <ul class="social-links">
+          <li><a href="https://facebook.com/markietyitinstitute" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://instagram.com/markietyitinstitute" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://linkedin.com/company/markietyitinstitute" target="_blank" rel="noopener">LinkedIn</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <p>&copy; <span id="currentYear"></span> Markiety IT Institute (MIT). All rights reserved.</p>
+      <p class="footer-brand">Under <a href="https://markiety.netlify.app/" target="_blank" rel="noopener">Markiety</a>
+        • Since 2025</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/8801624547667?text=Hello%20MIT!%20I'm%20interested%20in%20your%20courses."
+    class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  </a>
+
+  <button type="button" id="backToTop" class="back-to-top" aria-label="Scroll back to top"></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/services/supabase-service.js"></script>
+  <script src="js/seo-enhancement.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/enhancements.js"></script>
+  <script src="js/advanced-features.js"></script>
+  <script src="js/performance-optimizer.js"></script>
+  <script src="js/app.js" defer></script>
+
+  <script>
+    // Blog filtering
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.blog-filter-btn');
+      const blogCards = document.querySelectorAll('.blog-card, .featured-post');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          blogCards.forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = card.classList.contains('featured-post') ? 'grid' : 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

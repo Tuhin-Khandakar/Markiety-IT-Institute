@@ -62,6 +62,37 @@
       </div>
 
       <section id="tabStudents" class="tab-panel" role="tabpanel">
+        <!-- Advanced Filter & Actions Bar -->
+        <div class="card mb-lg">
+          <div class="filter-bar">
+            <div class="filter-group">
+              <input type="text" id="studentSearchBox" placeholder="Search by name, phone, email, tracking no..." class="search-input" />
+              <select id="filterCourse" class="filter-select">
+                <option value="">All Courses</option>
+              </select>
+              <select id="filterPayment" class="filter-select">
+                <option value="">All Payment Methods</option>
+                <option value="Cash">Cash</option>
+                <option value="bKash">bKash</option>
+                <option value="Nagad">Nagad</option>
+              </select>
+              <input type="date" id="filterDateFrom" class="filter-input" title="From Date" />
+              <input type="date" id="filterDateTo" class="filter-input" title="To Date" />
+              <button type="button" class="btn btn-outline" id="clearFilters">Clear Filters</button>
+            </div>
+            <div class="bulk-actions">
+              <input type="checkbox" id="selectAllStudents" title="Select All" />
+              <button type="button" class="btn btn-ghost" id="bulkDeleteStudents" disabled>Delete Selected</button>
+              <button type="button" class="btn btn-ghost" id="bulkExportStudents" disabled>Export Selected</button>
+              <button type="button" class="btn btn-ghost" id="exportToExcel">Export to Excel</button>
+              <button type="button" class="btn btn-ghost" id="sendSMSBulk" disabled>Send SMS</button>
+              <button type="button" class="btn btn-ghost" id="backupData">Backup All Data</button>
+              <button type="button" class="btn btn-outline" id="restoreData">Restore Data</button>
+              <input type="file" id="restoreFileInput" accept=".json" hidden />
+            </div>
+          </div>
+        </div>
+
         <div class="analytics-grid">
           <article class="card chart-card">
             <header class="chart-head">
@@ -153,7 +184,7 @@
             <div>
               <h2>Students</h2>
               <p class="muted small">View submissions from the admission form. Data syncs with
-                <code>mit_students</code>.
+                <code>mit_students</code>. Showing <strong id="studentCount">0</strong> of <strong id="totalStudentCount">0</strong> students.
               </p>
             </div>
             <div class="panel-actions">
@@ -165,16 +196,41 @@
             <table class="table student-table" id="studentsTable">
               <thead>
                 <tr>
-                  <th scope="col">Tracking / ID</th>
-                  <th scope="col">Student</th>
-                  <th scope="col">Course</th>
-                  <th scope="col">Payment</th>
-                  <th scope="col">Submitted</th>
+                  <th scope="col">
+                    <input type="checkbox" id="selectAllStudentsHeader" title="Select All" />
+                  </th>
+                  <th scope="col" class="sortable" data-sort="trackingNo">Tracking / ID <span class="sort-icon"></span></th>
+                  <th scope="col" class="sortable" data-sort="studentNameEn">Student <span class="sort-icon"></span></th>
+                  <th scope="col" class="sortable" data-sort="courseTitle">Course <span class="sort-icon"></span></th>
+                  <th scope="col" class="sortable" data-sort="payment">Payment <span class="sort-icon"></span></th>
+                  <th scope="col" class="sortable" data-sort="createdAt">Submitted <span class="sort-icon"></span></th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody id="studentsTbody"></tbody>
             </table>
+          </div>
+
+          <!-- Pagination Controls -->
+          <div class="pagination-controls">
+            <div class="pagination-info">
+              <label>
+                Show
+                <select id="itemsPerPage">
+                  <option value="10">10</option>
+                  <option value="25" selected>25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="all">All</option>
+                </select>
+                per page
+              </label>
+            </div>
+            <div class="pagination-buttons">
+              <button type="button" class="btn btn-outline" id="prevPage" disabled>Previous</button>
+              <span id="pageInfo">Page 1 of 1</span>
+              <button type="button" class="btn btn-outline" id="nextPage" disabled>Next</button>
+            </div>
           </div>
         </div>
       </section>
@@ -391,6 +447,53 @@
 
   <div class="print-area" id="printArea" hidden></div>
 
+  <!-- SMS Notification Modal -->
+  <dialog id="smsModal" class="modal" aria-labelledby="smsModalTitle">
+    <div class="modal-inner">
+      <header class="modal-head">
+        <div>
+          <p class="muted small">Bulk SMS</p>
+          <h2 id="smsModalTitle">Send SMS to Selected Students</h2>
+        </div>
+        <button type="button" class="icon-btn" data-close="smsModal" aria-label="Close SMS sender">&times;</button>
+      </header>
+      <div class="modal-body">
+        <form id="smsForm">
+          <div class="form-field">
+            <label for="smsRecipients">Recipients</label>
+            <textarea id="smsRecipients" readonly rows="3" placeholder="Select students first"></textarea>
+            <small class="muted">Selected phone numbers will appear here</small>
+          </div>
+          <div class="form-field">
+            <label for="smsMessage">Message</label>
+            <textarea id="smsMessage" rows="5" maxlength="160" required placeholder="Type your message here (max 160 characters)"></textarea>
+            <small class="muted">Characters: <span id="smsCharCount">0</span> / 160</small>
+          </div>
+          <div class="form-field">
+            <label for="smsTemplate">Quick Templates</label>
+            <select id="smsTemplate">
+              <option value="">Select a template</option>
+              <option value="admission">Admission Confirmation</option>
+              <option value="payment">Payment Reminder</option>
+              <option value="class">Class Schedule</option>
+              <option value="certificate">Certificate Ready</option>
+            </select>
+          </div>
+          <div class="alert alert-info">
+            <strong>Note:</strong> SMS API integration required. This is a placeholder for SMS gateway integration (e.g., Twilio, BulkSMS BD).
+          </div>
+        </form>
+      </div>
+      <footer class="modal-foot">
+        <p id="smsStatus" class="muted small"></p>
+        <div class="form-actions">
+          <button type="button" class="btn btn-outline" data-close="smsModal">Cancel</button>
+          <button type="button" class="btn btn-gradient" id="sendSMSBtn">Send SMS</button>
+        </div>
+      </footer>
+    </div>
+  </dialog>
+
   <dialog id="studentModal" class="modal" aria-labelledby="studentModalTitle">
     <form id="studentForm" class="modal-inner student-editor" novalidate>
       <header class="modal-head">
@@ -539,6 +642,8 @@
   <script src="../js/services/supabase-service.js"></script>
   <script src="../js/toast.js"></script>
   <script src="../js/app.js" defer></script>
+  <!-- Advanced Dashboard Features -->
+  <script src="../js/admin-dashboard-advanced.js" defer></script>
 </body>
 
 </html>

@@ -108,7 +108,7 @@ const MITToast = {
         const toast = document.createElement('div');
         toast.className = `mit-toast mit-toast-${type}`;
 
-        const toastId = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const toastId = `toast-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
         toast.id = toastId;
 
         // Build toast content

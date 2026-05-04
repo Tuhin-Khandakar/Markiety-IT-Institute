@@ -65,6 +65,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/advanced-features.css" />
 </head>
 
 <body data-theme="light" data-page="index">
@@ -96,6 +97,9 @@
                 </ul>
             </nav>
             <div class="header-actions">
+                <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                </button>
                 <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
                     <span class="icon-sun" aria-hidden="true"></span>
                     <span class="icon-moon" aria-hidden="true"></span>
@@ -267,24 +271,29 @@
         <section class="section" id="testimonials">
             <div class="container">
                 <header class="section-head">
-                    <h2>Student Stories</h2>
+                    <h2>Student Success Stories</h2>
+                    <p class="lead">Hear from our graduates who are now thriving in their careers</p>
                 </header>
-                <div class="testimonial-grid">
-                    <figure class="testimonial">
-                        <blockquote>"MIT gave me the roadmap to master paid ads and scale campaigns for local brands.
-                            The mentors
-                            are invested in your success."</blockquote>
-                        <figcaption>
-                            <span class="name">Tahsin &bull; Digital Marketing Graduate</span>
-                            <span class="role">Meta Ads Specialist at a Dhaka startup</span>
-                        </figcaption>
-                    </figure>
-                    <figure class="testimonial">
-                        <blockquote>"The portfolio feedback sessions helped me land my first international clients on
-                            Fiverr.
-                            Everything is practical and hands-on."</blockquote>
-                        <figcaption>
-                            <span class="name">Sadia &bull; Freelancing Cohort</span>
+                <div id="testimonialsCarousel"></div>
+
+                <!-- Fallback for non-JS -->
+                <noscript>
+                    <div class="testimonial-grid">
+                        <figure class="testimonial">
+                            <blockquote>"MIT gave me the roadmap to master paid ads and scale campaigns for local brands.
+                                The mentors
+                                are invested in your success."</blockquote>
+                            <figcaption>
+                                <span class="name">Tahsin &bull; Digital Marketing Graduate</span>
+                                <span class="role">Meta Ads Specialist at a Dhaka startup</span>
+                            </figcaption>
+                        </figure>
+                        <figure class="testimonial">
+                            <blockquote>"The portfolio feedback sessions helped me land my first international clients on
+                                Fiverr.
+                                Everything is practical and hands-on."</blockquote>
+                            <figcaption>
+                                <span class="name">Sadia &bull; Freelancing Cohort</span>
                             <span class="role">Level 2 Seller on Fiverr</span>
                         </figcaption>
                     </figure>
@@ -297,6 +306,58 @@
                             <span class="role">Content Creator & Editor</span>
                         </figcaption>
                     </figure>
+                    </div>
+                </noscript>
+            </div>
+        </section>
+
+        <section class="section muted" id="achievements">
+            <div class="container">
+                <header class="section-head">
+                    <h2>Awards & Recognition</h2>
+                    <p class="lead">Certified excellence in IT education and training</p>
+                </header>
+                <div class="achievements-grid">
+                    <article class="achievement-card">
+                        <span class="achievement-icon">🏆</span>
+                        <h3 class="achievement-title">Government Approved</h3>
+                        <p class="achievement-description">Officially recognized IT training center with certified courses</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">⭐</span>
+                        <h3 class="achievement-title">4.9/5 Rating</h3>
+                        <p class="achievement-description">350+ verified student reviews on Google</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">🎓</span>
+                        <h3 class="achievement-title">1200+ Graduates</h3>
+                        <p class="achievement-description">Successfully trained and certified professionals</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">💼</span>
+                        <h3 class="achievement-title">98% Job Placement</h3>
+                        <p class="achievement-description">Graduates employed or freelancing within 3 months</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">🌟</span>
+                        <h3 class="achievement-title">Expert Instructors</h3>
+                        <p class="achievement-description">Industry professionals with 5+ years experience</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">📜</span>
+                        <h3 class="achievement-title">International Certificates</h3>
+                        <p class="achievement-description">Recognized on Fiverr, Upwork, and global platforms</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">🚀</span>
+                        <h3 class="achievement-title">Modern Facilities</h3>
+                        <p class="achievement-description">State-of-the-art labs with latest software & equipment</p>
+                    </article>
+                    <article class="achievement-card">
+                        <span class="achievement-icon">🤝</span>
+                        <h3 class="achievement-title">Lifetime Support</h3>
+                        <p class="achievement-description">Career guidance and alumni network access forever</p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -490,9 +551,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/services/supabase-service.js"></script>
 
+    <!-- SEO Enhancement - Must load first -->
+    <script src="js/seo-enhancement.js"></script>
 
+    <!-- Toast System - Must load before enhancements -->
     <script src="js/toast.js"></script>
 
+    <!-- World-Class Enhancements -->
+    <script src="js/enhancements.js"></script>
+
+    <!-- Advanced Features (Chat, Carousel, Search) -->
+    <script src="js/advanced-features.js"></script>
+
+    <script src="js/performance-optimizer.js"></script>
     <script src="js/app.js" defer></script>
 </body>
 

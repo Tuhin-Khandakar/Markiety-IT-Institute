@@ -24,6 +24,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/advanced-features.css" />
 </head>
 
 <body data-theme="light" data-page="courses">
@@ -55,6 +56,9 @@
         </ul>
       </nav>
       <div class="header-actions">
+        <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
         <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
           <span class="icon-sun" aria-hidden="true"></span>
           <span class="icon-moon" aria-hidden="true"></span>
@@ -100,6 +104,127 @@
         <div class="card-grid" id="coursesGrid" aria-live="polite"></div>
         <div id="coursesEmpty" class="empty-state" hidden>
           <p>No courses match your filters. Try adjusting your search or viewing all courses.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>Compare All Courses</h2>
+          <p class="lead">Find the perfect course for your career goals</p>
+        </header>
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Digital Marketing</th>
+                <th>Graphics Design</th>
+                <th>Video Editing</th>
+                <th>Basic Computer</th>
+                <th>Freelancing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Duration</strong></td>
+                <td>3 months</td>
+                <td>3 months</td>
+                <td>2.5 months</td>
+                <td>2 months</td>
+                <td>2 months</td>
+              </tr>
+              <tr>
+                <td><strong>Fee (BDT)</strong></td>
+                <td>৳5,500</td>
+                <td>৳4,500</td>
+                <td>৳4,000</td>
+                <td>৳2,500</td>
+                <td>৳3,000</td>
+              </tr>
+              <tr>
+                <td><strong>Prerequisites</strong></td>
+                <td>Basic computer skills</td>
+                <td>Basic computer skills</td>
+                <td>Basic computer skills</td>
+                <td>None</td>
+                <td>One skill course</td>
+              </tr>
+              <tr>
+                <td><strong>Certification</strong></td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+              </tr>
+              <tr>
+                <td><strong>Job Placement</strong></td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>✅ Yes</td>
+                <td>Limited</td>
+                <td>✅ Yes</td>
+              </tr>
+              <tr>
+                <td><strong>Freelance Ready</strong></td>
+                <td>✅ Fiverr, Upwork</td>
+                <td>✅ Fiverr, Upwork, 99designs</td>
+                <td>✅ Fiverr, Upwork</td>
+                <td>❌</td>
+                <td>✅ All platforms</td>
+              </tr>
+              <tr>
+                <td><strong>Software Covered</strong></td>
+                <td>Meta Ads, Google Ads, Analytics</td>
+                <td>Photoshop, Illustrator, Canva</td>
+                <td>Premiere Pro, After Effects</td>
+                <td>MS Office, Windows</td>
+                <td>Portfolio tools, client management</td>
+              </tr>
+              <tr>
+                <td><strong>Projects Included</strong></td>
+                <td>5 real campaigns</td>
+                <td>10+ design projects</td>
+                <td>8 video projects</td>
+                <td>3 assignments</td>
+                <td>Portfolio building</td>
+              </tr>
+              <tr>
+                <td><strong>Lifetime Support</strong></td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+              </tr>
+              <tr>
+                <td><strong>Best For</strong></td>
+                <td>Marketing professionals, entrepreneurs</td>
+                <td>Creative designers, brand makers</td>
+                <td>Video creators, YouTubers</td>
+                <td>Complete beginners</td>
+                <td>All skill holders</td>
+              </tr>
+              <tr>
+                <td><strong>Average Salary</strong></td>
+                <td>৳25,000 - ৳60,000/mo</td>
+                <td>৳20,000 - ৳50,000/mo</td>
+                <td>৳22,000 - ৳55,000/mo</td>
+                <td>৳12,000 - ৳20,000/mo</td>
+                <td>$500 - $2,000/mo</td>
+              </tr>
+              <tr>
+                <td><strong>Enroll</strong></td>
+                <td><a href="admission.html" class="btn btn-sm btn-gradient">Apply Now</a></td>
+                <td><a href="admission.html" class="btn btn-sm btn-gradient">Apply Now</a></td>
+                <td><a href="admission.html" class="btn btn-sm btn-gradient">Apply Now</a></td>
+                <td><a href="admission.html" class="btn btn-sm btn-gradient">Apply Now</a></td>
+                <td><a href="admission.html" class="btn btn-sm btn-gradient">Apply Now</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -205,7 +330,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/services/supabase-service.js"></script>
+  <script src="js/seo-enhancement.js"></script>
   <script src="js/toast.js"></script>
+  <script src="js/enhancements.js"></script>
+  <script src="js/advanced-features.js"></script>
+  <script src="js/performance-optimizer.js"></script>
   <script src="js/app.js" defer></script>
 </body>
 

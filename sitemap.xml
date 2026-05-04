@@ -1,45 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage - Most Important for "best IT institute Madhabdi" -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://markietyitinstitute.netlify.app/assets/og-image.png</image:loc>
+      <image:title>Best IT Institute in Madhabdi - Markiety IT Institute</image:title>
+      <image:caption>Top IT Training Center in Narsingdi</image:caption>
+    </image:image>
   </url>
+
+  <!-- About Page -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/about.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
+
+  <!-- Courses Page - High Priority for SEO -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/courses.html</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
-  <url>
-    <loc>https://markietyitinstitute.netlify.app/instructors.html</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+
+  <!-- Admission Page - High Priority -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/admission.html</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Contact Page -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/contact.html</loc>
-    <lastmod>2026-02-18</lastmod>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Instructors Page -->
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/instructors.html</loc>
+    <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Student Portal -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/students/index.html</loc>
-    <lastmod>2026-02-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
+
 </urlset>

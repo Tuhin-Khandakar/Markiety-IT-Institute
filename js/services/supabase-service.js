@@ -121,8 +121,11 @@ class SupabaseService {
         const dbData = this.mapStudentToDB(studentData);
 
         // Check if update or insert
-        // Improved logic: Check if it's an actual UUID (36 characters with hyphens)
-        if (studentData.id && typeof studentData.id === 'string' && studentData.id.length === 36 && studentData.id.includes('-')) {
+        // UUID pattern: 8-4-4-4-12 hex characters with hyphens
+        const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        const isUUID = studentData.id && typeof studentData.id === 'string' && uuidPattern.test(studentData.id);
+
+        if (isUUID) {
             // It's definitely a UUID from Supabase, so update
             const { data, error } = await this.client
                 .from('students')
@@ -132,9 +135,7 @@ class SupabaseService {
                 .single();
             return { data: data ? this.mapStudentFromDB(data) : null, error };
         } else {
-            // Insert
-            // Remove ID if it exists so DB generates UUID
-            // But we want to keep 'tracking_no'
+            // Insert - Remove ID if it exists so DB generates UUID
             delete dbData.id;
 
             const { data, error } = await this.client

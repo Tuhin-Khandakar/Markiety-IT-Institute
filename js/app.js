@@ -2116,18 +2116,27 @@ const MITApp = (() => {
   const ensureAdminSession = () => {
     const session = storage.get(LS_KEYS.session);
     if (!session) {
-      window.location.href = 'index.html';
+      // Fix login loop: redirect to admin/index.html, not root index.html
+      const loginPath = IS_ADMIN ? 'index.html' : 'admin/index.html';
+      window.location.href = loginPath;
       return null;
     }
     return session;
   };
 
   const renderStudentsTable = () => {
+    // If advanced dashboard is loaded, let it handle rendering
+    if (window.refreshAdvancedDashboard) {
+      window.refreshAdvancedDashboard();
+      renderAnalytics();
+      return;
+    }
+
     const tbody = qs('#studentsTbody');
     if (!tbody) return;
     const students = getStudents();
     if (!students.length) {
-      tbody.innerHTML = '<tr><td colspan="6">No student submissions yet.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7">No student submissions yet.</td></tr>';
       renderAnalytics();
       return;
     }

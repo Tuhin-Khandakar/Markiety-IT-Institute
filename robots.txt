@@ -1,6 +1,33 @@
+# Markiety IT Institute - Best IT Training Center in Madhabdi, Narsingdi
+# Optimized for: "best IT institute Madhabdi", "IT training Narsingdi"
+
+# Allow all search engines
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /students/
+Allow: /assets/
+Allow: /css/
+Allow: /js/
 
+# Disallow admin and student portals from public search
+Disallow: /admin/
+Disallow: /students/portal.html
+
+# Special rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Special rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Block aggressive bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap location
 Sitemap: https://markietyitinstitute.netlify.app/sitemap.xml
