@@ -572,17 +572,26 @@ const MITApp = (() => {
     if (value === 0) return '0';
     if (!value) return fallback;
     const str = String(value).trim();
-    return str.length ? str : fallback;
+    return str || fallback;
   };
-
-  const normalizePhone = (value = '') => value.replace(/\D+/g, '');
-
-  const slugify = str => str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  const toBanglaNum = (num) => {
+    const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return String(num).split('').map(char => {
+      const idx = englishDigits.indexOf(char);
+      return idx !== -1 ? banglaDigits[idx] : char;
+    }).join('');
+  };
 
   const formatBDT = (value) => {
     const amount = parseBDT(value);
     if (Number.isNaN(amount) || amount === 0) return value || '';
     const formatted = amount.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    
+    const isBn = window.location.pathname.endsWith('-bn.html') || window.location.pathname.endsWith('-bn');
+    if (isBn) {
+      return `৳ ${toBanglaNum(formatted)}`.trim();
+    }
     return `৳ ${formatted}`.trim();
   };
 
@@ -641,15 +650,36 @@ const MITApp = (() => {
   };
 
   const courseCard = (course) => {
+    const isBn = window.location.pathname.endsWith('-bn.html') || window.location.pathname.endsWith('-bn');
     const admissionPath = IS_SUBDIR ? '../admission.html' : 'admission.html';
+    
+    const translations = {
+      "Basic Computer Course": { title: "বেসিক কম্পিউটার কোর্স", instructor: "মোঃ তুহিন খন্দকার", duration: "২.৫ মাস" },
+      "Digital Marketing": { title: "ডিজিটাল মার্কেটিং", instructor: "মোঃ তুহিন খন্দকার", duration: "৩ মাস" },
+      "Graphics Design": { title: "গ্রাফিক্স ডিজাইন", instructor: "ইকবাল", duration: "৩ মাস" },
+      "Video Editing": { title: "ভিডিও সম্পাদনা", instructor: "মোঃ মাহিন", duration: "৩ মাস" },
+      "Freelancing & Career Development": { title: "ফ্রিল্যান্সিং এবং ক্যারিয়ার উন্নয়ন", instructor: "মোঃ তুহিন খন্দকার", duration: "২ মাস" }
+    };
+
+    let title = course.title;
+    let instructor = course.instructor;
+    let duration = course.duration;
+    
+    if (isBn && translations[course.title]) {
+      title = translations[course.title].title;
+      instructor = translations[course.title].instructor;
+      duration = translations[course.title].duration;
+    }
+
     const fee = formatBDT(course.fee);
     const discountState = getCourseDiscountState(course);
     const discount = discountState.discountActive && course.discount ? formatBDT(course.discount) : null;
 
     // Badges
-    const featuredBadge = course.featured ? '<span class="badge badge-featured">Featured</span>' : '';
+    const featuredText = isBn ? 'বৈশিষ্ট্যযুক্ত' : 'Featured';
+    const featuredBadge = course.featured ? `<span class="badge badge-featured">${featuredText}</span>` : '';
     const seatBadge = discountState.hasLimit
-      ? `<span class="badge badge-seats ${discountState.left > 0 ? 'available' : 'full'}">${discountState.left > 0 ? `${discountState.left} Seats Left` : 'Batch Full'}</span>`
+      ? `<span class="badge badge-seats ${discountState.left > 0 ? 'available' : 'full'}">${discountState.left > 0 ? (isBn ? `${toBanglaNum(discountState.left)}টি আসন বাকি` : `${discountState.left} Seats Left`) : (isBn ? 'ব্যাচ পূর্ণ' : 'Batch Full')}</span>`
       : '';
 
     // Image handling
@@ -663,10 +693,14 @@ const MITApp = (() => {
 
     if (!image) image = `${ASSET_BASE}/BASIC-COMPUTER-COURSE.jpg`;
 
+    const ratingText = isBn ? '৪.৯ (১২০+)' : '4.9 (120+)';
+    const detailsBtnText = isBn ? 'বিস্তারিত' : 'Details';
+    const enrollBtnText = isBn ? 'ভর্তি করুন' : 'Enroll';
+
     return `
       <article class="course-card premium-card" data-course-id="${course.id}">
         <div class="card-image-wrap" onclick="window.viewImage('${image}')" role="button" aria-label="View course image">
-          <img src="${image}" alt="${course.title}" class="card-img" loading="lazy">
+          <img src="${image}" alt="${title}" class="card-img" loading="lazy">
           <div class="card-badges-top">
             ${featuredBadge}
             ${seatBadge}
@@ -678,16 +712,16 @@ const MITApp = (() => {
         
         <div class="card-content">
           <div class="card-meta">
-            <span class="meta-item"><i class="icon-clock">⏱️</i> ${course.duration}</span>
-            <span class="meta-item"><i class="icon-star">⭐</i> 4.9 (120+)</span>
+            <span class="meta-item"><i class="icon-clock">⏱️</i> ${duration}</span>
+            <span class="meta-item"><i class="icon-star">⭐</i> ${ratingText}</span>
           </div>
 
-          <h3 class="course-title">${course.title}</h3>
+          <h3 class="course-title">${title}</h3>
           
           <div class="instructor-row">
-             <img src="${getInstructorPhoto(course.instructor)}" alt="${course.instructor}" class="instructor-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
-             <span class="instructor-avatar-fallback" style="display:none;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#4F7CFF;color:#fff;font-size:12px;font-weight:600;font-family:system-ui,sans-serif;">${(course.instructor||'I').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()}</span>
-             <span class="instructor-name">${course.instructor}</span>
+             <img src="${getInstructorPhoto(course.instructor)}" alt="${instructor}" class="instructor-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+             <span class="instructor-avatar-fallback" style="display:none;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#4F7CFF;color:#fff;font-size:12px;font-weight:600;font-family:system-ui,sans-serif;">${(instructor||'I').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()}</span>
+             <span class="instructor-name">${instructor}</span>
           </div>
 
           <div class="card-footer">
@@ -697,8 +731,8 @@ const MITApp = (() => {
         : `<span class="price-new">${fee}</span>`}
             </div>
             <div class="card-btn-group">
-              <button type="button" class="btn-details" data-role="course-details" data-course-id="${course.id}">Details</button>
-              <a class="btn-enroll" href="${admissionPath}?course=${encodeURIComponent(course.title)}">Enroll</a>
+              <button type="button" class="btn-details" data-role="course-details" data-course-id="${course.id}">${detailsBtnText}</button>
+              <a class="btn-enroll" href="${admissionPath}?course=${encodeURIComponent(course.title)}">${enrollBtnText}</a>
             </div>
           </div>
         </div>
@@ -722,46 +756,81 @@ const MITApp = (() => {
     },
     open(course) {
       if (!this.el || !course) return;
+      const isBn = window.location.pathname.endsWith('-bn.html') || window.location.pathname.endsWith('-bn');
       const admissionPath = IS_SUBDIR ? '../admission.html' : 'admission.html';
-      this.title.textContent = course.title;
+      
+      const translations = {
+        "Basic Computer Course": {
+          title: "বেসিক কম্পিউটার কোর্স",
+          instructor: "মোঃ তুহিন খন্দকার",
+          duration: "২.৫ মাস",
+          topics: ["মাইক্রোসফট ওয়ার্ড / এক্সেল / পাওয়ারপয়েন্ট / অ্যাক্সেস", "ইন্টারনেট ও ইমেল ব্যবস্থাপনা", "ফাইল হ্যান্ডলিং এবং গুগল ওয়ার্কস্পেস", "এআই টুলের পরিচিতি"],
+          outcomes: ["মাইক্রোসফট অফিস স্যুটের সাথে কাজ করা", "পেশাদার নথি তৈরি করা", "ডিজিটাল উত্পাদনশীলতা বৃদ্ধি"]
+        },
+        "Digital Marketing": {
+          title: "ডিজিটাল মার্কেটিং",
+          instructor: "মোঃ তুহিন খন্দকার",
+          duration: "৩ মাস",
+          topics: ["এসইও এবং অ্যানালিটিক্স", "সোশ্যাল মিডিয়া মার্কেটিং", "গুগল ও মেটা অ্যাডস", "কনটেন্ট মার্কেটিং"],
+          outcomes: ["লাভজনক বিজ্ঞাপন", "ব্র্যান্ডিং", "এআই মার্কেটিং"]
+        },
+        "Graphics Design": {
+          title: "গ্রাফিক্স ডিজাইন",
+          instructor: "ইকবাল",
+          duration: "৩ মাস",
+          topics: ["ক্যানভা", "ফটোশপ", "ইলাস্ট্রেটর", "ব্র্যান্ডিং"],
+          outcomes: ["ব্র্যান্ড কিট", "লোগো ডিজাইন", "রঙের তত্ত্ব"]
+        },
+        "Video Editing": {
+          title: "ভিডিও সম্পাদনা",
+          instructor: "মোঃ মাহিন",
+          duration: "৩ মাস",
+          topics: ["প্রিমিয়ার প্রো", "ইউটিউব এডিটিং", "কালার গ্রেডিং", "মোশন গ্রাফিক্স"],
+          outcomes: ["সিনেমাটিক ভিডিও", "সাউন্ড সিঙ্ক", "প্রফেশনাল এডিটিং"]
+        },
+        "Freelancing & Career Development": {
+          title: "ফ্রিল্যান্সিং এবং ক্যারিয়ার উন্নয়ন",
+          instructor: "মোঃ তুহিন খন্দকার",
+          duration: "২ মাস",
+          topics: ["ফাইবার/আপওয়ার্ক", "ক্লায়েন্ট কমিউনিকেশন", "পোর্টফোলিও"],
+          outcomes: ["বিড জয় করা", "ক্লায়েন্ট ডিল", "ক্যারিয়ার গঠন"]
+        }
+      };
+
+      let title = course.title;
+      let instructor = course.instructor;
+      let duration = course.duration;
+      let topicsList = course.topics || [];
+      let outcomesList = course.outcomes || [];
+      
+      if (isBn && translations[course.title]) {
+        title = translations[course.title].title;
+        instructor = translations[course.title].instructor;
+        duration = translations[course.title].duration;
+        topicsList = translations[course.title].topics;
+        outcomesList = translations[course.title].outcomes;
+      }
+
+      this.title.textContent = title;
       const discountState = getCourseDiscountState(course);
       const fee = formatBDT(course.fee);
       const discount = discountState.discountActive && course.discount ? formatBDT(course.discount) : null;
       const seatNote = discountState.hasLimit
-        ? `<p class="muted small"><strong>Discount Seats:</strong> ${discountState.left > 0 ? `${discountState.left} of ${discountState.limit} available` : 'All claimed for this batch.'}</p>`
+        ? `<p class="muted small"><strong>${isBn ? 'ছাড়ের আসন:' : 'Discount Seats:'}</strong> ${discountState.left > 0 ? (isBn ? `${toBanglaNum(discountState.left)}টি আসন বাকি` : `${discountState.left} of ${discountState.limit} available`) : (isBn ? 'ব্যাচ পূর্ণ' : 'All claimed for this batch.')}</p>`
         : '';
-      const topics = (course.topics || []).map(item => `<li>${item}</li>`).join('');
-      const outcomes = (course.outcomes || []).map(item => `<li>${item}</li>`).join('');
-
-      // Instructor photo section
-      const instructorPhoto = course.instructorPhoto
-        ? `<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-             <img src="${course.instructorPhoto}" alt="${course.instructor}" 
-                  style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--blue);" 
-                  onerror="this.style.display='none'">
-             <div>
-               <strong style="display: block; font-size: 1.05rem;">${course.instructor}</strong>
-               <span style="color: var(--muted); font-size: 0.9rem;">Course Instructor</span>
-             </div>
-           </div>`
-        : `<p><strong>Instructor:</strong> ${course.instructor}</p>`;
+      const topics = topicsList.map(item => `<li>${item}</li>`).join('');
+      const outcomes = outcomesList.map(item => `<li>${item}</li>`).join('');
 
       this.body.innerHTML = `
-        ${instructorPhoto}
-        <p><strong>Duration:</strong> ${course.duration}</p>
-        <p><strong>Certification:</strong> ${course.certificate || 'MIT Certified'}</p>
-        <p><strong>Investment:</strong> ${fee}${discount ? ` (Discount: ${discount})` : ''}</p>
+        <p><strong>${isBn ? 'প্রশিক্ষক:' : 'Instructor:'}</strong> ${instructor}</p>
+        <p><strong>${isBn ? 'সময়কাল:' : 'Duration:'}</strong> ${duration}</p>
+        <p><strong>${isBn ? 'বিনিয়োগ:' : 'Investment:'}</strong> ${fee}${discount ? ` (${isBn ? 'ছাড়:' : 'Discount'} ${discount})` : ''}</p>
         ${seatNote}
-        <div>
-          <h3>What you will learn</h3>
-          <ul>${topics}</ul>
-        </div>
-        <div>
-          <h3>Outcomes</h3>
-          <ul>${outcomes}</ul>
-        </div>
+        <div><h3>${isBn ? 'যা শিখবেন' : 'What you will learn'}</h3><ul>${topics}</ul></div>
+        <div><h3>${isBn ? 'ফলাফল' : 'Outcomes'}</h3><ul>${outcomes}</ul></div>
       `;
       this.cta.href = `${admissionPath}?course=${encodeURIComponent(course.title)}`;
+      this.cta.textContent = isBn ? 'ভর্তি হোন' : 'Enroll Now';
       if (!this.el.open) this.el.showModal();
     }
   };
@@ -3948,13 +4017,31 @@ const animateStatsCounter = () => {
     let current = 0;
     let hasAnimated = false;
 
+    const isBn = window.location.pathname.endsWith('-bn.html') || window.location.pathname.endsWith('-bn');
+    const toBn = (num) => {
+      const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const banglaDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return String(num).split('').map(char => {
+        const idx = englishDigits.indexOf(char);
+        return idx !== -1 ? banglaDigits[idx] : char;
+      }).join('');
+    };
+
+    const formatVal = (val) => {
+      let formatted = String(Math.floor(val));
+      if (target === 1200) formatted = formatted + '+';
+      if (target === 450) formatted = formatted + '+';
+      if (target === 98) formatted = formatted + '%';
+      return isBn ? toBn(formatted) : formatted;
+    };
+
     const updateCount = () => {
       if (current < target) {
         current += increment;
-        stat.textContent = Math.floor(current);
+        stat.textContent = formatVal(current);
         requestAnimationFrame(updateCount);
       } else {
-        stat.textContent = target;
+        stat.textContent = formatVal(target);
       }
     };
 
