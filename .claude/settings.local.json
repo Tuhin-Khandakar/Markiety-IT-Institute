@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python *)"
+      "Bash(python *)",
+      "Bash(git clone *)",
+      "Bash(Rename-Item *)",
+      "Bash(npx *)",
+      "Bash(Get-Content \"D:\\\\markiety-it-institute\\\\js\\\\certificate-generator.js\")",
+      "Bash(Select-String -Pattern \"footerY|QR CODE|VERIFICATION\" -Context 2,2)",
+      "Bash(Select-Object -First 30)",
+      "Bash(powershell *)"
     ]
   }
 }

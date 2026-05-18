@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="bn"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Payment - মার্কিটি আইটি ইনস্টিটিউট</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/advanced-features.css">
+  <link rel="stylesheet" href="css/payment-gateway.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="icon" href="assets/favicon.ico">
+  <style>
+    .payment-page { min-height: 100vh; padding: 2rem; background: #f8f9fa; }
+    .payment-container { max-width: 600px; margin: 0 auto; }
+    .payment-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .payment-header { text-align: center; margin-bottom: 2rem; }
+    .payment-header img { width: 80px; height: 80px; border-radius: 12px; margin-bottom: 1rem; }
+    .payment-header h1 { margin: 0; color: #333; }
+    .payment-info { margin-bottom: 2rem; }
+    .payment-info-item { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #eee; }
+    .payment-info-item:last-child { border-bottom: none; font-weight: bold; font-size: 1.2rem; }
+    .payment-actions { display: flex; gap: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="payment-page">
+    <div class="payment-container">
+      <div class="payment-card">
+        <div class="payment-header">
+          <img src="/assets/logo.jpg" alt="MIT">
+          <h1>Complete Your Payment</h1>
+        </div>
+        <div class="payment-info" id="paymentInfo">
+          <div class="payment-info-item">
+            <span>Payment ID:</span>
+            <strong id="ppId">Loading...</strong>
+          </div>
+          <div class="payment-info-item">
+            <span>টাকা:</span>
+            <strong id="amount">Loading...</strong>
+          </div>
+          <div class="payment-info-item">
+            <span>Status:</span>
+            <strong id="status">Loading...</strong>
+          </div>
+        </div>
+        <div class="payment-actions">
+          <a href="/admission-bn.html" class="btn btn-outline">Back to ভর্তি</a>
+          <a href="index-bn.html" class="btn btn-gradient">হোম</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://hurtjslsvwcrfngcnlcs.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1cnRqc2xzdndjcmZuZ2NubGNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2MzIxMzUsImV4cCI6MjA3OTIwODEzNX0.xljAMoobX8syAqas61RT3wLke3qMtEd2utgNFfC1-gc';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const ppId = urlParams.get('id') || urlParams.get('pp_id');
+    const sandbox = urlParams.get('sandbox') === 'true';
+
+    document.getElementById('ppId').textContent = ppId || 'N/A';
+
+    async function verifyPayment() {
+      if (sandbox) {
+        document.getElementById('amount').textContent = urlParams.get('amount') || 'N/A';
+        document.getElementById('status').textContent = 'Sandbox Mode - Complete';
+        document.getElementById('status').style.color = 'green';
+        return;
+      }
+
+      if (!ppId) {
+        document.getElementById('status').textContent = 'No payment ID provided';
+        return;
+      }
+
+      try {
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const { data, error } = await supabase
+          .from('payments')
+          .select('*')
+          .eq('pp_id', ppId)
+          .single();
+
+        if (error || !data) {
+          document.getElementById('status').textContent = 'Payment not found';
+          return;
+        }
+
+        document.getElementById('amount').textContent = '৳' + data.amount;
+        document.getElementById('status').textContent = data.status === 'completed' ? 'Completed' : data.status;
+        document.getElementById('status').style.color = data.status === 'completed' ? 'green' : 'orange';
+      } catch (err) {
+        document.getElementById('status').textContent = 'Unable to verify - Contact support';
+      }
+    }
+
+    if (ppId) {
+      verifyPayment();
+    } else {
+      document.getElementById('status').textContent = 'No payment ID';
+    }
+  </script>
+
+
+</body></html>

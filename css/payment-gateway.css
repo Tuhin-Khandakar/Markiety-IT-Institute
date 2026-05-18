@@ -284,6 +284,43 @@ body[data-theme="dark"] .receipt-footer {
   border-top-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Invoice specific styles */
+.invoice-document {
+  max-width: 800px !important;
+}
+
+.invoice-document h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.invoice-meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: var(--light);
+  border-radius: 8px;
+  margin: 1rem 2rem;
+}
+
+.invoice-document .receipt-body {
+  padding: 2rem;
+}
+
+.invoice-document .receipt-row {
+  padding: 0.75rem 0;
+}
+
+.invoice-document ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  line-height: 1.8;
+}
+
+.invoice-document ol li {
+  margin-bottom: 0.5rem;
+}
+
 /* Print styles */
 @media print {
   .receipt-overlay {
@@ -294,9 +331,39 @@ body[data-theme="dark"] .receipt-footer {
   .payment-receipt {
     box-shadow: none !important;
     max-width: 100% !important;
+    page-break-inside: avoid;
   }
 
   .receipt-footer button {
     display: none !important;
   }
+
+  .receipt-header {
+    page-break-after: avoid;
+  }
+
+  .receipt-body {
+    page-break-inside: avoid;
+  }
+
+  /* Print colors */
+  .receipt-header {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Remove overlay background in print */
+  body::before,
+  body::after {
+    display: none !important;
+  }
+}
+
+/* Dark theme invoice adjustments */
+body[data-theme="dark"] .invoice-meta {
+  background: var(--dark);
+}
+
+body[data-theme="dark"] .invoice-document h3 {
+  color: var(--text);
 }

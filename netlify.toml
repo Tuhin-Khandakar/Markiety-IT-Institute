@@ -1,0 +1,149 @@
+[build]
+  command = "echo 'Static site - no build required'"
+  publish = "."
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/student-portal"
+  to = "/students/portal.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/student-portal/*"
+  to = "/students/portal.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/student/*"
+  to = "/students/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/students"
+  to = "/students/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/student"
+  to = "/students/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/certificate/*"
+  to = "/verify.html?cert=:splat"
+  status = 301
+
+[[redirects]]
+  from = "/verify"
+  to = "/verify.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/verify/*"
+  to = "/verify.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/instructors"
+  to = "/instructors.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/courses"
+  to = "/courses.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/admission"
+  to = "/admission.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/gallery"
+  to = "/gallery.html"
+  status = 200
+  force = true
+
+# No catch-all needed - this is a multi-page site, not an SPA
+
+# PipraPay-style Payment API Functions
+[[redirects]]
+  from = "/api/payment/create"
+  to = "/.netlify/functions/create-payment"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/payment/verify"
+  to = "/.netlify/functions/verify-payment"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/payment/bkash"
+  to = "/.netlify/functions/bkash-payment"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/payment/nagad"
+  to = "/.netlify/functions/nagad-payment"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/payment/:id"
+  to = "/payment.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/payment-status"
+  to = "/payment-status.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/payment-status/*"
+  to = "/payment-status.html"
+  status = 200
+  force = true

@@ -38,7 +38,7 @@ class SupabaseService {
         try {
             this.client = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
             this.initialized = true;
-            console.log('🚀 Supabase Service Initialized');
+            console.warn('Supabase Service Initialized');
 
             // Start real-time listeners
             this.subscribeToAll();
@@ -94,7 +94,7 @@ class SupabaseService {
             if (isDifferent) {
                 localStorage.setItem(cacheKey, JSON.stringify(data));
                 if (callback) callback(data, false); // false = fresh from DB
-                console.log(`🔄 Updated ${table} from cloud`);
+                // Cloud sync complete
             }
             return data;
         }
@@ -108,7 +108,8 @@ class SupabaseService {
     async getStudents(callback) {
         return this.fetchWithCache('students', this.cache.students, (data, isCache) => {
             const mapped = data.map(this.mapStudentFromDB.bind(this));
-            localStorage.setItem(this.cache.students, JSON.stringify(mapped));
+            // Note: fetchWithCache already writes raw data to localStorage
+            // We only return the mapped data here
             if (callback) callback(mapped, isCache);
             return mapped;
         });
@@ -198,6 +199,26 @@ class SupabaseService {
 
         if (error || !data) {
             return { error: 'Invalid Phone or PIN.' };
+        }
+
+        return { data: this.mapStudentFromDB(data) };
+    }
+
+    async studentLoginByTracking(trackingNo, pin) {
+        if (!this.initialized) return { error: 'Offline' };
+
+        // Normalize tracking number - remove MIT- prefix if present for DB comparison
+        const normalizedTracking = trackingNo.replace(/^MIT[-_\s]?/i, '').toUpperCase();
+
+        const { data, error } = await this.client
+            .from('students')
+            .select('*')
+            .or(`tracking_no.eq.${normalizedTracking},tracking_no.eq.MIT-${normalizedTracking}`)
+            .eq('portal_pin', pin)
+            .single();
+
+        if (error || !data) {
+            return { error: 'Invalid tracking number or PIN.' };
         }
 
         return { data: this.mapStudentFromDB(data) };
@@ -425,12 +446,12 @@ class SupabaseService {
         this.subscriptions.all = this.client
             .channel('public-db-changes')
             .on('postgres_changes', { event: '*', schema: 'public' }, (payload) => {
-                console.log('🔔 Realtime Change:', payload);
+                // Real-time update received
                 const table = payload.table;
 
                 // Refresh specific data based on table
                 if (table === 'students') this.getStudents(() => {
-                    if (window.renderStudentsTable) window.renderStudentsTable();
+                    if (typeof window.renderStudentsTable === 'function') window.renderStudentsTable();
                 });
                 if (table === 'courses') this.getCourses(() => {
                     if (window.renderCoursesPage) window.renderCoursesPage();
@@ -461,6 +482,7 @@ class SupabaseService {
             email: s.email,
             student_phone: s.studentPhone || s.phone,
             parent_phone: s.parentPhone,
+            education: s.education,
             nid_number: s.nid,
             permanent_address: s.permanentAddress,
             present_address: s.presentAddress,
@@ -470,6 +492,7 @@ class SupabaseService {
             payment_method: s.payment,
             payment_amount: parseFloat(s.coursePayable || s.courseFee || 0),
             transaction_id: s.paymentTxn,
+            payment_status: s.paymentStatus || 'pending',
             notes: s.notes,
             portal_phone: s.portalPhone || s.studentPhone,
             portal_pin: s.portalPin,
@@ -493,6 +516,7 @@ class SupabaseService {
             email: s.email,
             studentPhone: s.student_phone,
             parentPhone: s.parent_phone,
+            education: s.education,
             nid: s.nid_number,
             permanentAddress: s.permanent_address,
             presentAddress: s.present_address,
@@ -500,6 +524,7 @@ class SupabaseService {
             courseTitle: s.course_title,
             courseInstructor: s.course_instructor,
             payment: s.payment_method,
+            paymentStatus: s.payment_status || 'pending',
             courseFee: s.payment_amount,
             paymentTxn: s.transaction_id,
             notes: s.notes,

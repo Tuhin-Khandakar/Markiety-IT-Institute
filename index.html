@@ -66,16 +66,17 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/advanced-features.css" />
+    <link rel="stylesheet" href="css/mobile.css" />
 </head>
 
 <body data-theme="light" data-page="index">
-    <header class="site-header" id="top">
+    <header class="site-header glass" id="top">
         <div class="container nav">
             <a class="brand" href="index.html">
                 <img src="assets/logo.jpg" alt="Markiety IT Institute logo" class="logo" width="44" height="44" />
                 <div class="brand-copy">
-                    <span class="brand-name">Markiety IT Institute</span>
-                    <span class="brand-tagline">Learn. Build. Earn.</span>
+                    <span class="brand-name" data-i18n="brand.name">Markiety IT Institute</span>
+                    <span class="brand-tagline" data-i18n="brand.tagline">Learn. Build. Earn.</span>
                 </div>
             </a>
             <nav class="primary-nav" aria-label="Primary navigation">
@@ -86,19 +87,23 @@
                     <span></span>
                 </button>
                 <ul class="nav-links" id="navMenu">
-                    <li><a href="index.html" data-nav="index" class="is-active">Home</a></li>
-                    <li><a href="about.html" data-nav="about">About</a></li>
-                    <li><a href="courses.html" data-nav="courses">Courses</a></li>
-                    <li><a href="#testimonials" data-nav="testimonials">Success Stories</a></li>
-                    <li><a href="instructors.html" data-nav="instructors">Instructors</a></li>
-                    <li><a href="admission.html" data-nav="admission">Admission</a></li>
-                    <li><a href="contact.html" data-nav="contact">Contact</a></li>
-                    <li class="nav-cta"><a class="btn btn-gradient" href="admission.html">Apply Now</a></li>
+                    <li><a href="index.html" data-nav="index" class="is-active" data-i18n="nav.home">Home</a></li>
+                    <li><a href="about.html" data-nav="about" data-i18n="nav.about">About</a></li>
+                    <li><a href="courses.html" data-nav="courses" data-i18n="nav.courses">Courses</a></li>
+                    <li><a href="instructors.html" data-nav="instructors" data-i18n="nav.instructors">Instructors</a></li>
+                    <li><a href="#testimonials" data-nav="testimonials" data-i18n="nav.success">Success Stories</a></li>
+                    <li><a href="admission.html" data-nav="admission" data-i18n="nav.admission">Admission</a></li>
+                    <li><a href="contact.html" data-nav="contact" data-i18n="nav.contact">Contact</a></li>
+                    <li class="nav-cta"><a class="btn btn-gradient btn-sm" href="admission.html" data-i18n="nav.apply">Apply Now</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
                 <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                </button>
+                <button type="button" class="lang-toggle" id="langToggle" aria-label="বাংলায় পরিবর্তন করুন" onclick="toggleLang()">
+                    <span class="lang-icon">🌐</span>
+                    <span class="lang-label">বাং</span>
                 </button>
                 <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
                     <span class="icon-sun" aria-hidden="true"></span>
@@ -109,73 +114,113 @@
     </header>
 
     <main>
-        <section class="hero mouse-glow" data-glow>
-            <div class="container hero-grid">
-                <div class="hero-copy">
-                    <p class="eyebrow">Under Markiety &bull; Since 2025</p>
-                    <h1>Empowering the Next Generation of Tech Professionals</h1>
-                    <p class="lead">Learn Digital Marketing, Freelancing, Graphic Design, and Video Editing &mdash;
-                        guided by
-                        industry experts with real-world project experience.</p>
-                    <div class="hero-actions">
-                        <a class="btn btn-gradient" href="courses.html">Explore Courses</a>
-                        <a class="btn btn-outline" href="admission.html">Apply Now</a>
+        <!-- HERO -->
+        <section class="hero" data-hero-animate>
+            <div class="hero-bg-animation" aria-hidden="true">
+                <div class="hero-orb hero-orb-1"></div>
+                <div class="hero-orb hero-orb-2"></div>
+                <div class="hero-orb hero-orb-3"></div>
+            </div>
+            <!-- Course Ticker - Background Marquee -->
+            <div class="course-ticker" aria-hidden="true">
+                <div class="course-ticker-container" id="courseTickerContainer"></div>
+            </div>
+            <div class="container hero-grid" style="position: relative; z-index: 100; pointer-events: auto;">
+                <div class="hero-copy animate-slide-up text-center mx-auto">
+                    <span class="eyebrow badge badge-primary mx-auto">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>
+                        <span data-i18n="hero.eyebrow">Under Markiety &bull; Since 2025</span>
+                    </span>
+                    <h1>
+                        <span data-i18n="hero.h1.1">Learn Tech Skills.</span><br />
+                        <span class="gradient-text" data-i18n="hero.h1.2">Build Your Future.</span><br />
+                        <span data-i18n="hero.h1.3">Earn Globally.</span>
+                    </h1>
+                    <p class="lead mx-auto" style="max-width: 700px;" data-i18n="hero.lead">Join Bangladesh's fastest-growing tech learning community. Master Digital Marketing, Graphics Design, Video Editing, and Freelancing with expert mentorship.</p>
+                    <div class="hero-actions mx-auto" style="justify-content: center;">
+                        <a class="btn btn-gradient" href="courses.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px;"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                            <span data-i18n="hero.explore">Explore Courses</span>
+                        </a>
+                        <a class="btn btn-outline" href="admission.html">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <span data-i18n="hero.apply">Apply Now</span>
+                        </a>
                     </div>
-                    <dl class="hero-stats">
-                        <div>
+                    <dl class="hero-stats mx-auto" style="justify-content: center; border-top: none;">
+                        <div class="hero-stat">
                             <dt>1,200+</dt>
-                            <dd>Graduates freelancing worldwide</dd>
+                            <dd data-i18n="hero.graduates">Graduates</dd>
                         </div>
-                        <div>
-                            <dt>35+</dt>
-                            <dd>Industry-driven course modules</dd>
+                        <div class="hero-stat">
+                            <dt>5</dt>
+                            <dd data-i18n="hero.courses">Courses</dd>
                         </div>
-                        <div>
-                            <dt>100%</dt>
-                            <dd>Govt-approved certifications</dd>
+                        <div class="hero-stat">
+                            <dt>4.9&#9733;</dt>
+                            <dd data-i18n="hero.rating">Rating</dd>
                         </div>
                     </dl>
                 </div>
-                <div class="hero-media">
-                    <div class="media-card">
-                        <figure aria-labelledby="heroVisualCaption">
-                            <img src="assets/og-image.png" alt="Markiety IT Institute - Tech Learning"
-                                class="hero-image" id="heroVisualCaption"
-                                style="width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                <div class="hero-media animate-scale-in">
+                    <div class="media-card glass-card">
+                        <figure>
+                            <img src="assets/og-image.png" alt="Markiety IT Institute campus and students"
+                                class="hero-image" loading="eager" />
                         </figure>
                         <div class="media-note">
-                            <span class="dot"></span>
-                            <p>"Markiety helped me transform freelancing into a full-time career." <span>&mdash; Sadia,
-                                    Digital
-                                    Marketer</span></p>
+                            <span class="live-dot"></span>
+                            <p><strong data-i18n="hero.enrolling">Enrolling now!</strong> <span data-i18n="hero.cohort">Summer 2026 cohort — limited 30 seats</span></p>
+                        </div>
+                        <div class="media-badges">
+                            <span class="badge badge-success">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
+                                <span data-i18n="hero.approved">Govt Approved</span>
+                            </span>
+                            <span class="badge badge-primary">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                                <span data-i18n="hero.mentors">Expert Mentors</span>
+                            </span>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Floating course badges -->
+            <div class="floating-badges" aria-hidden="true">
+                <div class="floating-badge fb-1 animate-float">
+                    <span data-i18n="badge.dm">📚 Digital Marketing</span>
+                </div>
+                <div class="floating-badge fb-2 animate-float" style="animation-delay:0.5s">
+                    <span data-i18n="badge.gd">🎨 Graphics Design</span>
+                </div>
+                <div class="floating-badge fb-3 animate-float" style="animation-delay:1s">
+                    <span data-i18n="badge.ve">🎬 Video Editing</span>
                 </div>
             </div>
         </section>
 
         <section class="section" id="about">
             <div class="container grid two">
-                <article>
-                    <h2>Built to Inspire Future-Ready Talent</h2>
-                    <p>Markiety IT Institute (MIT) blends agency experience with modern pedagogy. We deliver streamlined
+                <article class="scroll-reveal">
+                    <h2 data-i18n="about.h2">Built to Inspire Future-Ready Talent</h2>
+                    <p data-i18n="about.p1">Markiety IT Institute (MIT) blends agency experience with modern pedagogy. We deliver streamlined
                         programs
                         that help learners gain in-demand skills, build portfolio-ready work, and launch global careers.
                     </p>
-                    <p>With blended learning, weekly mentoring, and a focus on monetizable skills, MIT accelerates your
+                    <p data-i18n="about.p2">With blended learning, weekly mentoring, and a focus on monetizable skills, MIT accelerates your
                         journey
                         from learner to earner.</p>
                     <div class="section-actions">
-                        <a class="btn btn-outline" href="about.html">Learn More</a>
+                        <a class="btn btn-outline" href="about.html" data-i18n="about.learnmore">Learn More</a>
                     </div>
                 </article>
-                <aside class="card highlight">
-                    <h3>What you get</h3>
+                <aside class="card highlight scroll-reveal">
+                    <h3 data-i18n="about.whatyouget">What you get</h3>
                     <ul class="checklist">
-                        <li>Govt-approved certificates on completion</li>
-                        <li>Capstone projects reviewed by mentors</li>
-                        <li>Career placement & freelance mentorship</li>
-                        <li>Lifetime access to MIT community groups</li>
+                        <li data-i18n="about.c1">Govt-approved certificates on completion</li>
+                        <li data-i18n="about.c2">Capstone projects reviewed by mentors</li>
+                        <li data-i18n="about.c3">Career placement & freelance mentorship</li>
+                        <li data-i18n="about.c4">Lifetime access to MIT community groups</li>
                     </ul>
                 </aside>
             </div>
@@ -184,12 +229,12 @@
         <section class="section muted" id="popular-courses">
             <div class="container">
                 <header class="section-head">
-                    <h2>Popular Courses</h2>
-                    <p class="lead">Top programs chosen by learners to jump-start freelancing and tech careers.</p>
+                    <h2 data-i18n="courses.h2">Popular Courses</h2>
+                    <p class="lead text-center mx-auto max-w-2xl mt-4" data-i18n="courses.lead">Top programs chosen by learners to jump-start freelancing and tech careers.</p>
                 </header>
                 <div class="card-grid" id="popularCourses" aria-live="polite"></div>
                 <div class="section-actions center">
-                    <a class="btn btn-light" href="courses.html">Browse all courses</a>
+                    <a class="btn btn-light" href="courses.html" data-i18n="courses.browse">Browse all courses</a>
                 </div>
             </div>
         </section>
@@ -197,38 +242,43 @@
         <section class="section" id="mentors">
             <div class="container">
                 <header class="section-head">
-                    <h2>Meet Our Expert Mentors</h2>
-                    <p class="lead">Learn directly from industry professionals leading the digital landscape.</p>
+                    <h2 data-i18n="mentors.h2">Meet Our Expert Mentors</h2>
+                    <p class="lead text-center mx-auto max-w-2xl mt-4" data-i18n="mentors.lead">Learn directly from industry professionals leading the digital landscape.</p>
                 </header>
                 <div class="card-grid">
-                    <article class="instructor-card-static"
-                        style="text-align: center; background: var(--card-bg); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <article class="instructor-card-static founder-card scroll-reveal">
                         <img src="assets/instructors/TUHIN.jpeg" alt="Md. Tuhin Khandakar"
-                            style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--blue); margin: 0 auto 1.5rem;">
-                        <h3>Md. Tuhin Khandakar</h3>
-                        <p class="muted small">Founder & Lead Instructor</p>
-                        <p class="small">Expert in Digital Marketing & Freelancing with years of agency experience.</p>
+                            style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 5px solid var(--blue); margin: 0 auto 1.5rem; display:block; box-shadow: 0 0 20px rgba(79, 124, 255, 0.3);">
+                        <div class="instructor-info">
+                            <h3 style="color: var(--blue); font-size: 1.5rem;">Md. Tuhin Khandakar</h3>
+                            <p class="badge badge-primary" style="margin-bottom: 1rem;" data-i18n="mentors.tuhin.role">Founder & CEO</p>
+                            <p class="small" style="max-width: 300px; margin: 0 auto;" data-i18n="mentors.tuhin.bio">Expert in Digital Marketing &amp; Freelancing with 5+ years of agency experience. Committed to empowering youth through technology.</p>
+                            <div class="founder-socials" style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1rem;">
+                                <a href="https://facebook.com/markietyitinstitute" class="btn btn-ghost btn-sm" style="border: 1px solid #ddd; border-radius: 50%; width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;">F</a>
+                                <a href="#" class="btn btn-ghost btn-sm" style="border: 1px solid #ddd; border-radius: 50%; width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center;">L</a>
+                            </div>
+                        </div>
                     </article>
-                    <article class="instructor-card-static"
-                        style="text-align: center; background: var(--card-bg); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
-                        <img src="assets/instructors/IQBAL.jpeg" alt="Iqbal"
-                            style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--blue); margin: 0 auto 1.5rem;">
-                        <h3>Iqbal</h3>
-                        <p class="muted small">Graphics Design Specialist</p>
-                        <p class="small">Master of visual storytelling, branding, and creative design systems.</p>
+                    <article class="instructor-card-static scroll-reveal"
+                        style="text-align: center; padding: 2rem; border-radius: var(--radius-lg);">
+                        <img src="assets/instructors/IQBAL.jpeg" alt="Iqbal Hossain"
+                            style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--blue); margin: 0 auto 1.5rem; display:block;">
+                        <h3>Iqbal Hossain</h3>
+                        <p class="muted small" data-i18n="mentors.iqbal.role">Graphics Design Specialist</p>
+                        <p class="small" data-i18n="mentors.iqbal.bio">Master of visual storytelling, branding, and creative design systems.</p>
                     </article>
-                    <article class="instructor-card-static"
-                        style="text-align: center; background: var(--card-bg); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
+                    <article class="instructor-card-static scroll-reveal"
+                        style="text-align: center; padding: 2rem; border-radius: var(--radius-lg);">
                         <img src="assets/instructors/MAHIN.jpeg" alt="Md. Mahin"
-                            style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--blue); margin: 0 auto 1.5rem;">
+                            style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--blue); margin: 0 auto 1.5rem; display:block;">
                         <h3>Md. Mahin</h3>
-                        <p class="muted small">Video Editing Specialist</p>
-                        <p class="small">Creative editor specializing in cinematic production and social media content.
+                        <p class="muted small" data-i18n="mentors.mahin.role">Video Editing Specialist</p>
+                        <p class="small" data-i18n="mentors.mahin.bio">Creative editor specializing in cinematic production and social media content.
                         </p>
                     </article>
                 </div>
                 <div class="section-actions center">
-                    <a class="btn btn-outline" href="instructors.html">Learn more about mentors</a>
+                    <a class="btn btn-outline" href="instructors.html" data-i18n="mentors.more">Learn more about mentors</a>
                 </div>
             </div>
         </section>
@@ -236,33 +286,30 @@
         <section class="section" id="why-mit">
             <div class="container">
                 <header class="section-head">
-                    <h2>Why Choose MIT</h2>
-                    <p class="lead">We align our training with industry demands so you can learn, build, and earn fast.
+                    <h2 data-i18n="why.h2">Why Choose MIT</h2>
+                    <p class="lead text-center mx-auto max-w-2xl mt-4" data-i18n="why.lead">We align our training with industry demands so you can learn, build, and earn fast.
                     </p>
                 </header>
                 <div class="icon-grid">
-                    <article class="icon-card">
+                    <article class="icon-card scroll-reveal">
                         <span class="icon" aria-hidden="true">&#x1F393;</span>
-                        <h3>Expert Trainers</h3>
-                        <p>Learn from practitioners actively running marketing, design, and production teams at
-                            Markiety.</p>
+                        <h3 data-i18n="why.t1">Expert Trainers</h3>
+                        <p data-i18n="why.d1">Learn from practitioners actively running marketing, design, and production teams at Markiety.</p>
                     </article>
-                    <article class="icon-card">
+                    <article class="icon-card scroll-reveal">
                         <span class="icon" aria-hidden="true">&#x1F4BC;</span>
-                        <h3>Real Projects</h3>
-                        <p>Work on live briefs and case studies to expand your portfolio and showcase measurable
-                            results.</p>
+                        <h3 data-i18n="why.t2">Real Projects</h3>
+                        <p data-i18n="why.d2">Work on live briefs and case studies to expand your portfolio and showcase measurable results.</p>
                     </article>
-                    <article class="icon-card">
+                    <article class="icon-card scroll-reveal">
                         <span class="icon" aria-hidden="true">&#x1F9E0;</span>
-                        <h3>Career Support</h3>
-                        <p>Get interview prep, freelance profile reviews, and guidance to land high-value clients.</p>
+                        <h3 data-i18n="why.t3">Career Support</h3>
+                        <p data-i18n="why.d3">Get interview prep, freelance profile reviews, and guidance to land high-value clients.</p>
                     </article>
-                    <article class="icon-card">
+                    <article class="icon-card scroll-reveal">
                         <span class="icon" aria-hidden="true">&#x1F4DC;</span>
-                        <h3>Certified Programs</h3>
-                        <p>Earn government-approved certificates and skill badges recognized by agencies and employers.
-                        </p>
+                        <h3 data-i18n="why.t4">Certified Programs</h3>
+                        <p data-i18n="why.d4">Earn government-approved certificates and skill badges recognized by agencies and employers.</p>
                     </article>
                 </div>
             </div>
@@ -271,8 +318,8 @@
         <section class="section" id="testimonials">
             <div class="container">
                 <header class="section-head">
-                    <h2>Student Success Stories</h2>
-                    <p class="lead">Hear from our graduates who are now thriving in their careers</p>
+                    <h2 data-i18n="testimonials.h2">Student Success Stories</h2>
+                    <p class="lead text-center mx-auto max-w-2xl mt-4" data-i18n="testimonials.lead">Hear from our graduates who are now thriving in their careers</p>
                 </header>
                 <div id="testimonialsCarousel"></div>
 
@@ -314,49 +361,49 @@
         <section class="section muted" id="achievements">
             <div class="container">
                 <header class="section-head">
-                    <h2>Awards & Recognition</h2>
-                    <p class="lead">Certified excellence in IT education and training</p>
+                    <h2 data-i18n="awards.h2">Awards & Recognition</h2>
+                    <p class="lead" data-i18n="awards.lead">Certified excellence in IT education and training</p>
                 </header>
                 <div class="achievements-grid">
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">🏆</span>
-                        <h3 class="achievement-title">Government Approved</h3>
-                        <p class="achievement-description">Officially recognized IT training center with certified courses</p>
+                        <h3 class="achievement-title" data-i18n="awards.govt">Government Approved</h3>
+                        <p class="achievement-description" data-i18n="awards.govt.d">Officially recognized IT training center with certified courses</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">⭐</span>
-                        <h3 class="achievement-title">4.9/5 Rating</h3>
-                        <p class="achievement-description">350+ verified student reviews on Google</p>
+                        <h3 class="achievement-title" data-i18n="awards.rating">4.9/5 Rating</h3>
+                        <p class="achievement-description" data-i18n="awards.rating.d">350+ verified student reviews on Google</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">🎓</span>
-                        <h3 class="achievement-title">1200+ Graduates</h3>
-                        <p class="achievement-description">Successfully trained and certified professionals</p>
+                        <h3 class="achievement-title" data-i18n="awards.grads">1200+ Graduates</h3>
+                        <p class="achievement-description" data-i18n="awards.grads.d">Successfully trained and certified professionals</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">💼</span>
-                        <h3 class="achievement-title">98% Job Placement</h3>
-                        <p class="achievement-description">Graduates employed or freelancing within 3 months</p>
+                        <h3 class="achievement-title" data-i18n="awards.job">98% Job Placement</h3>
+                        <p class="achievement-description" data-i18n="awards.job.d">Graduates employed or freelancing within 3 months</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">🌟</span>
-                        <h3 class="achievement-title">Expert Instructors</h3>
-                        <p class="achievement-description">Industry professionals with 5+ years experience</p>
+                        <h3 class="achievement-title" data-i18n="awards.expert">Expert Instructors</h3>
+                        <p class="achievement-description" data-i18n="awards.expert.d">Industry professionals with 5+ years experience</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">📜</span>
-                        <h3 class="achievement-title">International Certificates</h3>
-                        <p class="achievement-description">Recognized on Fiverr, Upwork, and global platforms</p>
+                        <h3 class="achievement-title" data-i18n="awards.intl">International Certificates</h3>
+                        <p class="achievement-description" data-i18n="awards.intl.d">Recognized on Fiverr, Upwork, and global platforms</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">🚀</span>
-                        <h3 class="achievement-title">Modern Facilities</h3>
-                        <p class="achievement-description">State-of-the-art labs with latest software & equipment</p>
+                        <h3 class="achievement-title" data-i18n="awards.modern">Modern Facilities</h3>
+                        <p class="achievement-description" data-i18n="awards.modern.d">State-of-the-art labs with latest software &amp; equipment</p>
                     </article>
-                    <article class="achievement-card">
+                    <article class="achievement-card scroll-reveal">
                         <span class="achievement-icon">🤝</span>
-                        <h3 class="achievement-title">Lifetime Support</h3>
-                        <p class="achievement-description">Career guidance and alumni network access forever</p>
+                        <h3 class="achievement-title" data-i18n="awards.lifetime">Lifetime Support</h3>
+                        <p class="achievement-description" data-i18n="awards.lifetime.d">Career guidance and alumni network access forever</p>
                     </article>
                 </div>
             </div>
@@ -365,29 +412,29 @@
         <section class="section" id="stats-showcase">
             <div class="container">
                 <header class="section-head">
-                    <h2>MIT by Numbers</h2>
-                    <p class="lead">Join Bangladesh's fastest-growing tech learning community</p>
+                    <h2 data-i18n="stats.h2">MIT by Numbers</h2>
+                    <p class="lead" data-i18n="stats.lead">Join Bangladesh's fastest-growing tech learning community</p>
                 </header>
                 <div class="stats-grid">
                     <article class="stat-card">
                         <span class="stat-icon" aria-hidden="true">👨‍🎓</span>
                         <div class="stat-value" data-count="1200">0</div>
-                        <div class="stat-label">Students Trained</div>
+                        <div class="stat-label" data-i18n="stats.trained">Students Trained</div>
                     </article>
                     <article class="stat-card">
                         <span class="stat-icon" aria-hidden="true">📚</span>
                         <div class="stat-value" data-count="5">0</div>
-                        <div class="stat-label">Expert-Led Courses</div>
+                        <div class="stat-label" data-i18n="stats.courses">Expert-Led Courses</div>
                     </article>
                     <article class="stat-card">
                         <span class="stat-icon" aria-hidden="true">🎓</span>
                         <div class="stat-value" data-count="98">0</div>
-                        <div class="stat-label">% Success Rate</div>
+                        <div class="stat-label" data-i18n="stats.success">% Success Rate</div>
                     </article>
                     <article class="stat-card">
                         <span class="stat-icon" aria-hidden="true">💼</span>
                         <div class="stat-value" data-count="450">0</div>
-                        <div class="stat-label">Active Freelancers</div>
+                        <div class="stat-label" data-i18n="stats.freelancers">Active Freelancers</div>
                     </article>
                 </div>
             </div>
@@ -396,8 +443,8 @@
         <section class="section muted" id="faq">
             <div class="container">
                 <header class="section-head">
-                    <h2>Frequently Asked Questions</h2>
-                    <p class="lead">Everything you need to know about MIT courses</p>
+                    <h2 data-i18n="faq.h2">Frequently Asked Questions</h2>
+                    <p class="lead" data-i18n="faq.lead">Everything you need to know about MIT courses</p>
                 </header>
                 <div class="faq-container">
                     <details class="faq-item">
@@ -418,7 +465,7 @@
                         <summary>How do I access course materials after payment?</summary>
                         <p>After admission, you'll receive a portal login (phone number + 4-digit PIN) via SMS. Log in
                             to
-                            students.markietyitinstitute.com to access slides, homework, and resources 24/7.</p>
+                            the <a href="students/index.html">Student Portal</a> to access slides, homework, and resources 24/7.</p>
                     </details>
                     <details class="faq-item">
                         <summary>What payment methods do you accept?</summary>
@@ -456,14 +503,14 @@
         </section>
 
         <section class="section cta" id="cta">
-            <div class="container cta-inner">
+            <div class="container cta-inner animate-scale-in">
                 <div>
-                    <h2>Start Your Tech Journey with MIT Today!</h2>
-                    <p>Secure your seat in the next cohort and unlock freelancing and agency-ready skills.</p>
+                    <h2 data-i18n="cta.h2">Start Your Tech Journey with MIT Today!</h2>
+                    <p data-i18n="cta.p">Secure your seat in the next cohort and unlock freelancing and agency-ready skills.</p>
                 </div>
                 <div class="cta-actions">
-                    <a class="btn btn-light" href="admission.html">Join Now</a>
-                    <a class="btn btn-outline white" href="courses.html">View Course Roadmaps</a>
+                    <a class="btn btn-light" href="admission.html" data-i18n="cta.join">Join Now</a>
+                    <a class="btn btn-outline white" href="courses.html" data-i18n="cta.roadmaps">View Course Roadmaps</a>
                 </div>
             </div>
         </section>
@@ -473,18 +520,18 @@
         <div class="container footer-grid">
             <div>
                 <a class="brand" href="index.html">
-                    <img src="assets/logo.jpg" alt="" class="logo" width="44" height="44" />
+                    <img src="assets/logo.jpg" alt="MIT logo" class="logo" width="44" height="44" />
                     <div class="brand-copy">
-                        <span class="brand-name">Markiety IT Institute</span>
-                        <span class="brand-tagline">Learn. Build. Earn.</span>
+                        <span class="brand-name" data-i18n="brand.name">Markiety IT Institute</span>
+                        <span class="brand-tagline" data-i18n="brand.tagline">Learn. Build. Earn.</span>
                     </div>
                 </a>
-                <p class="footer-text">A modern tech learning hub by Markiety, empowering Bangladeshi youth with
+                <p class="footer-text" data-i18n="footer.desc">A modern tech learning hub by Markiety, empowering Bangladeshi youth with
                     globally
                     competitive skills.</p>
             </div>
             <div>
-                <h3>Visit Us</h3>
+                <h3 data-i18n="footer.visit">Visit Us</h3>
                 <p>Markiety IT Institute (MIT)<br />Nodi Bangla Manik Palace, 2nd Floor, 39 No Shop<br />Madhabdi,
                     Narsingdi - 1604, Bangladesh</p>
                 <p><a id="contactEmailLink"
@@ -492,19 +539,22 @@
                         id="contactPhoneLink" href="tel:+8801624547667">+880 1624-547667</a></p>
             </div>
             <div>
-                <h3>Quick Links</h3>
+                <h3 data-i18n="footer.quicklinks">Quick Links</h3>
                 <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="#testimonials">Success Stories</a></li>
-                    <li><a href="admission.html">Admission</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="students/index.html">Student Login</a></li>
+                    <li><a href="index.html" data-i18n="footer.home">Home</a></li>
+                    <li><a href="about.html" data-i18n="footer.about">About</a></li>
+                    <li><a href="courses.html" data-i18n="footer.courses">Courses</a></li>
+                    <li><a href="#testimonials" data-i18n="footer.success">Success Stories</a></li>
+                    <li><a href="admission.html" data-i18n="footer.admission">Admission</a></li>
+                    <li><a href="contact.html" data-i18n="footer.contact">Contact</a></li>
+                    <li><a href="students/index.html" data-i18n="footer.login">Student Login</a></li>
+                    <li><a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a></li>
+                    <li><a href="terms.html" data-i18n="footer.terms">Terms & Conditions</a></li>
+                    <li><a href="refund.html" data-i18n="footer.refund">Refund Policy</a></li>
                 </ul>
             </div>
             <div>
-                <h3>Follow MIT</h3>
+                <h3 data-i18n="footer.follow">Follow MIT</h3>
                 <ul class="social-links">
                     <li><a href="https://facebook.com/markietyitinstitute" target="_blank" rel="noopener">Facebook</a>
                     </li>
@@ -517,9 +567,9 @@
             </div>
         </div>
         <div class="footer-base">
-            <p>&copy; <span id="currentYear"></span> Markiety IT Institute (MIT). All rights reserved.</p>
-            <p class="footer-brand">Under <a href="https://markiety.netlify.app/" target="_blank"
-                    rel="noopener">Markiety</a> • Since 2025</p>
+            <p>&copy; <span id="currentYear"></span> Markiety IT Institute (MIT). <span data-i18n="footer.rights">All rights reserved.</span></p>
+            <p class="footer-brand"><span data-i18n="hero.eyebrow">Under <a href="https://markiety.netlify.app/" target="_blank"
+                    rel="noopener">Markiety</a> • Since 2025</span></p>
         </div>
     </footer>
 
@@ -554,6 +604,9 @@
     <!-- SEO Enhancement - Must load first -->
     <script src="js/seo-enhancement.js"></script>
 
+    <!-- Language Translation Engine -->
+    <script src="js/lang.js"></script>
+
     <!-- Toast System - Must load before enhancements -->
     <script src="js/toast.js"></script>
 
@@ -564,6 +617,7 @@
     <script src="js/advanced-features.js"></script>
 
     <script src="js/performance-optimizer.js"></script>
+    <script src="js/course-ticker.js"></script>
     <script src="js/app.js" defer></script>
 </body>
 

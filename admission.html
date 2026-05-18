@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,6 +15,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://markietyitinstitute.netlify.app/admission.html" />
   <meta property="og:image" content="https://markietyitinstitute.netlify.app/assets/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/jpeg" href="/assets/logo.jpg" />
   <link rel="shortcut icon" href="/assets/logo.jpg" />
   <link rel="apple-touch-icon" href="/assets/logo.jpg" />
@@ -26,6 +27,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/advanced-features.css" />
   <link rel="stylesheet" href="css/payment-gateway.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
 </head>
 
 <body data-theme="light" data-page="admission">
@@ -53,12 +55,16 @@
           <li><a href="instructors.html" data-nav="instructors">Instructors</a></li>
           <li><a href="admission.html" data-nav="admission" class="is-active">Admission</a></li>
           <li><a href="contact.html" data-nav="contact">Contact</a></li>
-          <li class="nav-cta"><a class="btn btn-gradient" href="admission.html">Apply Now</a></li>
+          <li class="nav-cta"><a class="btn btn-gradient btn-sm" href="admission.html">Apply Now</a></li>
         </ul>
       </nav>
       <div class="header-actions">
         <button type="button" class="icon-btn" id="searchBtn" aria-label="Search site (Ctrl+K)">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <button type="button" class="lang-toggle" id="langToggle" aria-label="Toggle language" onclick="toggleLang()">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-label">বাং</span>
         </button>
         <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
           <span class="icon-sun" aria-hidden="true"></span>
@@ -78,10 +84,10 @@
     </section>
 
     <section class="section">
-      <div class="container grid two">
+      <div class="container grid two admission-grid">
         <article>
           <h2>Student Information</h2>
-          <form id="admissionForm" class="form-grid">
+          <form id="admissionForm" class="form-grid" data-validate>
             <div class="form-section span-2">
               <p class="form-subhead"><span aria-hidden="true">&#x1F464;</span> Personal Details</p>
             </div>
@@ -248,13 +254,19 @@
                 </div>
               </div>
             </div>
+            <div class="form-field span-2">
+              <label class="checkbox-label">
+                <input type="checkbox" name="termsAgree" id="termsAgree" required />
+                I have read and agree to the <a href="terms.html" target="_blank" rel="noopener">Terms & Conditions</a>, <a href="refund.html" target="_blank" rel="noopener">Refund Policy</a>, and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> of Markiety IT Institute.
+              </label>
+            </div>
             <div class="form-actions span-2">
               <button type="submit" class="btn btn-gradient">Submit Application</button>
               <p id="admissionMessage" class="muted small" role="status"></p>
             </div>
           </form>
         </article>
-        <aside class="card highlight">
+        <aside class="card highlight admission-sidebar">
           <h3>Admission Checklist</h3>
           <ul class="checklist">
             <li>Fill out accurate personal information</li>
@@ -263,22 +275,28 @@
             <li>Review the generated invoice before payment</li>
           </ul>
 
-          <div style="margin-top: 2rem;">
-            <h4
-              style="margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted);">
-              Course Overviews</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-              <img src="assets/BASIC-COMPUTER-COURSE.jpg" alt="Basic"
-                style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px;">
-              <img src="assets/DIGITAL-MARKETING-COURSE.jpg" alt="Marketing"
-                style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px;">
-              <img src="assets/GRAPHICS-DESIGN-COURSE.jpg" alt="Design"
-                style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px;">
-              <img src="assets/VIDEO-EDITING-COURSE.jpg" alt="Video"
-                style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px;">
-              <img src="assets/FREELANCING-COURSE.jpg" alt="Freelancing"
-                style="width: 100%; height: 60px; object-fit: cover; border-radius: 4px; grid-column: span 2;">
-            </div>
+          <h4>Course Overviews</h4>
+          <div class="course-overview-grid">
+            <a class="course-overview-tile" href="courses.html#basic-computer">
+              <img src="assets/BASIC-COMPUTER-COURSE.jpg" alt="Basic Computer" onerror="this.onerror=null; this.style.opacity='0.3';" />
+              <span>Basic Computer</span>
+            </a>
+            <a class="course-overview-tile" href="courses.html#digital-marketing">
+              <img src="assets/DIGITAL-MARKETING-COURSE.jpg" alt="Digital Marketing" onerror="this.onerror=null; this.style.opacity='0.3';" />
+              <span>Digital Marketing</span>
+            </a>
+            <a class="course-overview-tile" href="courses.html#graphics-design">
+              <img src="assets/GRAPHICS-DESIGN-COURSE.jpg" alt="Graphics Design" onerror="this.onerror=null; this.style.opacity='0.3';" />
+              <span>Graphics Design</span>
+            </a>
+            <a class="course-overview-tile" href="courses.html#video-editing">
+              <img src="assets/VIDEO-EDITING-COURSE.jpg" alt="Video Editing" onerror="this.onerror=null; this.style.opacity='0.3';" />
+              <span>Video Editing</span>
+            </a>
+            <a class="course-overview-tile" href="courses.html#freelancing">
+              <img src="assets/FREELANCING-COURSE.jpg" alt="Freelancing" onerror="this.onerror=null; this.style.opacity='0.3';" />
+              <span>Freelancing</span>
+            </a>
           </div>
 
           <p class="small muted" style="margin-top: 2rem;">Need help? Call <a href="tel:+8801624547667">+880
@@ -308,7 +326,7 @@
     <div class="container footer-grid">
       <div>
         <a class="brand" href="index.html">
-          <img src="assets/logo.jpg" alt="" class="logo" width="44" height="44" />
+          <img src="assets/logo.jpg" alt="Markiety IT Institute logo" class="logo" width="44" height="44" />
           <div class="brand-copy">
             <span class="brand-name">Markiety IT Institute</span>
             <span class="brand-tagline">Learn. Build. Earn.</span>
@@ -335,6 +353,8 @@
           <li><a href="admission.html">Admission</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="students/index.html">Student Login</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
         </ul>
       </div>
       <div>
@@ -381,6 +401,7 @@
   <!-- Supabase Integration -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/services/supabase-service.js"></script>
+  <script src="js/lang.js"></script>
   <script src="js/seo-enhancement.js"></script>
   <script src="js/toast.js"></script>
   <script src="js/enhancements.js"></script>
@@ -388,45 +409,6 @@
   <script src="js/performance-optimizer.js"></script>
   <script src="js/payment-gateway.js"></script>
   <script src="js/app.js" defer></script>
-
-  <script>
-    // Add payment trigger to admission form submission
-    document.addEventListener('DOMContentLoaded', () => {
-      const admissionForm = document.getElementById('admissionForm');
-      if (admissionForm) {
-        admissionForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-
-          // Get form data
-          const formData = new FormData(e.target);
-          const data = {
-            studentName: formData.get('fullName'),
-            phone: formData.get('phone'),
-            courseName: document.querySelector('select[name="course"]')?.selectedOptions[0]?.text,
-            amount: getCourseAmount(formData.get('course'))
-          };
-
-          // Open payment modal
-          if (window.MITPayments) {
-            window.MITPayments.openPaymentModal(data);
-          } else {
-            window.toast?.error('Payment system not loaded. Please refresh the page.');
-          }
-        });
-      }
-    });
-
-    function getCourseAmount(courseId) {
-      const courseFees = {
-        'digital-marketing': 5500,
-        'graphics-design': 4500,
-        'video-editing': 4000,
-        'basic-computer': 2500,
-        'freelancing': 3000
-      };
-      return courseFees[courseId] || 0;
-    }
-  </script>
 </body>
 
 </html>

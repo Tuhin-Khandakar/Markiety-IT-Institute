@@ -541,7 +541,8 @@
 
   function initBackToTop() {
     const button = document.getElementById('backToTop');
-    if (!button) return;
+    if (!button || button.dataset.bound === 'true') return;
+    button.dataset.bound = 'true';
 
     const toggleVisibility = window.throttle(() => {
       if (window.pageYOffset > 300) {
@@ -575,8 +576,6 @@
 
     // Add page transition effect
     document.body.classList.add('page-transition');
-
-    console.log('✨ MIT Frontend Enhancements loaded');
   }
 
   // Run on DOMContentLoaded

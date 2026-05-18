@@ -17,6 +17,8 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/advanced-features.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
 </head>
 
 <body data-theme="dark" data-page="student-portal">
@@ -108,9 +110,21 @@
         <div id="courseAccessGrid" class="portal-course-grid"></div>
       </section>
 
+      <!-- Certificates Section -->
+      <section id="certificateSection" class="portal-certificates" style="display: none;">
+        <header>
+          <div>
+            <p class="muted small">🏆 Your Certificates</p>
+            <h2>Achievements</h2>
+            <p class="muted small">View and download your course completion certificates</p>
+          </div>
+        </header>
+        <div id="certificateList" class="portal-cert-grid"></div>
+      </section>
+
       <!-- Footer -->
       <footer class="portal-footer">
-        <p class="muted small">© 2025 Markiety IT Institute. All Rights Reserved.</p>
+        <p class="muted small">© <span id="currentYear"></span> Markiety IT Institute. All Rights Reserved.</p>
         <p class="muted small">Need support? <a href="tel:+8801624547667">+880 1624-547667</a></p>
       </footer>
     </div>
@@ -120,6 +134,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/services/supabase-service.js"></script>
   <script src="../js/toast.js"></script>
+  <script src="../js/certificate-service.js"></script>
   <script src="../js/app.js" defer></script>
 </body>
 

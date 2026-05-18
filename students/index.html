@@ -17,6 +17,8 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/advanced-features.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
 </head>
 
 <body data-theme="dark" data-page="student-login">
@@ -33,9 +35,9 @@
 
         <form id="studentLoginForm" class="form-grid compact">
           <div class="form-field span-2">
-            <label for="loginPhone">📱 Phone Number</label>
-            <input id="loginPhone" type="tel" inputmode="tel" placeholder="+8801XXXXXXXXX" required />
-            <small class="muted">Use the phone number from your admission form</small>
+            <label for="loginTracking">🎫 Tracking Number</label>
+            <input id="loginTracking" type="text" inputmode="text" placeholder="MIT-0001" required />
+            <small class="muted">Your tracking number from the invoice</small>
           </div>
           <div class="form-field span-2">
             <label for="loginPin">🔐 Portal PIN</label>
@@ -43,7 +45,7 @@
             <small class="muted">Your 4-digit PIN from the invoice</small>
           </div>
           <div class="form-actions span-2">
-            <button type="submit" class="btn btn-gradient btn-full">🚀 Sign In</button>
+            <button type="submit" class="btn btn-gradient btn-full" id="loginBtn">🚀 Sign In</button>
             <p id="studentLoginMessage" class="muted small" role="status"></p>
           </div>
         </form>

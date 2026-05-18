@@ -47,6 +47,7 @@ ALTER TABLE public.students ADD COLUMN IF NOT EXISTS date_of_birth     date;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS email             text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS student_phone     text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS parent_phone      text;
+ALTER TABLE public.students ADD COLUMN IF NOT EXISTS education         text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS nid_number        text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS permanent_address text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS present_address   text;
@@ -61,6 +62,7 @@ ALTER TABLE public.students ADD COLUMN IF NOT EXISTS portal_phone      text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS portal_pin        text;
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS unlocked_courses  text[] DEFAULT '{}';
 ALTER TABLE public.students ADD COLUMN IF NOT EXISTS photo_url         text;
+ALTER TABLE public.students ADD COLUMN IF NOT EXISTS payment_status     text DEFAULT 'verified';
 
 -- ============================================================================
 -- TABLE: certificates
@@ -69,9 +71,15 @@ CREATE TABLE IF NOT EXISTS public.certificates (
   id          uuid         DEFAULT gen_random_uuid() PRIMARY KEY,
   created_at  timestamptz  DEFAULT now() NOT NULL
 );
-ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS student_id  text;
-ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS file_name   text;
-ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS file_url    text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS student_id        text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS certificate_code text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS grade            text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS course_name      text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS issue_date      timestamptz;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS is_valid        boolean DEFAULT true;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS verification_link text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS file_name       text;
+ALTER TABLE public.certificates ADD COLUMN IF NOT EXISTS file_url        text;
 
 -- ============================================================================
 -- TABLE: expenses

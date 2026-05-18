@@ -29,18 +29,38 @@
       this.setupEventListeners();
     }
 
+    get assetBase() {
+      const path = window.location.pathname;
+      if (path.includes('/admin/') || path.includes('/students/')) {
+        return '../assets';
+      }
+      return 'assets';
+    }
+
     createWidget() {
+      const isBn = window.location.pathname.endsWith('-bn.html');
+      const logoUrl = `${this.assetBase}/logo.jpg`;
+      const t = {
+        title: isBn ? 'এমআইটি সমর্থন' : 'MIT Support',
+        status: isBn ? 'অনলাইন - আমরা সাধারণত কয়েক মিনিটের মধ্যে উত্তর দিই' : 'Online - We typically reply in minutes',
+        placeholder: isBn ? 'আপনার বার্তা টাইপ করুন...' : 'Type your message...',
+        enroll: isBn ? '📚 কোর্সে ভর্তি হন' : '📚 Enroll in Course',
+        fees: isBn ? '💰 কোর্স ফি' : '💰 Course Fees',
+        admission: isBn ? '📝 ভর্তি প্রক্রিয়া' : '📝 Admission Process',
+        visit: isBn ? '📍 ইনস্টিটিউট পরিদর্শন করুন' : '📍 Visit Institute',
+      };
+      
       const widgetHTML = `
         <div class="chat-widget" id="chatWidget">
           <div class="chat-header" id="chatHeader">
             <div class="chat-avatar">
-              <img src="assets/logo.jpg" alt="MIT Support">
+              <img src="${logoUrl}" alt="${t.title}">
             </div>
             <div class="chat-info">
-              <h4>MIT Support</h4>
+              <h4>${t.title}</h4>
               <p class="chat-status">
                 <span class="status-dot"></span>
-                Online - We typically reply in minutes
+                ${t.status}
               </p>
             </div>
             <button class="chat-close" id="chatClose" aria-label="Close chat">×</button>
@@ -54,7 +74,7 @@
             <input
               type="text"
               id="chatInput"
-              placeholder="Type your message..."
+              placeholder="${t.placeholder}"
               class="chat-input"
               maxlength="500"
             >
@@ -67,16 +87,16 @@
 
           <div class="chat-quick-actions">
             <button class="quick-action-btn" data-message="I want to enroll in a course">
-              📚 Enroll in Course
+              ${t.enroll}
             </button>
             <button class="quick-action-btn" data-message="What are the course fees?">
-              💰 Course Fees
+              ${t.fees}
             </button>
             <button class="quick-action-btn" data-message="What is the admission process?">
-              📝 Admission Process
+              ${t.admission}
             </button>
             <button class="quick-action-btn" data-message="Can I visit the institute?">
-              📍 Visit Institute
+              ${t.visit}
             </button>
           </div>
         </div>
@@ -141,8 +161,9 @@
 
     loadWelcomeMessage() {
       setTimeout(() => {
+        const isBn = window.location.pathname.endsWith('-bn.html');
         this.addBotMessage(
-          "👋 Hi! Welcome to Markiety IT Institute. How can I help you today?"
+          isBn ? "👋 নমস্কার! মার্কিটি আইটি ইনস্টিটিউটে আপনাকে স্বাগতম। আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি?" : "👋 Hi! Welcome to Markiety IT Institute. How can I help you today?"
         );
       }, 1000);
     }
@@ -180,10 +201,11 @@
     }
 
     addBotMessage(text) {
+      const logoUrl = `${this.assetBase}/logo.jpg`;
       const messageHTML = `
         <div class="chat-message bot-message">
           <div class="message-avatar">
-            <img src="assets/logo.jpg" alt="MIT">
+            <img src="${logoUrl}" alt="MIT">
           </div>
           <div class="message-bubble">
             <div class="message-content">${text}</div>
@@ -275,51 +297,54 @@
     constructor(container) {
       this.container = container;
       this.currentIndex = 0;
+      
+      const isBn = window.location.pathname.endsWith('-bn.html');
+      
       this.testimonials = [
         {
-          name: "Tahsin Ahmed",
-          role: "Digital Marketing Graduate",
-          course: "Digital Marketing",
+          name: isBn ? "তাহসিন আহমেদ" : "Tahsin Ahmed",
+          role: isBn ? "ডিজিটাল মার্কেটিং স্নাতক" : "Digital Marketing Graduate",
+          course: isBn ? "ডিজিটাল মার্কেটিং" : "Digital Marketing",
           rating: 5,
-          text: "MIT gave me the roadmap to master paid ads and scale campaigns for local brands. The mentors are invested in your success. Now I'm running campaigns for 10+ clients!",
+          text: isBn ? "এমআইটি আমাকে পেইড অ্যাডস-এ দক্ষতা অর্জন এবং স্থানীয় ব্র্যান্ডগুলোর জন্য ক্যাম্পেইন সম্প্রসারণ করার পথ দেখিয়েছে। এখানকার মেন্টররা আপনার সাফল্যে আন্তরিকভাবে আগ্রহী। এখন আমি ১০টিরও বেশি ক্লায়েন্টের জন্য ক্যাম্পেইন পরিচালনা করছি!" : "MIT gave me the roadmap to master paid ads and scale campaigns for local brands. The mentors are invested in your success. Now I'm running campaigns for 10+ clients!",
           image: "assets/instructors/placeholder.svg",
-          achievement: "Meta Ads Specialist at Tech Startup"
+          achievement: isBn ? "টেক স্টার্টআপে মেটা অ্যাডস স্পেশালিস্ট" : "Meta Ads Specialist at Tech Startup"
         },
         {
-          name: "Sadia Rahman",
-          role: "Freelancing Success Story",
-          course: "Freelancing & Career",
+          name: isBn ? "সাদিয়া রহমান" : "Sadia Rahman",
+          role: isBn ? "ফ্রিল্যান্সিং সাফল্যের গল্প" : "Freelancing Success Story",
+          course: isBn ? "ফ্রিল্যান্সিং ও ক্যারিয়ার" : "Freelancing & Career",
           rating: 5,
-          text: "The portfolio feedback sessions helped me land my first international clients on Fiverr. Everything is practical and hands-on. Earning $500+ monthly now!",
+          text: isBn ? "পোর্টফোলিও ফিডব্যাক সেশনগুলো আমাকে ফাইভার-এ আমার প্রথম আন্তর্জাতিক ক্লায়েন্ট পেতে সাহায্য করেছে। সবকিছুই বাস্তবসম্মত এবং হাতে-কলমে শেখানোর মতো। এখন মাসে ৫০০ ডলারেরও বেশি আয় করছি!" : "The portfolio feedback sessions helped me land my first international clients on Fiverr. Everything is practical and hands-on. Earning $500+ monthly now!",
           image: "assets/instructors/placeholder.svg",
-          achievement: "Level 2 Seller on Fiverr"
+          achievement: isBn ? "ফাইভার-এ লেভেল ২ সেলার" : "Level 2 Seller on Fiverr"
         },
         {
-          name: "Habib Khan",
-          role: "Video Editing Graduate",
-          course: "Video Editing",
+          name: isBn ? "হাবিব খান" : "Habib Khan",
+          role: isBn ? "ভিডিও সম্পাদনা স্নাতক" : "Video Editing Graduate",
+          course: isBn ? "ভিডিও সম্পাদনা" : "Video Editing",
           rating: 5,
-          text: "I loved the supportive community. From instructors to peers, everyone shares opportunities to grow together. Now working with top YouTubers!",
+          text: isBn ? "এখানকার সহায়ক পরিবেশ আমার খুব ভালো লেগেছে। প্রশিক্ষক থেকে শুরু করে সহপাঠী পর্যন্ত, সবাই একসাথে বেড়ে ওঠার সুযোগ করে দেয়। এখন শীর্ষস্থানীয় ইউটিউবারদের সাথে কাজ করছি!" : "I loved the supportive community. From instructors to peers, everyone shares opportunities to grow together. Now working with top YouTubers!",
           image: "assets/instructors/placeholder.svg",
-          achievement: "Content Creator & Professional Editor"
+          achievement: isBn ? "কন্টেন্ট ক্রিয়েটর ও পেশাদার সম্পাদক" : "Content Creator & Professional Editor"
         },
         {
-          name: "Nusrat Jahan",
-          role: "Graphics Design Graduate",
-          course: "Graphics Design",
+          name: isBn ? "নুসরাত জাহান" : "Nusrat Jahan",
+          role: isBn ? "গ্রাফিক্স ডিজাইন স্নাতক" : "Graphics Design Graduate",
+          course: isBn ? "গ্রাফিক্স ডিজাইন" : "Graphics Design",
           rating: 5,
-          text: "MIT transformed my creative skills. The Canva and Photoshop training was excellent. Within 2 months, I started my own design agency!",
+          text: isBn ? "এমআইটি আমার সৃজনশীল দক্ষতাকে আমূল বদলে দিয়েছে। ক্যানভা এবং ফটোশপের প্রশিক্ষণটি ছিল চমৎকার। মাত্র ২ মাসের মধ্যেই আমি নিজের ডিজাইন এজেন্সি শুরু করে দিয়েছি!" : "MIT transformed my creative skills. The Canva and Photoshop training was excellent. Within 2 months, I started my own design agency!",
           image: "assets/instructors/placeholder.svg",
-          achievement: "Founder of Creative Design Studio"
+          achievement: isBn ? "ক্রিয়েটিভ ডিজাইন স্টুডিওর প্রতিষ্ঠাতা" : "Founder of Creative Design Studio"
         },
         {
-          name: "Rakib Hassan",
-          role: "Computer Training Graduate",
-          course: "Basic Computer",
+          name: isBn ? "রাকিব হাসান" : "Rakib Hassan",
+          role: isBn ? "কম্পিউটার প্রশিক্ষণ স্নাতক" : "Computer Training Graduate",
+          course: isBn ? "বেসিক কম্পিউটার" : "Basic Computer",
           rating: 5,
-          text: "Best computer training in Madhabdi! The instructors are patient and explain everything clearly. Got a job in a local office within 3 weeks!",
+          text: isBn ? "মাধবড়িতে সেরা কম্পিউটার প্রশিক্ষণ! প্রশিক্ষকরা খুবই ধৈর্যশীল এবং সবকিছু পরিষ্কারভাবে বুঝিয়ে দেন। ৩ সপ্তাহের মধ্যেই স্থানীয় একটি অফিসে চাকরি পেয়েছি!" : "Best computer training in Madhabdi! The instructors are patient and explain everything clearly. Got a job in a local office within 3 weeks!",
           image: "assets/instructors/placeholder.svg",
-          achievement: "Data Entry Specialist"
+          achievement: isBn ? "ডেটা এন্ট্রি স্পেশালিস্ট" : "Data Entry Specialist"
         }
       ];
       this.init();
@@ -476,7 +501,18 @@
       this.setupEventListeners();
     }
 
+    get baseUrl() {
+      const path = window.location.pathname;
+      if (path.includes('/admin/') || path.includes('/students/')) {
+        return '../';
+      }
+      return '';
+    }
+
     createSearchBar() {
+      const isBn = window.location.pathname.endsWith('-bn.html');
+      const placeholderText = isBn ? "কোর্স, প্রশিক্ষক বা বিষয়বস্তু অনুসন্ধান করুন..." : "Search courses, instructors, or content...";
+      
       const searchHTML = `
         <div class="search-overlay" id="searchOverlay">
           <div class="search-modal">
@@ -484,7 +520,7 @@
               <input
                 type="search"
                 id="siteSearch"
-                placeholder="Search courses, instructors, or content..."
+                placeholder="${placeholderText}"
                 class="search-input"
                 autocomplete="off"
               >
@@ -500,18 +536,19 @@
 
     loadSearchData() {
       // Load searchable content
+      const base = this.baseUrl;
       this.searchData = [
-        { type: 'course', title: 'Digital Marketing', url: 'courses.html', description: 'SEO, Social Media, Google Ads, Meta Ads' },
-        { type: 'course', title: 'Graphics Design', url: 'courses.html', description: 'Canva, Photoshop, Illustrator' },
-        { type: 'course', title: 'Video Editing', url: 'courses.html', description: 'Premiere Pro, CapCut' },
-        { type: 'course', title: 'Basic Computer', url: 'courses.html', description: 'Microsoft Office, Internet' },
-        { type: 'course', title: 'Freelancing', url: 'courses.html', description: 'Fiverr, Upwork, Portfolio' },
-        { type: 'page', title: 'Admission', url: 'admission.html', description: 'Enroll in courses' },
-        { type: 'page', title: 'Contact Us', url: 'contact.html', description: 'Get in touch' },
-        { type: 'page', title: 'About MIT', url: 'about.html', description: 'Learn about us' },
-        { type: 'instructor', title: 'Md. Tuhin Khandakar', url: 'instructors.html', description: 'Digital Marketing Expert' },
-        { type: 'instructor', title: 'Iqbal', url: 'instructors.html', description: 'Graphics Design Specialist' },
-        { type: 'instructor', title: 'Md. Mahin', url: 'instructors.html', description: 'Video Editing Expert' }
+        { type: 'course', title: 'Digital Marketing', url: base + 'courses.html', description: 'SEO, Social Media, Google Ads, Meta Ads' },
+        { type: 'course', title: 'Graphics Design', url: base + 'courses.html', description: 'Canva, Photoshop, Illustrator' },
+        { type: 'course', title: 'Video Editing', url: base + 'courses.html', description: 'Premiere Pro, CapCut' },
+        { type: 'course', title: 'Basic Computer', url: base + 'courses.html', description: 'Microsoft Office, Internet' },
+        { type: 'course', title: 'Freelancing', url: base + 'courses.html', description: 'Fiverr, Upwork, Portfolio' },
+        { type: 'page', title: 'Admission', url: base + 'admission.html', description: 'Enroll in courses' },
+        { type: 'page', title: 'Contact Us', url: base + 'contact.html', description: 'Get in touch' },
+        { type: 'page', title: 'About MIT', url: base + 'about.html', description: 'Learn about us' },
+        { type: 'instructor', title: 'Md. Tuhin Khandakar', url: base + 'instructors.html', description: 'Digital Marketing Expert' },
+        { type: 'instructor', title: 'Iqbal', url: base + 'instructors.html', description: 'Graphics Design Specialist' },
+        { type: 'instructor', title: 'Md. Mahin', url: base + 'instructors.html', description: 'Video Editing Expert' }
       ];
     }
 
@@ -594,47 +631,44 @@
   // ============================================================================
 
   function initAdvancedFeatures() {
-    // Initialize Live Chat
-    if (!document.getElementById('chatWidget')) {
+    // Initialize Live Chat (skip on admin/students pages)
+    const path = window.location.pathname;
+    const isSubdir = path.includes('/admin/') || path.includes('/students/');
+    if (!isSubdir && !document.getElementById('chatWidget')) {
       new LiveChatWidget();
-      console.log('✅ Live Chat Widget Loaded');
     }
 
     // Initialize Testimonials Carousel
     const testimonialsContainer = document.getElementById('testimonialsCarousel');
     if (testimonialsContainer) {
       new TestimonialsCarousel(testimonialsContainer);
-      console.log('✅ Testimonials Carousel Loaded');
     }
 
     // Initialize Site Search
     new SiteSearch();
-    console.log('✅ Site Search Loaded');
+
+    // Initialize Gallery Lightbox (defer to ensure DOM is ready)
+    setTimeout(() => {
+      if (document.querySelector('.gallery-grid') || document.querySelector('.gallery-item')) {
+        new GalleryLightbox();
+      }
+    }, 0);
 
     // Add search trigger button to header
     addSearchButton();
   }
 
   function addSearchButton() {
-    const headerActions = document.querySelector('.header-actions');
-    if (headerActions && !document.getElementById('searchTrigger')) {
-      const searchBtn = document.createElement('button');
-      searchBtn.type = 'button';
-      searchBtn.id = 'searchTrigger';
-      searchBtn.className = 'icon-btn';
-      searchBtn.setAttribute('aria-label', 'Search');
-      searchBtn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/>
-          <path d="m21 21-4.35-4.35"/>
-        </svg>
-      `;
-      searchBtn.addEventListener('click', () => {
+    // Use existing search button from HTML instead of creating a new one
+    const existingSearchBtn = document.getElementById('searchBtn');
+
+    if (existingSearchBtn) {
+      // Add click handler to existing button
+      existingSearchBtn.addEventListener('click', () => {
         const overlay = document.getElementById('searchOverlay');
         overlay?.classList.add('active');
         document.getElementById('siteSearch')?.focus();
       });
-      headerActions.insertBefore(searchBtn, headerActions.firstChild);
     }
   }
 
@@ -756,11 +790,6 @@
     document.addEventListener('DOMContentLoaded', initAdvancedFeatures);
   } else {
     initAdvancedFeatures();
-  }
-
-  // Initialize gallery if gallery section exists
-  if (document.querySelector('.gallery-grid') || document.querySelector('.gallery-item')) {
-    new GalleryLightbox();
   }
 
   // Export for external use

@@ -1,9 +1,10 @@
 [
   {
+    "id": "basic-computer",
     "title": "Basic Computer Course",
     "instructor": "Md. Tuhin Khandakar",
-    "instructorPhoto": "assets/instructors/TUHIN.jpeg",
-    "image": "assets/BASIC-COMPUTER-COURSE.jpg",
+    "instructorPhoto": "/assets/instructors/TUHIN.jpeg",
+    "image": "/assets/BASIC-COMPUTER-COURSE.jpg",
     "duration": "2.5 Months",
     "fee": "3000 BDT",
     "discount": "2500 BDT",
@@ -24,10 +25,11 @@
     "featured": true
   },
   {
+    "id": "digital-marketing",
     "title": "Digital Marketing",
     "instructor": "Md. Tuhin Khandakar",
-    "instructorPhoto": "assets/instructors/TUHIN.jpeg",
-    "image": "assets/DIGITAL-MARKETING-COURSE.jpg",
+    "instructorPhoto": "/assets/instructors/TUHIN.jpeg",
+    "image": "/assets/DIGITAL-MARKETING-COURSE.jpg",
     "duration": "3 Months",
     "fee": "6000 BDT",
     "discount": "5500 BDT",
@@ -49,10 +51,11 @@
     "featured": true
   },
   {
+    "id": "graphics-design",
     "title": "Graphics Design",
     "instructor": "Iqbal",
-    "instructorPhoto": "assets/instructors/IQBAL.jpeg",
-    "image": "assets/GRAPHICS-DESIGN-COURSE.jpg",
+    "instructorPhoto": "/assets/instructors/IQBAL.jpeg",
+    "image": "/assets/GRAPHICS-DESIGN-COURSE.jpg",
     "duration": "3 Months",
     "fee": "5000 BDT",
     "discount": "4500 BDT",
@@ -73,10 +76,11 @@
     "featured": true
   },
   {
+    "id": "video-editing",
     "title": "Video Editing",
     "instructor": "Md. Mahin",
-    "instructorPhoto": "assets/instructors/MAHIN.jpeg",
-    "image": "assets/VIDEO-EDITING-COURSE.jpg",
+    "instructorPhoto": "/assets/instructors/MAHIN.jpeg",
+    "image": "/assets/VIDEO-EDITING-COURSE.jpg",
     "duration": "3 Months",
     "fee": "5000 BDT",
     "discount": "4500 BDT",
@@ -97,10 +101,11 @@
     "featured": true
   },
   {
+    "id": "freelancing-career",
     "title": "Freelancing & Career Development",
     "instructor": "Md. Tuhin Khandakar",
-    "instructorPhoto": "assets/instructors/TUHIN.jpeg",
-    "image": "assets/FREELANCING-COURSE.jpg",
+    "instructorPhoto": "/assets/instructors/TUHIN.jpeg",
+    "image": "/assets/FREELANCING-COURSE.jpg",
     "duration": "2 Months",
     "fee": "4000 BDT",
     "discount": "3500 BDT",

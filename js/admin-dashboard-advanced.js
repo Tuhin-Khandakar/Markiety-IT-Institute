@@ -290,6 +290,9 @@
     renderStudentsTable(paginated);
     updatePaginationUI(sorted.length);
     updateStudentCounts(paginated.length, sorted.length);
+
+    // Bug 3 Fix: Update finance charts/analytics after filtering
+    if (window.renderAnalytics) window.renderAnalytics();
   }
 
   function updateStudentCounts(showing, total) {
@@ -322,8 +325,10 @@
     });
 
     nextBtn?.addEventListener('click', () => {
-      const totalPages = Math.ceil(dashboardState.filteredStudents.length /
-        (dashboardState.itemsPerPage === 'all' ? 1 : parseInt(dashboardState.itemsPerPage)));
+      const totalItems = dashboardState.filteredStudents.length;
+      const isAll = dashboardState.itemsPerPage === 'all';
+      const perPage = isAll ? totalItems : parseInt(dashboardState.itemsPerPage);
+      const totalPages = perPage > 0 ? Math.ceil(totalItems / perPage) : 1;
       if (dashboardState.currentPage < totalPages) {
         dashboardState.currentPage++;
         applySortAndPagination();
@@ -698,8 +703,6 @@
       }
 
       // In real implementation, call SMS gateway API here
-      console.log('SMS would be sent to:', recipients);
-      console.log('Message:', message);
 
       setTimeout(() => {
         alert('SMS feature requires API integration. This is a placeholder demonstration.');

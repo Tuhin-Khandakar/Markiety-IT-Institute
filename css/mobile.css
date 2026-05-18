@@ -1,0 +1,977 @@
+/**
+ * Mobile Responsiveness - Markiety IT Institute
+ * 
+ * This file contains ONLY mobile-specific styles and overrides.
+ * All base styles are defined in style.css
+ * 
+ * Mobile-First approach: Base styles are for mobile, media queries add desktop styles
+ */
+
+/* =========================================================================
+   GLOBAL MOBILE RESETS
+   ========================================================================= */
+
+/* Prevent zoom on iOS inputs */
+@media (max-width: 960px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* =========================================================================
+   EXTRA LARGE SCREENS
+   ========================================================================= */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+  
+  .hero-grid {
+    max-width: 1100px;
+  }
+  
+  h1 {
+    font-size: 3.5rem;
+  }
+  
+  h2 {
+    font-size: 2.75rem;
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =========================================================================
+   LARGE DESKTOP (1200px+)
+   ========================================================================= */
+@media (min-width: 1200px) {
+  .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =========================================================================
+   DESKTOP (992px+)
+   ========================================================================= */
+@media (min-width: 992px) {
+  .grid.two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  .icon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .testimonial-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .portal-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  }
+}
+
+/* =========================================================================
+   TABLET (768px - 991px)
+   ========================================================================= */
+@media (min-width: 768px) and (max-width: 991px) {
+  .hero-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  
+  .hero-copy {
+    text-align: left;
+  }
+  
+  .hero-actions,
+  .hero-stats {
+    justify-content: flex-start;
+  }
+  
+  .hero-actions {
+    flex-direction: row;
+  }
+  
+  .hero-actions .btn {
+    width: auto;
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .icon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .portal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  
+  .filters > button#courseReset {
+    grid-column: span 2;
+  }
+  
+  .chat-widget {
+    width: 360px;
+    left: auto;
+    right: 24px;
+  }
+}
+
+/* =========================================================================
+   TABLET & MOBILE (max-width: 767px)
+   ========================================================================= */
+@media (max-width: 767px) {
+  /* Container adjustments */
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  /* Section padding */
+  .section {
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
+  }
+  
+  .section-head h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+  
+  .section-head .lead {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    max-width: 100%;
+  }
+  
+  /* Hero section */
+  .hero {
+    padding: clamp(4rem, 10vw, 6rem) 0 clamp(2rem, 4vw, 3rem);
+    text-align: center;
+  }
+  
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .hero-copy {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .hero-copy .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  
+  .hero-media {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  
+  .hero h1 {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+    line-height: 1.15;
+  }
+  
+  .hero p.lead {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    padding: 0 0.5rem;
+    max-width: 100%;
+  }
+  
+  .floating-badges {
+    display: none !important;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.9rem;
+  }
+  
+  /* CTA Section */
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .cta-actions .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  
+  /* Section Actions */
+  .section-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .section-actions .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  
+  .section-actions.center {
+    align-items: center;
+  }
+  
+  /* Stats Grid */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1.25rem;
+    text-align: center;
+  }
+  
+  .stat-icon {
+    font-size: 1.75rem;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+  }
+  
+  /* Grids */
+  .grid.two {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .icon-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-base {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1.25rem 0;
+  }
+  
+  /* Tabs scroll */
+  .tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+  
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .gallery-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+  
+  .gallery-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Table */
+  .table-wrap {
+    border-radius: 8px;
+    max-height: 50vh;
+  }
+  
+  .table {
+    min-width: 600px;
+    font-size: 0.85rem;
+  }
+  
+  /* Form */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-field.checkbox,
+  .form-field.span-2 {
+    grid-column: span 1;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+  }
+  
+  /* Filters */
+  .filters {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .filter-field {
+    width: 100%;
+  }
+  
+  .filters > button#courseReset {
+    width: 100%;
+  }
+  
+  /* Gallery */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  /* Modal */
+  .modal {
+    width: 95vw;
+    max-width: 95vw;
+    margin: 1rem auto;
+  }
+  
+  .modal-body {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  /* Fixed elements */
+  .whatsapp-float {
+    bottom: 80px !important;
+    right: 16px !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+  .back-to-top {
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+  
+  /* Chat Widget */
+  .chat-toggle {
+    bottom: 16px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .chat-widget {
+    bottom: 80px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    height: 450px;
+  }
+  
+  /* Search */
+  .search-modal {
+    width: 95vw;
+    max-height: 80vh;
+  }
+  
+  .search-overlay {
+    padding-top: 5vh;
+  }
+  
+  /* Map */
+  .map-wrap iframe {
+    min-height: 200px;
+    width: 100%;
+  }
+  
+  /* Admission Document */
+  .admission-doc {
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+  
+  .admission-doc__head {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .admission-doc.classic {
+    padding: 0;
+    min-width: 320px;
+  }
+  
+  .doc-classic-head {
+    flex-direction: column;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .photo-frame {
+    width: 100px;
+    height: 120px;
+    margin: 0 auto;
+  }
+  
+  .doc-meta-grid.classic {
+    padding: 1rem;
+    min-width: 280px;
+  }
+  
+  .doc-table {
+    min-width: 280px;
+    font-size: 0.85rem;
+  }
+  
+  .signature-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .signature-row span {
+    min-width: 0;
+    width: 100%;
+  }
+  
+  /* Instructor cards */
+  .instructor-card-static {
+    width: 100%;
+    padding: 1.5rem 1rem;
+  }
+  
+  .instructor-card-static img {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  
+  /* Portal */
+  .portal-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .portal-photo-wrap {
+    margin: 0 auto 1rem;
+  }
+  
+  .portal-meta {
+    text-align: center;
+  }
+  
+  .portal-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .portal-course-grid,
+  .portal-cert-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Legal pages */
+  .privacy-page,
+  .terms-page,
+  .refund-page {
+    padding: 2rem 1rem;
+  }
+  
+  .privacy-toc,
+  .terms-toc,
+  .refund-toc {
+    grid-template-columns: 1fr;
+  }
+  
+  .refund-tiers {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Blog */
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .featured-post-image {
+    height: 200px;
+  }
+  
+  /* Hide elements that don't work well on mobile */
+  .brand-tagline {
+    display: none;
+  }
+  
+  .hero-bg-animation {
+    display: none;
+  }
+  
+  /* Course gallery */
+  .course-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Analytics */
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .finance-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================================
+   MOBILE LARGE (600px - 767px)
+   ========================================================================= */
+@media (min-width: 600px) and (max-width: 767px) {
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .hero-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .hero-actions .btn {
+    width: auto;
+    max-width: none;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .icon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cta-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cta-actions .btn {
+    width: auto;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  
+  .portal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .chat-widget {
+    width: 340px;
+    left: auto;
+  }
+}
+
+/* =========================================================================
+   MOBILE SMALL (max-width: 599px)
+   ========================================================================= */
+@media (max-width: 599px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .achievement-card {
+    padding: 1.25rem 1rem;
+  }
+  
+  .achievement-icon {
+    font-size: 2rem;
+  }
+  
+  .achievement-title {
+    font-size: 0.9rem;
+  }
+  
+  .achievement-description {
+    font-size: 0.8rem;
+  }
+  
+  .icon-card {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .media-card {
+    padding: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bkash-panel {
+    grid-column: span 1;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .whatsapp-float {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  
+  .back-to-top {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+/* =========================================================================
+   EXTRA SMALL (max-width: 479px)
+   ========================================================================= */
+@media (max-width: 479px) {
+  :root {
+    --mobile-padding: 12px;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.1rem; }
+  
+  .hero {
+    padding: 4.5rem var(--mobile-padding) 2rem;
+  }
+  
+  .hero h1 {
+    font-size: clamp(1.4rem, 7vw, 1.8rem);
+  }
+  
+  .hero-actions .btn,
+  .cta-actions .btn,
+  .section-actions .btn {
+    max-width: 100%;
+    padding: 0.65rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .hero-stat dt {
+    font-size: 1.1rem;
+  }
+  
+  .hero-stat dd {
+    font-size: 0.7rem;
+  }
+  
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.25rem 1rem;
+  }
+  
+  .btn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.85rem;
+  }
+  
+  .logo {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .brand-name {
+    font-size: 0.8rem;
+  }
+  
+  .chat-widget {
+    height: 400px;
+    bottom: 75px;
+  }
+  
+  .search-modal {
+    width: 98vw;
+  }
+  
+  .login-card {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .admission-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .portal-info {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .blog-card-image {
+    height: 150px;
+  }
+  
+  .featured-post-image {
+    height: 180px;
+  }
+  
+  .course-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .resource-card {
+    padding: 1rem;
+  }
+  
+  .resource-card h2 {
+    font-size: 1.1rem;
+  }
+}
+
+/* =========================================================================
+   PRINT STYLES
+   ========================================================================= */
+@media print {
+  .site-header,
+  .site-footer,
+  .whatsapp-float,
+  .back-to-top,
+  .chat-toggle,
+  .chat-widget,
+  .search-overlay,
+  .modal,
+  .nav-toggle,
+  .hero-bg-animation,
+  .floating-badges,
+  .course-ticker,
+  .back-to-top {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .section {
+    padding: 2rem 0;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .print-area {
+    display: block;
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}
+
+/* =========================================================================
+   REDUCED MOTION
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero-orb,
+  .floating-badge,
+  .course-ticker-row {
+    animation: none;
+  }
+  
+  .course-ticker-container {
+    animation: none;
+  }
+}
+
+/* =========================================================================
+   DARK MODE ENHANCEMENTS
+   ========================================================================= */
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="light"]) .chat-widget,
+  body:not([data-theme="light"]) .search-modal {
+    background: #1e293b;
+  }
+}
+
+/* =========================================================================
+   END
+   ========================================================================= */

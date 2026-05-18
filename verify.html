@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#4F7CFF" />
+  <title>Verify Certificate - Markiety IT Institute</title>
+  <meta name="description" content="Verify your certificate from Markiety IT Institute (MIT). Enter your certificate ID to validate authenticity." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://markietyitinstitute.netlify.app/verify.html" />
+  <meta property="og:title" content="Verify Certificate - Markiety IT Institute" />
+  <meta property="og:description" content="Verify your certificate authenticity" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://markietyitinstitute.netlify.app/verify.html" />
+  <meta property="og:image" content="https://markietyitinstitute.netlify.app/assets/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/jpeg" href="/assets/logo.jpg" />
+  <link rel="shortcut icon" href="/assets/logo.jpg" />
+  <link rel="apple-touch-icon" href="/assets/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/advanced-features.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .verify-hero {
+      background: linear-gradient(135deg, #4F7CFF 0%, #7C3AED 100%);
+      padding: 4rem 0;
+      text-align: center;
+      color: white;
+    }
+    .verify-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    .verify-hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .verify-section {
+      flex: 1;
+      padding: 3rem 0;
+    }
+    .verify-card {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .verify-form {
+      margin-top: 2rem;
+    }
+    .verify-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    .verify-input:focus {
+      border-color: #4F7CFF;
+      box-shadow: 0 0 0 4px rgba(79, 124, 255, 0.15);
+      outline: none;
+    }
+    .verify-btn {
+      margin-top: 1rem;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+    }
+    .verify-result {
+      margin-top: 2rem;
+      padding: 2rem;
+      border-radius: 16px;
+      display: none;
+    }
+    .verify-result.success {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border: 2px solid #10b981;
+      display: block;
+    }
+    .verify-result.invalid {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border: 2px solid #ef4444;
+      display: block;
+    }
+    .verify-result h3 {
+      margin-bottom: 1rem;
+    }
+    .verify-result.success h3 {
+      color: #065f46;
+    }
+    .verify-result.invalid h3 {
+      color: #991b1b;
+    }
+    .certificate-details {
+      text-align: left;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+    }
+    .certificate-details h4 {
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+    .detail-label {
+      font-weight: 600;
+      color: #6b7280;
+    }
+    .detail-value {
+      color: #1f2937;
+      font-weight: 500;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .status-badge.verified {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .status-badge.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .verified-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1rem;
+      background: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .verified-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: white;
+    }
+    .invalid-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1rem;
+      background: #ef4444;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .invalid-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: white;
+    }
+    .recent-certificates {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: #f9fafb;
+      border-radius: 16px;
+    }
+    .recent-certificates h3 {
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    .recent-list {
+      display: grid;
+      gap: 1rem;
+    }
+    .recent-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .recent-name {
+      font-weight: 600;
+      color: #1f2937;
+    }
+    .recent-course {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    .recent-code {
+      font-family: monospace;
+      color: #4F7CFF;
+      font-size: 0.875rem;
+    }
+    .loading-spinner {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e5e7eb;
+      border-top-color: #4F7CFF;
+      border-radius: 50%;
+      margin: 2rem auto;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body data-theme="light" data-page="verify-certificate">
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.jpg" alt="MIT logo" class="logo" width="44" height="44" />
+        <div class="brand-copy">
+          <span class="brand-name">Markiety IT Institute</span>
+          <span class="brand-tagline">Learn. Build. Earn.</span>
+        </div>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="admission.html">Admission</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="lang-toggle" id="langToggle" aria-label="Toggle language" onclick="toggleLang()">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-label">বাং</span>
+        </button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
+          <span class="icon-sun" aria-hidden="true"></span>
+          <span class="icon-moon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="verify-hero">
+    <div class="container">
+      <h1>Verify Your Certificate</h1>
+      <p>Enter your certificate ID to verify the authenticity of your completion certificate from Markiety IT Institute</p>
+    </div>
+  </section>
+
+  <main class="verify-section">
+    <div class="container">
+      <div class="card verify-card">
+        <div class="verify-form">
+          <input type="text" id="certificateId" class="verify-input" placeholder="Enter Certificate ID (e.g., CERT-2025-XXXXXX)" />
+          <button type="button" id="verifyBtn" class="btn btn-gradient verify-btn">Verify Certificate</button>
+        </div>
+        <div class="loading-spinner" id="loadingSpinner"></div>
+        <div class="verify-result" id="verifyResult"></div>
+      </div>
+
+      <div class="recent-certificates" id="recentCertificates" style="display:none;">
+        <h3>Recently Issued Certificates</h3>
+        <div class="recent-list" id="recentList"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Markiety IT Institute</h4>
+          <p>Empowering learners with practical tech skills for the digital age.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="admission.html">Admission</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li>📞 +880 1624-547667</li>
+            <li>📧 markietyitinstitute@gmail.com</li>
+            <li>📍 Nodi Bangla Manik Palace, Narsingdi</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="refund.html">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> Markiety IT Institute. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/services/supabase-service.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/enhancements.js"></script>
+  <script src="js/advanced-features.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      const verifyBtn = document.getElementById('verifyBtn');
+      const certificateIdInput = document.getElementById('certificateId');
+      const verifyResult = document.getElementById('verifyResult');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const recentCertificates = document.getElementById('recentCertificates');
+      const recentList = document.getElementById('recentList');
+
+      async function verifyCertificate(certId) {
+        if (!certId || certId.trim() === '') {
+          showResult('invalid', 'Please enter a certificate ID');
+          return;
+        }
+
+        showLoading(true);
+        hideResult();
+
+        try {
+          // Check Supabase first
+          if (window.db && window.db.initialized) {
+            const { data, error } = await window.db.client
+              .from('certificates')
+              .select(`
+                *,
+                students(name, tracking_no, phone),
+                courses(title, instructor)
+              `)
+              .eq('certificate_code', certId.trim())
+              .single();
+
+            if (data) {
+              showCertificateSuccess(data);
+              return;
+            }
+          }
+
+          // Fallback: Check localStorage
+          const localCerts = JSON.parse(localStorage.getItem('mit_certificates') || '[]');
+          const localCert = localCerts.find(c =>
+            c.certificate_code === certId.trim() ||
+            c.certificateId === certId.trim()
+          );
+
+          if (localCert) {
+            showCertificateSuccess(localCert);
+            return;
+          }
+
+          // Check students for tracking number as fallback
+          const students = JSON.parse(localStorage.getItem('mit_students') || '[]');
+          const studentByTracking = students.find(s => s.trackingNo === certId.trim());
+
+          if (studentByTracking && studentByTracking.paymentStatus === 'verified') {
+            showVerificationByStudent(studentByTracking);
+            return;
+          }
+
+          showResult('invalid', 'Certificate not found. Please check your certificate ID and try again.');
+        } catch (error) {
+          console.error('Verification error:', error);
+          showResult('invalid', 'An error occurred during verification. Please try again.');
+        } finally {
+          showLoading(false);
+        }
+      }
+
+      function showCertificateSuccess(cert) {
+        const student = cert.students || {};
+        const course = cert.courses || {};
+
+        const html = `
+          <div class="verified-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          <h3>✓ Certificate Verified</h3>
+          <p>This certificate is authentic and issued by Markiety IT Institute.</p>
+          <div class="certificate-details">
+            <h4>Certificate Details</h4>
+            <div class="detail-row">
+              <span class="detail-label">Student Name</span>
+              <span class="detail-value">${student.name || 'N/A'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Tracking Number</span>
+              <span class="detail-value">${student.tracking_no || 'N/A'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Course</span>
+              <span class="detail-value">${course.title || cert.course_name || 'N/A'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Instructor</span>
+              <span class="detail-value">${course.instructor || cert.instructor || 'N/A'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Issue Date</span>
+              <span class="detail-value">${formatDate(cert.issued_date || cert.created_at)}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Certificate ID</span>
+              <span class="detail-value">${cert.certificate_code || cert.certificateId}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Status</span>
+              <span class="status-badge verified">Verified</span>
+            </div>
+          </div>
+        `;
+
+        verifyResult.innerHTML = html;
+        verifyResult.className = 'verify-result success';
+      }
+
+      function showVerificationByStudent(student) {
+        const html = `
+          <div class="verified-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </div>
+          <h3>✓ Student Verified</h3>
+          <p>This student is verified and has completed payment for their course.</p>
+          <div class="certificate-details">
+            <h4>Student Details</h4>
+            <div class="detail-row">
+              <span class="detail-label">Name</span>
+              <span class="detail-value">${student.studentNameEn || student.fullName}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Tracking Number</span>
+              <span class="detail-value">${student.trackingNo}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Course</span>
+              <span class="detail-value">${student.courseTitle || 'N/A'}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Phone</span>
+              <span class="detail-value">${student.studentPhone}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Payment Status</span>
+              <span class="status-badge verified">${student.paymentStatus || 'Paid'}</span>
+            </div>
+          </div>
+          <p style="margin-top:1rem; color:#6b7280; font-size:0.875rem;">Note: Certificate may not be issued yet. Contact the institute for certificate status.</p>
+        `;
+
+        verifyResult.innerHTML = html;
+        verifyResult.className = 'verify-result success';
+      }
+
+      function showResult(type, message) {
+        const icon = type === 'success'
+          ? '<div class="verified-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>'
+          : '<div class="invalid-icon"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></div>';
+
+        verifyResult.innerHTML = `${icon}<h3>${type === 'success' ? 'Verified' : 'Invalid'}</h3><p>${message}</p>`;
+        verifyResult.className = `verify-result ${type}`;
+      }
+
+      function showLoading(show) {
+        loadingSpinner.style.display = show ? 'block' : 'none';
+        verifyBtn.disabled = show;
+      }
+
+      function hideResult() {
+        verifyResult.className = 'verify-result';
+        verifyResult.innerHTML = '';
+      }
+
+      function formatDate(dateStr) {
+        if (!dateStr) return 'N/A';
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+
+      async function loadRecentCertificates() {
+        try {
+          let certs = [];
+
+          if (window.db && window.db.initialized) {
+            const { data } = await window.db.client
+              .from('certificates')
+              .select(`
+                certificate_code,
+                issued_date,
+                students(name),
+                courses(title)
+              `)
+              .order('issued_date', { ascending: false })
+              .limit(5);
+
+            if (data) certs = data;
+          }
+
+          // Fallback to local
+          if (certs.length === 0) {
+            const localCerts = JSON.parse(localStorage.getItem('mit_certificates') || '[]');
+            certs = localCerts.slice(-5).reverse();
+          }
+
+          if (certs.length > 0) {
+            recentCertificates.style.display = 'block';
+            recentList.innerHTML = certs.map(cert => `
+              <div class="recent-item">
+                <div>
+                  <div class="recent-name">${cert.students?.name || cert.student_name || 'Student'}</div>
+                  <div class="recent-course">${cert.courses?.title || cert.course_name || 'Course'}</div>
+                </div>
+                <div class="recent-code">${cert.certificate_code || cert.certificateId}</div>
+              </div>
+            `).join('');
+          }
+        } catch (e) {
+          console.log('No recent certificates');
+        }
+      }
+
+      // Event Listeners
+      verifyBtn.addEventListener('click', () => {
+        verifyCertificate(certificateIdInput.value);
+      });
+
+      certificateIdInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          verifyCertificate(certificateIdInput.value);
+        }
+      });
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        loadRecentCertificates();
+
+        // Check for URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const certParam = urlParams.get('cert');
+        if (certParam) {
+          certificateIdInput.value = certParam;
+          verifyCertificate(certParam);
+        }
+      });
+    })();
+  </script>
+
+  <a href="https://wa.me/8801624547667?text=Hello%20MIT!%20I'm%20interested%20in%20your%20courses."
+    class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  </a>
+
+  <button type="button" id="backToTop" class="back-to-top" aria-label="Scroll back to top"></button>
+</body>
+
+</html>

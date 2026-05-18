@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Status - Markiety IT Institute</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/advanced-features.css">
+  <link rel="stylesheet" href="css/payment-gateway.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="icon" href="assets/favicon.ico">
+  <style>
+    .payment-status-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .status-card {
+      background: white;
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+      max-width: 500px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .status-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2.5rem;
+    }
+    .status-icon.pending { background: #fff3cd; color: #856404; }
+    .status-icon.success { background: #d4edda; color: #155724; }
+    .status-icon.failed { background: #f8d7da; color: #721c24; }
+    .status-card h1 { margin-bottom: 1rem; color: #333; }
+    .status-card p { color: #666; margin-bottom: 2rem; }
+    .payment-details {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .payment-details p { margin: 0.5rem 0; display: flex; justify-content: space-between; }
+    .payment-details strong { color: #333; }
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div class="payment-status-page">
+    <div class="status-card" id="statusCard">
+      <div class="status-icon pending" id="statusIcon">⏳</div>
+      <h1 id="statusTitle">Checking Payment Status...</h1>
+      <p id="statusMessage">Please wait while we verify your payment.</p>
+      <div class="payment-details" id="paymentDetails" style="display:none;"></div>
+      <div class="btn-group" id="actionButtons"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://hurtjslsvwcrfngcnlcs.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1cnRqc2xzdndjcmZuZ2NubGNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2MzIxMzUsImV4cCI6MjA3OTIwODEzNX0.xljAMoobX8syAqas61RT3wLke3qMtEd2utgNFfC1-gc';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const ppId = urlParams.get('pp_id') || urlParams.get('id');
+    const sandbox = urlParams.get('sandbox') === 'true';
+
+    async function checkPaymentStatus() {
+      if (!ppId) {
+        showStatus('failed', 'No Payment Found', 'Invalid payment reference. Please contact support.');
+        return;
+      }
+
+      if (sandbox) {
+        showStatus('success', 'Payment Successful!', 'This is a sandbox payment.', {
+          'Payment ID': ppId,
+          'Amount': urlParams.get('amount') || 'N/A',
+          'Status': 'Completed (Sandbox)'
+        });
+        return;
+      }
+
+      try {
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const { data, error } = await supabase
+          .from('payments')
+          .select('*')
+          .eq('pp_id', ppId)
+          .single();
+
+        if (error || !data) {
+          showStatus('failed', 'Payment Not Found', 'Payment record not found. Please contact support with your payment ID.');
+          return;
+        }
+
+        showStatus(
+          data.status === 'completed' ? 'success' : 'pending',
+          data.status === 'completed' ? 'Payment Successful!' : 'Payment Pending',
+          data.status === 'completed' 
+            ? 'Your payment has been confirmed. Thank you!'
+            : 'Your payment is being processed. Please wait.',
+          {
+            'Payment ID': data.pp_id,
+            'Amount': '৳' + data.amount,
+            'Gateway': data.gateway || 'Manual',
+            'Transaction ID': data.transaction_id || 'N/A',
+            'Status': data.status
+          }
+        );
+      } catch (error) {
+        console.error('Payment check error:', error);
+        showStatus('failed', 'Error', 'Unable to verify payment. Please contact support.');
+      }
+    }
+
+    function showStatus(type, title, message, details = null) {
+      const icon = document.getElementById('statusIcon');
+      const titleEl = document.getElementById('statusTitle');
+      const msgEl = document.getElementById('statusMessage');
+      const detailsEl = document.getElementById('paymentDetails');
+      const buttonsEl = document.getElementById('actionButtons');
+
+      icon.className = `status-icon ${type}`;
+      icon.textContent = type === 'success' ? '✓' : type === 'failed' ? '✕' : '⏳';
+      titleEl.textContent = title;
+      msgEl.textContent = message;
+
+      if (details) {
+        detailsEl.style.display = 'block';
+        detailsEl.innerHTML = Object.entries(details)
+          .map(([k, v]) => `<p><span>${k}:</span> <strong>${v}</strong></p>`).join('');
+      }
+
+      if (type === 'success') {
+        buttonsEl.innerHTML = `
+          <a href="/students/portal.html" class="btn btn-gradient">Go to Student Portal</a>
+          <a href="/" class="btn btn-outline">Back to Home</a>
+        `;
+      } else {
+        buttonsEl.innerHTML = `
+          <a href="/admission.html" class="btn btn-gradient">Try Again</a>
+          <a href="/" class="btn btn-outline">Back to Home</a>
+        `;
+      }
+    }
+
+    checkPaymentStatus();
+  </script>
+</body>
+</html>

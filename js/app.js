@@ -130,6 +130,16 @@ const MITApp = (() => {
     };
   })();
 
+  // HTML escape function to prevent XSS
+  const escapeHtml = (value) => {
+    if (value === undefined || value === null) return '';
+    const str = String(value);
+    return str.replace(/[&<>"']/g, (char) => {
+      const entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return entities[char] || char;
+    });
+  };
+
   const sanitizeStudentRecord = (student) => {
     if (!student || typeof student !== 'object') return student;
     const clone = { ...student };
@@ -205,12 +215,7 @@ const MITApp = (() => {
   const formatPlainBDT = (amount) => {
     const parsed = parseBDT(amount);
     const value = Number.isFinite(parsed) ? parsed : 0;
-    let formatted = '';
-    try {
-      formatted = new Intl.NumberFormat(BDT_LOCALES, { maximumFractionDigits: 0 }).format(value);
-    } catch {
-      formatted = value.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    }
+    const formatted = value.toLocaleString('en-US', { maximumFractionDigits: 0 });
     return `Tk ${formatted}`.trim();
   };
 
@@ -430,7 +435,7 @@ const MITApp = (() => {
         { title: 'Student Support', url: `mailto:${CONTACT.email}` }
       ],
       files: [
-        { label: 'Slides Placeholder', url: '../assets/resources/digital-marketing-slides.md' }
+        { label: 'Course Overview', url: '../assets/resources/digital-marketing-homework.md' }
       ]
     };
   };
@@ -577,15 +582,8 @@ const MITApp = (() => {
   const formatBDT = (value) => {
     const amount = parseBDT(value);
     if (Number.isNaN(amount) || amount === 0) return value || '';
-    try {
-      return new Intl.NumberFormat(BDT_LOCALES, {
-        style: 'currency',
-        currency: 'BDT',
-        maximumFractionDigits: 0
-      }).format(amount).replace('BDT', 'BDT').trim();
-    } catch {
-      return `Tk ${amount.toLocaleString('en-US', { maximumFractionDigits: 0 })}`.trim();
-    }
+    const formatted = amount.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    return `৳ ${formatted}`.trim();
   };
 
   const parseSeatCount = (value, fallback = 0) => {
@@ -624,13 +622,22 @@ const MITApp = (() => {
     };
   };
 
-  // Helper to get instructor photo based on name
+  // Helper to get instructor photo based on name, returns initials-based fallback on error
   const getInstructorPhoto = (instructorName) => {
     const name = (instructorName || '').toLowerCase();
     if (name.includes('tuhin')) return `${ASSET_BASE}/instructors/TUHIN.jpeg`;
     if (name.includes('iqbal')) return `${ASSET_BASE}/instructors/IQBAL.jpeg`;
     if (name.includes('mahin')) return `${ASSET_BASE}/instructors/MAHIN.jpeg`;
-    return `${ASSET_BASE}/logo.jpg`; // Fallback
+    return `${ASSET_BASE}/logo.jpg`;
+  };
+
+  // Generate initials-based avatar HTML for missing instructor photos
+  const getInstructorAvatarFallback = (instructorName) => {
+    const name = instructorName || 'Instructor';
+    const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+    const colors = ['#4F7CFF', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
+    const colorIndex = name.charCodeAt(0) % colors.length;
+    return `<span class="instructor-avatar-fallback" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:${colors[colorIndex]};color:#fff;font-size:12px;font-weight:600;font-family:system-ui,sans-serif;">${initials}</span>`;
   };
 
   const courseCard = (course) => {
@@ -678,7 +685,8 @@ const MITApp = (() => {
           <h3 class="course-title">${course.title}</h3>
           
           <div class="instructor-row">
-             <img src="${getInstructorPhoto(course.instructor)}" alt="${course.instructor}" class="instructor-avatar" onerror="this.src='${ASSET_BASE}/logo.jpg'">
+             <img src="${getInstructorPhoto(course.instructor)}" alt="${course.instructor}" class="instructor-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+             <span class="instructor-avatar-fallback" style="display:none;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#4F7CFF;color:#fff;font-size:12px;font-weight:600;font-family:system-ui,sans-serif;">${(course.instructor||'I').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()}</span>
              <span class="instructor-name">${course.instructor}</span>
           </div>
 
@@ -771,7 +779,7 @@ const MITApp = (() => {
     });
   };
 
-  const buildCourseId = (course) => course.id || slugify(course.title);
+  const buildCourseId = (course) => course.id || slugify(course.title) || `course-${Date.now()}`;
 
   const ensureCourseShape = (course) => {
     const seatState = getCourseDiscountState(course);
@@ -781,14 +789,14 @@ const MITApp = (() => {
     let image = course.image;
     const titleLower = (course.title || '').toLowerCase();
 
-    if (titleLower.includes('basic computer')) image = 'assets/BASIC-COMPUTER-COURSE.jpg';
-    else if (titleLower.includes('digital marketing')) image = 'assets/DIGITAL-MARKETING-COURSE.jpg';
-    else if (titleLower.includes('graphic')) image = 'assets/GRAPHICS-DESIGN-COURSE.jpg';
-    else if (titleLower.includes('video editing')) image = 'assets/VIDEO-EDITING-COURSE.jpg';
-    else if (titleLower.includes('freelancing')) image = 'assets/FREELANCING-COURSE.jpg';
+    if (titleLower.includes('basic computer')) image = `${ASSET_BASE}/BASIC-COMPUTER-COURSE.jpg`;
+    else if (titleLower.includes('digital marketing')) image = `${ASSET_BASE}/DIGITAL-MARKETING-COURSE.jpg`;
+    else if (titleLower.includes('graphic')) image = `${ASSET_BASE}/GRAPHICS-DESIGN-COURSE.jpg`;
+    else if (titleLower.includes('video editing')) image = `${ASSET_BASE}/VIDEO-EDITING-COURSE.jpg`;
+    else if (titleLower.includes('freelancing')) image = `${ASSET_BASE}/FREELANCING-COURSE.jpg`;
 
     // Fallback if still no image
-    if (!image) image = 'assets/BASIC-COMPUTER-COURSE.jpg';
+    if (!image) image = `${ASSET_BASE}/BASIC-COMPUTER-COURSE.jpg`;
 
     return {
       id: buildCourseId(course),
@@ -841,8 +849,8 @@ const MITApp = (() => {
       return state.courses;
     } catch (err) {
       console.error('Failed to load courses.json', err);
-      state.courses = [];
-      return [];
+      state.courses = FALLBACK_COURSES.map(ensureCourseShape);
+      return state.courses;
     }
   };
 
@@ -1044,10 +1052,10 @@ const MITApp = (() => {
 
       const template = (instructor) => {
         const socialLinks = instructor.social && Object.keys(instructor.social).length > 0
-          ? `<div class="social-links" style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
-               ${Object.entries(instructor.social).map(([platform, url]) =>
-            url ? `<a href="${url}" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;" title="${platform}">
-                   ${socialIcon(platform)} ${platform.charAt(0).toUpperCase() + platform.slice(1)}
+          ? `<div class="instructor-social-links">
+               ${Object.entries(instructor.social).slice(0, 3).map(([platform, url]) =>
+            url ? `<a href="${url}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" title="${platform}">
+                   ${socialIcon(platform)}
                  </a>` : ''
           ).join('')}
              </div>`
@@ -1055,18 +1063,17 @@ const MITApp = (() => {
 
         return `
           <article class="card instructor">
-            <img src="${instructor.photo}" alt="${instructor.name}" loading="lazy" 
-                 style="border-radius: var(--radius-md); width: 100%; height: 280px; object-fit: cover;" 
+            <img src="${instructor.photo}" alt="${instructor.name}" loading="lazy" class="instructor-photo"
                  onerror="this.src='${ASSET_BASE}/logo.jpg'" />
             <h3>${instructor.name}</h3>
             <p class="muted small">${instructor.title}</p>
             <p>${instructor.bio}</p>
-            <div class="meta-list small muted" style="margin-top: 0.75rem;">
-              ${(instructor.specialties || []).map(spec => `<span>• ${spec}</span>`).join('')}
+            <div class="instructor-specialties">
+              ${(instructor.specialties || []).map(spec => `<span class="spec-tag">${spec}</span>`).join('')}
             </div>
-            ${socialLinks}
-            <div style="margin-top: 1rem;">
-              <a href="courses.html?instructor=${encodeURIComponent(instructor.name)}" class="btn btn-gradient" style="width: 100%; text-align: center;">View Courses</a>
+            <div class="instructor-actions">
+              ${socialLinks}
+              <a href="courses.html?instructor=${encodeURIComponent(instructor.name)}" class="btn btn-gradient">View Courses</a>
             </div>
           </article>
         `;
@@ -1376,7 +1383,7 @@ const MITApp = (() => {
           <span>📱 Username (Phone): <strong>${record.portalPhone || record.studentPhone}</strong></span>
           <span>🔑 PIN: <strong class="pin-code">${record.portalPin}</strong></span>
         </div>
-        <small>Login at: students/index.html</small>
+        <small>Login at: <a href="${window.location.origin}/students/index.html" target="_blank">${window.location.origin}/students/index.html</a></small>
       </div>
       
       <!-- SIGNATURES -->
@@ -1770,6 +1777,57 @@ const MITApp = (() => {
     setTimeout(() => win.print(), 300);
   };
 
+  // Admission sidebar course image carousel
+  const initAdmissionSidebarCarousel = () => {
+    const carousel = qs('#admissionImgCarousel');
+    if (!carousel) return;
+    const track = qs('.course-img-track', carousel);
+    const dotsContainer = qs('.course-img-dots', carousel);
+    const slides = qsa('.course-img-slide', carousel);
+    if (!track || slides.length === 0) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    // Generate dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.className = `course-img-dot${i === 0 ? ' active' : ''}`;
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    const updateCarousel = () => {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      qsa('.course-img-dot', dotsContainer).forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    };
+
+    const goToSlide = (index) => {
+      currentIndex = index;
+      updateCarousel();
+      resetAutoRotate();
+    };
+
+    const nextSlide = () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    };
+
+    let autoRotateInterval;
+    const startAutoRotate = () => {
+      autoRotateInterval = setInterval(nextSlide, 2500);
+    };
+    const resetAutoRotate = () => {
+      clearInterval(autoRotateInterval);
+      startAutoRotate();
+    };
+
+    // Initialize
+    startAutoRotate();
+  };
+
   const handleAdmissionForm = () => {
     const form = qs('#admissionForm');
     if (!form) return;
@@ -1787,6 +1845,7 @@ const MITApp = (() => {
     paymentUI.copyBtn = qs('#bkashCopyAccount');
     paymentUI.tutorialBtn = qs('#bkashTutorialBtn');
     paymentUI.videoWrap = qs('#bkashVideo');
+
     updateBkashPanel();
 
     populateCourseSelect();
@@ -1922,7 +1981,8 @@ const MITApp = (() => {
 
     const paymentMethodSelect = qs('#paymentMethod');
     paymentMethodSelect?.addEventListener('change', () => {
-      setBkashVisibility(paymentMethodSelect.value === 'bKash');
+      const method = paymentMethodSelect.value;
+      setBkashVisibility(method === 'bKash');
     });
     setBkashVisibility(paymentMethodSelect?.value === 'bKash');
 
@@ -1932,7 +1992,7 @@ const MITApp = (() => {
       navigator.clipboard?.writeText(CONTACT.bkash).then(() => {
         status.textContent = 'Copied!';
         setTimeout(() => (status.textContent = original), 1500);
-      }).catch(() => alert(`Copy this number manually: ${BKASH_ACCOUNT}`));
+      }).catch(() => alert(`Copy this number manually: ${CONTACT.bkash}`));
     });
 
     paymentUI.tutorialBtn?.addEventListener('click', () => {
@@ -1979,7 +2039,8 @@ const MITApp = (() => {
 
   const handleBackToTop = () => {
     const btn = qs('#backToTop');
-    if (!btn) return;
+    if (!btn || btn.dataset.bound === 'true') return;
+    btn.dataset.bound = 'true';
     const toggle = () => {
       if (window.scrollY > 380) btn.classList.add('visible');
       else btn.classList.remove('visible');
@@ -2019,38 +2080,89 @@ const MITApp = (() => {
   const handleNav = () => {
     const nav = qs('.primary-nav');
     const toggle = qs('#navToggle');
+    const navMenu = qs('#navMenu');
     const links = qsa('.nav-links a[data-nav]');
     const page = document.body.dataset.page;
 
     links.forEach(link => {
-      if (link.dataset.nav === page) link.classList.add('is-active');
+      if (link.dataset.nav === page) {
+        link.classList.add('is-active');
+        link.setAttribute('aria-current', 'page');
+      }
     });
 
+    const closeMenu = () => {
+      nav?.classList.remove('open');
+      navMenu?.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.classList.remove('is-active');
+      if (navMenu) navMenu.setAttribute('aria-hidden', 'true');
+    };
+
+    const openMenu = () => {
+      toggle?.setAttribute('aria-expanded', 'true');
+      toggle?.classList.add('is-active');
+      nav?.classList.add('open');
+      navMenu?.classList.add('open');
+      if (navMenu) navMenu.setAttribute('aria-hidden', 'false');
+    };
+
+    // Inject close button into nav drawer
+    if (navMenu && !navMenu.querySelector('.nav-close-btn')) {
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'nav-close-btn';
+      closeBtn.setAttribute('aria-label', 'Close menu');
+      closeBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+      closeBtn.addEventListener('click', closeMenu);
+      navMenu.insertBefore(closeBtn, navMenu.firstChild);
+    }
+
     toggle?.addEventListener('click', () => {
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      nav.classList.toggle('open');
+      const isOpen = nav?.classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     nav?.addEventListener('click', (event) => {
       if (event.target.matches('.nav-links a')) {
-        nav.classList.remove('open');
-        toggle?.setAttribute('aria-expanded', 'false');
+        closeMenu();
       }
     });
 
     document.addEventListener('click', (event) => {
       if (nav && nav.classList.contains('open') && !nav.contains(event.target)) {
-        nav.classList.remove('open');
-        toggle?.setAttribute('aria-expanded', 'false');
+        closeMenu();
       }
     });
+
+    const closeDrawer = () => {
+      nav?.classList.remove('open');
+      navMenu?.classList.remove('open');
+      toggle?.classList.remove('is-active');
+      toggle?.setAttribute('aria-expanded', 'false');
+      if (navMenu) navMenu.setAttribute('aria-hidden', 'true');
+    };
+
+    let lastWidth = window.innerWidth;
+    const onResize = () => {
+      const currentWidth = window.innerWidth;
+      if (lastWidth <= 960 && currentWidth > 960) {
+        closeDrawer();
+      }
+      lastWidth = currentWidth;
+    };
+    window.addEventListener('resize', onResize);
   };
 
   const initTheme = () => {
     const stored = storage.get(LS_KEYS.theme);
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = stored || (prefersDark ? 'dark' : 'light');
+    // Use stored preference, or fall back to the page's initial data-theme attribute
+    const initialTheme = document.body.dataset.theme || 'light';
+    const theme = stored || initialTheme;
     document.body.dataset.theme = theme;
 
     const toggle = qs('#themeToggle');
@@ -2152,6 +2264,9 @@ const MITApp = (() => {
       return `
         <tr data-student-id="${student.id}">
           <td>
+            <input type="checkbox" class="student-checkbox" data-id="${student.id}" />
+          </td>
+          <td>
             <strong>${student.trackingNo || student.id}</strong>
             <div class="student-meta">${student.id}</div>
           </td>
@@ -2159,27 +2274,29 @@ const MITApp = (() => {
             <strong>${student.studentNameEn || student.fullName}</strong>
             <div class="student-meta">
               ${valueOrNA(student.studentPhone || student.phone)}
-              <br />${valueOrNA(student.email)}
             </div>
+            <div class="student-meta">${valueOrNA(student.email)}</div>
             <div class="student-meta">Portal PIN: ${valueOrNA(student.portalPin, '&mdash;')}</div>
           </td>
           <td>
-            <strong>${student.courseTitle}</strong>
-            <div class="student-meta">${student.courseInstructor || ''}</div>
+            <strong>${escapeHtml(student.courseTitle)}</strong>
+            <div class="student-meta">${escapeHtml(student.courseInstructor || '')}</div>
           </td>
           <td>
-            <strong>${valueOrNA(student.payment)}</strong>
+            <strong>${escapeHtml(valueOrNA(student.payment))}</strong>
             ${paymentDetails}
-            <div class="student-meta">Txn: ${valueOrNA(student.paymentTxn, '-')}</div>
+            <div class="student-meta">Txn: ${escapeHtml(valueOrNA(student.paymentTxn, '-'))}</div>
           </td>
-          <td>${formatDisplayDate(student.createdAt)}</td>
+          <td>
+            <div class="student-date">${formatDisplayDate(student.createdAt)}</div>
+          </td>
           <td>
             <div class="student-actions">
-              <button type="button" class="btn btn-ghost" data-action="print-form">📄 Form</button>
-              <button type="button" class="btn btn-ghost" data-action="print-invoice">🧾 Invoice</button>
-              <button type="button" class="btn btn-ghost" data-action="download-student">📥 JSON</button>
-              <button type="button" class="btn btn-ghost" data-action="edit-student">✏️ Edit</button>
-              <button type="button" class="btn btn-danger" data-action="delete-student">🗑️</button>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="print-form">📄 Form</button>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="print-invoice">🧾 Invoice</button>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="download-student">📥 JSON</button>
+              <button type="button" class="btn btn-ghost btn-sm" data-action="edit-student">✏️ Edit</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="delete-student">🗑️</button>
             </div>
           </td>
         </tr>
@@ -2215,29 +2332,7 @@ const MITApp = (() => {
     `).join('');
   };
 
-  const renderCertificatesTable = () => {
-    const tbody = qs('#certificatesTbody');
-    if (!tbody) return;
-    const certs = storage.get(LS_KEYS.certificates, []);
-    if (!certs.length) {
-      tbody.innerHTML = '<tr><td colspan="4">No certificates uploaded yet.</td></tr>';
-      return;
-    }
-    const rows = [...certs].reverse();
-    tbody.innerHTML = rows.map(cert => `
-      <tr data-cert-id="${cert.id}">
-        <td>${cert.studentId}</td>
-        <td>${cert.fileName}</td>
-        <td>${new Date(cert.createdAt).toLocaleString()}</td>
-        <td>
-          <div class="section-actions">
-            <button type="button" class="btn btn-outline" data-action="download-cert">Download</button>
-            <button type="button" class="btn btn-outline" data-action="delete-cert">Delete</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
-  };
+  // renderCertificatesTable removed - handled by certificate-generator.js
 
   const renderMessagesTable = () => {
     const tbody = qs('#messagesTbody');
@@ -2405,7 +2500,7 @@ const MITApp = (() => {
 
 
 
-  const renderAnalytics = () => {
+  const renderAnalytics = window.renderAnalytics = () => {
     const lineCanvas = qs('#salesChart');
     const pieCanvas = qs('#financePie');
     if (!lineCanvas || !pieCanvas) return;
@@ -2657,11 +2752,11 @@ const MITApp = (() => {
   };
 
   const handleDashboardActions = () => {
-    const studentsWrap = qs('#studentsTable');
+    const studentsTbody = qs('#studentsTbody');
     const coursesWrap = qs('#coursesTable');
     const certsWrap = qs('#certificatesTable');
 
-    studentsWrap?.addEventListener('click', (event) => {
+    studentsTbody?.addEventListener('click', (event) => {
       const btn = event.target.closest('button[data-action]');
       if (!btn) return;
       const row = btn.closest('tr');
@@ -2761,11 +2856,22 @@ const MITApp = (() => {
 
   const initDashboard = async () => {
     if (!qs('body[data-page="admin-dashboard"]')) return;
+
+    // Generic modal close handler for all [data-close] buttons
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const modalId = btn.getAttribute('data-close');
+        const modal = document.getElementById(modalId);
+        if (modal?.close) modal.close();
+        else if (modal) modal.removeAttribute('open');
+      });
+    });
+
     const session = ensureAdminSession();
     if (!session) return;
     const creds = await ensureAdminCredentials();
     const emailEl = qs('#settingsEmail');
-    if (emailEl) emailEl.value = creds.email;
+    if (emailEl) emailEl.value = storage.get(LS_KEYS.session)?.email || creds.email;
     const passEl = qs('#settingsPassword');
     if (passEl) passEl.value = '';
 
@@ -2788,11 +2894,16 @@ const MITApp = (() => {
       });
     }
 
-    seedInitialStudent();
+    // Only create seed student when not using Supabase backend (local-only mode)
+    if (ADMIN_AUTHORITY !== 'backend') {
+      seedInitialStudent();
+    }
 
     qs('#logoutButton')?.addEventListener('click', () => {
       storage.remove(LS_KEYS.session);
-      window.location.href = 'index.html';
+      // Navigate to admin login page, not index.html
+      const logoutPath = IS_ADMIN ? 'index.html' : '../admin/index.html';
+      window.location.href = logoutPath;
     });
 
     initStudentEditor();
@@ -2808,16 +2919,33 @@ const MITApp = (() => {
           btn.setAttribute('aria-selected', String(isActive));
         });
         panels.forEach(panel => panel.hidden = panel.id !== `tab${target.charAt(0).toUpperCase()}${target.slice(1)}`);
+        // Render charts when Students tab becomes visible (charts need visible canvas)
+        if (target === 'students') {
+          setTimeout(renderAnalytics, 50);
+        }
       });
     });
 
     renderStudentsTable();
     renderCoursesTable();
-    renderCertificatesTable();
+    // renderCertificatesTable(); // Removed - handled by certificate-generator.js
     renderMessagesTable();
     initCoursesForm();
     handleDashboardActions();
-    renderAnalytics();
+
+    // Initialize Live Classes tab
+    initLiveClassesTab();
+
+    // Initialize Payment Approvals tab
+    initPaymentsTab();
+
+    // Initialize Settings tab with expanded features
+    initSettingsTab();
+
+    // Render charts on initial load (delayed to ensure canvas is ready)
+    setTimeout(() => {
+      if (typeof renderAnalytics === 'function') renderAnalytics();
+    }, 100);
     window.addEventListener('resize', () => renderAnalytics());
     if (studentFormEl?.elements?.courseId) {
       hydrateStudentCourseSelect(studentFormEl.elements.courseId, 'Keep current');
@@ -2848,9 +2976,9 @@ const MITApp = (() => {
       const list = [...students].reverse().map(student => `
         <article style="margin-bottom:18px;border-bottom:1px solid #e2e8f0;padding-bottom:12px;">
           <h3>${student.trackingNo || student.id} &mdash; ${student.studentNameEn || student.fullName}</h3>
-          <p>Course: ${student.courseTitle} (${student.courseInstructor || 'Instructor TBD'})</p>
-          <p>Email: ${student.email || 'N/A'} &bull; Student Phone: ${student.studentPhone || student.phone || 'N/A'}</p>
-          <p>Parent Phone: ${student.parentPhone || 'N/A'} &bull; Payment: ${student.payment}</p>
+          <p>Course: ${escapeHtml(student.courseTitle)} (${escapeHtml(student.courseInstructor || 'Instructor TBD')})</p>
+          <p>Email: ${escapeHtml(student.email || 'N/A')} &bull; Student Phone: ${escapeHtml(student.studentPhone || student.phone || 'N/A')}</p>
+          <p>Parent Phone: ${escapeHtml(student.parentPhone || 'N/A')} &bull; Payment: ${escapeHtml(student.payment)}</p>
           <p>Portal Login: ${student.portalPhone || student.studentPhone || 'N/A'} &bull; PIN: ${student.portalPin || 'Issued by MIT'}</p>
           <p>Submitted: ${new Date(student.createdAt).toLocaleString()}</p>
         </article>
@@ -2880,34 +3008,7 @@ const MITApp = (() => {
       event.target.value = '';
     });
 
-    qs('#certificateForm')?.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const form = event.target;
-      const status = qs('#certificateStatus');
-      const formData = new FormData(form);
-      const file = formData.get('file');
-      if (!file || !file.size) {
-        status.textContent = 'Select a file to upload.';
-        return;
-      }
-      status.textContent = 'Uploading...';
-      const dataUrl = await toBase64(file);
-      const record = {
-        id: `CERT-${Date.now()}`,
-        studentId: formData.get('studentId'),
-        fileName: file.name,
-        mime: file.type,
-        data: dataUrl,
-        createdAt: new Date().toISOString()
-      };
-      const certs = storage.get(LS_KEYS.certificates, []);
-      certs.push(record);
-      storage.set(LS_KEYS.certificates, certs);
-      renderCertificatesTable();
-      form.reset();
-      status.textContent = 'Certificate saved.';
-      setTimeout(() => { status.textContent = ''; }, 2000);
-    });
+    // #certificateForm listener removed - handled by certificate-generator.js
 
     qs('#settingsForm')?.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -2947,29 +3048,99 @@ const MITApp = (() => {
 
 
   const initStudentLogin = () => {
+    // If already logged in, redirect to dashboard
+    if (sessionStorage.getItem(STUDENT_SESSION_KEY)) {
+      window.location.href = 'portal.html';
+      return;
+    }
+
     const form = qs('#studentLoginForm');
     if (!form) return;
     const status = qs('#studentLoginMessage');
+    const loginBtn = qs('#loginBtn');
+
+    // Rate limiting: track failed attempts
+    const rateLimitStore = {
+      attempts: 0,
+      lockoutUntil: 0,
+      maxAttempts: 5,
+      lockoutDuration: 60000 // 1 minute lockout after 5 failed attempts
+    };
+
+    const checkRateLimit = () => {
+      const now = Date.now();
+      if (rateLimitStore.attempts >= rateLimitStore.maxAttempts && now < rateLimitStore.lockoutUntil) {
+        const remaining = Math.ceil((rateLimitStore.lockoutUntil - now) / 1000);
+        MITToast?.error(`Too many failed attempts. Try again in ${remaining} seconds.`);
+        return true;
+      }
+      return false;
+    };
+
+    const recordFailedAttempt = () => {
+      rateLimitStore.attempts++;
+      if (rateLimitStore.attempts >= rateLimitStore.maxAttempts) {
+        rateLimitStore.lockoutUntil = Date.now() + rateLimitStore.lockoutDuration;
+      }
+    };
+
+    const resetRateLimit = () => {
+      rateLimitStore.attempts = 0;
+      rateLimitStore.lockoutUntil = 0;
+    };
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const phone = normalizePhone(qs('#loginPhone')?.value || '');
+
+      // Check rate limit
+      if (checkRateLimit()) return;
+
+      const trackingInput = qs('#loginTracking')?.value?.trim() || '';
       const pin = qs('#loginPin')?.value || '';
 
-      if (!phone || !pin) {
-        if (status) status.textContent = 'Please enter both phone and PIN.';
+      if (!trackingInput || !pin) {
+        MITToast?.error('Please enter both tracking number and PIN.');
         return;
       }
 
-      if (status) status.textContent = 'Verifying with server...';
+      // Normalize tracking number
+      const trackingNo = trackingInput.toUpperCase().replace(/^MIT[-_\s]?/i, 'MIT-');
 
-      if (window.db) {
-        const { data: student, error } = await window.db.studentLogin(phone, pin);
-        if (student && !error) {
+      // Show loading state
+      if (status) status.textContent = 'Verifying with server...';
+      if (loginBtn) {
+        loginBtn.disabled = true;
+        loginBtn.textContent = '🔄 Verifying...';
+      }
+
+      try {
+        let student = null;
+
+        // Try Supabase first
+        if (window.db && window.db.studentLoginByTracking) {
+          const { data, error } = await window.db.studentLoginByTracking(trackingNo, pin);
+          if (data && !error) {
+            student = data;
+          }
+        }
+
+        // Fallback to local data
+        if (!student) {
+          const students = getStudents();
+          student = students.find(s =>
+            (s.trackingNo?.toUpperCase() === trackingNo ||
+             s.tracking_no?.toUpperCase() === trackingNo ||
+             String(s.id).toUpperCase() === trackingNo) &&
+            String(s.portalPin) === String(pin)
+          );
+        }
+
+        if (student) {
+          resetRateLimit();
           // Store full session data for portal use
           sessionStorage.setItem(STUDENT_SESSION_KEY, JSON.stringify({
             id: student.id,
-            trackingNo: student.trackingNo,
+            trackingNo: student.trackingNo || student.tracking_no,
             fullName: student.fullName || student.studentNameEn,
             name: student.fullName || student.studentNameEn,
             course: student.courseTitle,
@@ -2981,33 +3152,25 @@ const MITApp = (() => {
             at: Date.now()
           }));
           if (status) status.textContent = 'Redirecting...';
+          MITToast?.success('Login successful! Redirecting...');
           setTimeout(() => { window.location.href = 'portal.html'; }, 500);
           return;
+        } else {
+          recordFailedAttempt();
+          const attemptsLeft = rateLimitStore.maxAttempts - rateLimitStore.attempts;
+          MITToast?.error(`Invalid tracking number or PIN. ${attemptsLeft > 0 ? attemptsLeft + ' attempts remaining.' : 'Try again later.'}`);
+          if (status) status.textContent = 'Invalid tracking number or PIN.';
         }
-      }
-
-      // Local fallback
-      const students = getStudents();
-      const student = students.find(s => normalizePhone(s.portalPhone || s.studentPhone) === phone && String(s.portalPin) === String(pin));
-
-      if (student) {
-        sessionStorage.setItem(STUDENT_SESSION_KEY, JSON.stringify({
-          id: student.id,
-          trackingNo: student.trackingNo,
-          fullName: student.fullName || student.studentNameEn,
-          name: student.fullName || student.studentNameEn,
-          course: student.courseTitle,
-          courseId: student.courseId,
-          instructor: student.courseInstructor,
-          pin: student.portalPin,
-          photo: student.photo || null,
-          unlockedCourses: student.unlockedCourses || (student.courseId ? [String(student.courseId)] : []),
-          at: Date.now()
-        }));
-        if (status) status.textContent = 'Redirecting (Offline Cache)...';
-        setTimeout(() => { window.location.href = 'portal.html'; }, 500);
-      } else {
-        if (status) status.textContent = 'Invalid Phone or PIN.';
+      } catch (err) {
+        recordFailedAttempt();
+        MITToast?.error('Login failed. Please try again.');
+        if (status) status.textContent = 'Login failed. Please try again.';
+        console.error('Login error:', err);
+      } finally {
+        if (loginBtn) {
+          loginBtn.disabled = false;
+          loginBtn.textContent = '🚀 Sign In';
+        }
       }
     });
   };
@@ -3021,6 +3184,9 @@ const MITApp = (() => {
       window.location.href = 'index.html';
       return;
     }
+
+    // Parse student data first so it can be used in the Supabase refresh block
+    const student = JSON.parse(sessionData);
 
     // Refresh student data from Supabase and find the logged-in student
     let fullStudentData = null;
@@ -3053,8 +3219,6 @@ const MITApp = (() => {
       console.warn('Failed to refresh course data', e);
     }
 
-    const student = JSON.parse(sessionData);
-
     // Populate student info
     const nameEl = qs('#portalStudentName');
     const trackingEl = qs('#portalTracking');
@@ -3063,6 +3227,7 @@ const MITApp = (() => {
     const pinEl = qs('#portalPin');
 
     // Logout button
+    // Note: 'index.html' from students/portal.html resolves to students/index.html (the login page)
     qs('#studentLogout')?.addEventListener('click', () => {
       sessionStorage.removeItem(STUDENT_SESSION_KEY);
       window.location.href = 'index.html';
@@ -3141,9 +3306,10 @@ const MITApp = (() => {
     const slidesList = qs('#slidesList');
     if (slidesList) {
       if (resources.files && resources.files.length > 0) {
-        slidesList.innerHTML = resources.files.map(f =>
-          `<li><a href="${f.url}" download>${f.name || f.label}</a></li>`
-        ).join('');
+        slidesList.innerHTML = resources.files.map(f => {
+          const filename = f.name || f.label || 'download';
+          return `<li><a href="${f.url}" download="${filename}">${f.label || f.name || 'Download'}</a></li>`;
+        }).join('');
       } else {
         slidesList.innerHTML = '<li class="muted">No slides available yet.</li>';
       }
@@ -3176,6 +3342,37 @@ const MITApp = (() => {
         }
       }).join('');
     }
+
+    // Show certificates if available
+    const certificateSection = qs('#certificateSection');
+    const certificateList = qs('#certificateList');
+    if (certificateSection && certificateList && window.db && window.db.initialized) {
+      try {
+        const { data: certificates } = await window.db.client
+          .from('certificates')
+          .select('*, courses(title, instructor)')
+          .eq('student_id', student.id)
+          .eq('is_valid', true)
+          .order('issue_date', { ascending: false });
+
+        if (certificates && certificates.length > 0) {
+          certificateSection.style.display = 'block';
+          certificateList.innerHTML = certificates.map(cert => `
+            <article class="card certificate-card" style="border-color: #F59E0B; border-width: 2px;">
+              <h3>${cert.courses?.title || 'Course Certificate'}</h3>
+              <p class="muted small">Issued: ${new Date(cert.issue_date).toLocaleDateString('en-GB')}</p>
+              <p class="muted small">Certificate Code: ${cert.certificate_code}</p>
+              <div style="margin-top: 0.5rem;">
+                <a href="../verify.html?cert=${cert.certificate_code}" class="btn btn-sm btn-outline" target="_blank" rel="noopener">🔍 Verify</a>
+                <button class="btn btn-sm btn-gradient" onclick="window.CertificateService?.viewCertificate('${cert.certificate_code}')">📜 View Certificate</button>
+              </div>
+            </article>
+          `).join('');
+        }
+      } catch (e) {
+        console.warn('Could not load certificates:', e);
+      }
+    }
   };
 
   const boot = async () => {
@@ -3196,7 +3393,7 @@ const MITApp = (() => {
 
       // Ensure courses were loaded
       if (state.courses && state.courses.length > 0) {
-        console.log(`✓ Loaded ${state.courses.length} courses successfully`);
+        // Courses loaded successfully
       } else {
         console.warn('⚠ No courses loaded');
       }
@@ -3210,6 +3407,7 @@ const MITApp = (() => {
     renderInstructors();
     populateCourseSelect();
     handleAdmissionForm();
+    initAdmissionSidebarCarousel();
     initStudentLogin();
     await initStudentPortal();
 
@@ -3239,6 +3437,498 @@ const MITApp = (() => {
     safeBoot();
   }
 })();
+
+  // ============================================================================
+  // LIVE CLASSES TAB
+  // ============================================================================
+
+  const initLiveClassesTab = () => {
+    const tbody = qs('#liveClassesTbody');
+    if (!tbody) return;
+
+    // Load and render live classes
+    const renderLiveClasses = () => {
+      const classes = storage.get('mit_live_classes', []);
+      if (!classes.length) {
+        tbody.innerHTML = '<tr><td colspan="6">No live classes scheduled. Click "Add Live Class" to create one.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = classes.map(cls => `
+        <tr data-class-id="${cls.id}">
+          <td><strong>${escapeHtml(cls.title)}</strong></td>
+          <td>${escapeHtml(cls.courseTitle || 'N/A')}</td>
+          <td>${cls.scheduleDate ? new Date(cls.scheduleDate).toLocaleString() : 'Not scheduled'}</td>
+          <td>${cls.duration || '60'} min</td>
+          <td>
+            <button type="button" class="btn btn-ghost btn-sm copy-link-btn" data-link="${cls.joinLink || ''}">
+              📋 Copy Link
+            </button>
+          </td>
+          <td>
+            <div class="section-actions">
+              <button type="button" class="btn btn-ghost btn-sm" data-action="edit-class">Edit</button>
+              <button type="button" class="btn btn-danger btn-sm" data-action="delete-class">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    // Add new class button
+    qs('#addLiveClassBtn')?.addEventListener('click', () => {
+      const title = prompt('Enter live class title:');
+      if (!title) return;
+      const course = prompt('Enter course name (optional):');
+      const duration = prompt('Enter duration in minutes:', '60');
+      const date = prompt('Enter schedule date (YYYY-MM-DD HH:MM):');
+
+      const newClass = {
+        id: 'lc-' + Date.now(),
+        title,
+        courseTitle: course || '',
+        duration: duration || '60',
+        scheduleDate: date || null,
+        joinLink: `https://meet.google.com/mit-class-${Date.now()}`,
+        createdAt: new Date().toISOString()
+      };
+
+      const classes = storage.get('mit_live_classes', []);
+      classes.push(newClass);
+      storage.set('mit_live_classes', classes);
+      renderLiveClasses();
+      if (window.toast) window.toast.success('Live class created');
+    });
+
+    // Copy link button
+    tbody.addEventListener('click', (e) => {
+      const btn = e.target.closest('.copy-link-btn');
+      if (btn) {
+        const link = btn.dataset.link;
+        navigator.clipboard.writeText(link).then(() => {
+          if (window.toast) window.toast.success('Link copied to clipboard');
+        });
+      }
+    });
+
+    // Table action buttons
+    tbody.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      const row = btn.closest('tr');
+      const classId = row?.dataset.classId;
+      if (!classId) return;
+
+      const classes = storage.get('mit_live_classes', []);
+      const index = classes.findIndex(c => c.id === classId);
+      if (index < 0) return;
+
+      if (btn.dataset.action === 'edit-class') {
+        const cls = classes[index];
+        const newTitle = prompt('Edit title:', cls.title);
+        if (newTitle) {
+          classes[index] = { ...cls, title: newTitle };
+          storage.set('mit_live_classes', classes);
+          renderLiveClasses();
+          if (window.toast) window.toast.success('Class updated');
+        }
+      } else if (btn.dataset.action === 'delete-class') {
+        if (confirm('Delete this live class?')) {
+          classes.splice(index, 1);
+          storage.set('mit_live_classes', classes);
+          renderLiveClasses();
+          if (window.toast) window.toast.success('Class deleted');
+        }
+      }
+    });
+
+    // Initial render
+    renderLiveClasses();
+  };
+
+  // ============================================================================
+  // PAYMENTS TAB
+  // ============================================================================
+
+  const initPaymentsTab = () => {
+    const tbody = qs('#pendingPaymentsTbody');
+    if (!tbody) return;
+
+    const renderPendingPayments = () => {
+      const students = getStudents();
+      const pending = students.filter(s =>
+        !s.paymentStatus || s.paymentStatus === 'pending'
+      );
+
+      if (!pending.length) {
+        tbody.innerHTML = '<tr><td colspan="7">No pending payments. All students are verified.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = pending.map(student => `
+        <tr data-student-id="${student.id}">
+          <td>
+            <strong>${student.studentNameEn || student.fullName}</strong>
+            <div class="student-meta">${student.studentPhone || student.phone || 'N/A'}</div>
+          </td>
+          <td>${escapeHtml(student.courseTitle || 'N/A')}</td>
+          <td>${formatBDT(student.coursePayable || student.courseDiscount || student.courseFee)}</td>
+          <td>${student.payment || 'Cash'}</td>
+          <td>${formatDisplayDate(student.createdAt)}</td>
+          <td><span class="status-badge pending">Pending</span></td>
+          <td>
+            <div class="section-actions">
+              <button type="button" class="btn btn-gradient btn-sm" data-action="approve-payment">Approve</button>
+              <button type="button" class="btn btn-outline btn-sm" data-action="reject-payment">Reject</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    // Handle approve/reject
+    tbody.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      const row = btn.closest('tr');
+      const studentId = row?.dataset.studentId;
+      if (!studentId) return;
+
+      const students = getStudents();
+      const index = students.findIndex(s => s.id === studentId);
+      if (index < 0) return;
+
+      if (btn.dataset.action === 'approve-payment') {
+        if (confirm('Approve this payment? Student will get portal access.')) {
+          students[index].paymentStatus = 'verified';
+          students[index].verifiedAt = new Date().toISOString();
+          storage.set(LS_KEYS.students, students);
+          renderPendingPayments();
+          renderAnalytics();
+          if (window.toast) window.toast.success('Payment approved');
+        }
+      } else if (btn.dataset.action === 'reject-payment') {
+        const reason = prompt('Enter rejection reason:');
+        if (reason) {
+          students[index].paymentStatus = 'rejected';
+          students[index].rejectionReason = reason;
+          students[index].rejectedAt = new Date().toISOString();
+          storage.set(LS_KEYS.students, students);
+          renderPendingPayments();
+          if (window.toast) window.toast.warning('Payment rejected');
+        }
+      }
+    });
+
+    // Initial render
+    renderPendingPayments();
+  };
+
+  // ============================================================================
+  // SETTINGS TAB - EXPANDED
+  // ============================================================================
+
+  const initSettingsTab = () => {
+    const settingsForm = qs('#settingsForm');
+    if (!settingsForm) return;
+
+    // Add expense entry section
+    const settingsContent = settingsForm.parentElement;
+
+    // Check if expense section already exists
+    if (!qs('#expenseEntrySection')) {
+      const expenseSection = document.createElement('div');
+      expenseSection.id = 'expenseEntrySection';
+      expenseSection.className = 'card mt-lg';
+      expenseSection.innerHTML = `
+        <h3>Expense Entry</h3>
+        <p class="muted small">Track institute expenses for financial reporting.</p>
+        <form id="expenseForm" class="form-grid compact">
+          <div class="form-field">
+            <label for="expenseAmount">Amount (BDT)</label>
+            <input id="expenseAmount" name="amount" type="number" min="0" placeholder="0" required />
+          </div>
+          <div class="form-field">
+            <label for="expenseCategory">Category</label>
+            <select id="expenseCategory" name="category">
+              <option value="Rent">Rent</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Salaries">Salaries</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Supplies">Supplies</option>
+              <option value="Equipment">Equipment</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-field span-2">
+            <label for="expenseNote">Note</label>
+            <input id="expenseNote" name="note" type="text" placeholder="Description..." />
+          </div>
+          <div class="form-actions span-2">
+            <button type="submit" class="btn btn-outline">Add Expense</button>
+          </div>
+        </form>
+        <div id="expenseList" class="mt-md"></div>
+      `;
+      settingsContent.appendChild(expenseSection);
+
+      // Handle expense form submission
+      qs('#expenseForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const amount = Number(qs('#expenseAmount')?.value);
+        const category = qs('#expenseCategory')?.value;
+        const note = qs('#expenseNote')?.value;
+
+        if (!amount || amount <= 0) {
+          if (window.toast) window.toast.error('Please enter a valid amount');
+          return;
+        }
+
+        addExpenseEntry(amount, note || category);
+        qs('#expenseForm').reset();
+        renderAnalytics();
+        renderExpenseList();
+
+        if (window.toast) window.toast.success('Expense added');
+      });
+    }
+
+    // Render expense list
+    const renderExpenseList = () => {
+      const listEl = qs('#expenseList');
+      if (!listEl) return;
+
+      const expenses = getExpenseEntries();
+      if (!expenses.length) {
+        listEl.innerHTML = '<p class="muted small">No expenses recorded yet.</p>';
+        return;
+      }
+
+      listEl.innerHTML = `
+        <table class="table compact">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Note</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${expenses.slice(-5).reverse().map(exp => `
+              <tr>
+                <td>${formatDisplayDate(exp.date)}</td>
+                <td>${exp.category || 'General'}</td>
+                <td>${escapeHtml(exp.note || '-')}</td>
+                <td>${formatBDT(exp.amount)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    };
+
+    renderExpenseList();
+
+    // Add banner messages section
+    if (!qs('#bannerSettingsSection')) {
+      const bannerSection = document.createElement('div');
+      bannerSection.id = 'bannerSettingsSection';
+      bannerSection.className = 'card mt-lg';
+      bannerSection.innerHTML = `
+        <h3>Banner Messages</h3>
+        <p class="muted small">Display promotional messages on the public site.</p>
+        <form id="bannerForm" class="form-grid compact">
+          <div class="form-field span-2">
+            <label for="bannerMessage">Message</label>
+            <input id="bannerMessage" type="text" placeholder="Enter banner message..." />
+          </div>
+          <div class="form-field">
+            <label for="bannerLink">Link URL (optional)</label>
+            <input id="bannerLink" type="url" placeholder="https://..." />
+          </div>
+          <div class="form-field">
+            <label for="bannerDuration">Display Duration</label>
+            <select id="bannerDuration">
+              <option value="7">7 days</option>
+              <option value="14">14 days</option>
+              <option value="30">30 days</option>
+              <option value="0">Until manually removed</option>
+            </select>
+          </div>
+          <div class="form-actions span-2">
+            <button type="button" class="btn btn-gradient" id="saveBannerBtn">Save Banner</button>
+            <button type="button" class="btn btn-outline" id="clearBannerBtn">Clear Banner</button>
+          </div>
+        </form>
+        <div id="activeBannerDisplay" class="mt-md"></div>
+      `;
+      settingsContent.appendChild(bannerSection);
+
+      // Banner save/clear handlers
+      qs('#saveBannerBtn')?.addEventListener('click', () => {
+        const message = qs('#bannerMessage')?.value.trim();
+        const link = qs('#bannerLink')?.value.trim();
+        const duration = parseInt(qs('#bannerDuration')?.value) || 7;
+
+        if (!message) {
+          if (window.toast) window.toast.error('Please enter a banner message');
+          return;
+        }
+
+        const banner = {
+          message,
+          link,
+          active: true,
+          createdAt: new Date().toISOString(),
+          expiresAt: duration > 0 ? new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString() : null
+        };
+
+        storage.set('mit_active_banner', banner);
+        renderActiveBanner();
+        if (window.toast) window.toast.success('Banner saved');
+      });
+
+      qs('#clearBannerBtn')?.addEventListener('click', () => {
+        storage.remove('mit_active_banner');
+        renderActiveBanner();
+        if (window.toast) window.toast.info('Banner cleared');
+      });
+
+      const renderActiveBanner = () => {
+        const displayEl = qs('#activeBannerDisplay');
+        if (!displayEl) return;
+
+        const banner = storage.get('mit_active_banner');
+        if (!banner?.active) {
+          displayEl.innerHTML = '<p class="muted small">No active banner.</p>';
+          return;
+        }
+
+        displayEl.innerHTML = `
+          <div class="alert alert-info">
+            <strong>Active Banner:</strong> ${escapeHtml(banner.message)}
+            ${banner.link ? ` - <a href="${escapeHtml(banner.link)}" target="_blank">Link</a>` : ''}
+            <br><small class="muted">Created: ${formatDisplayDate(banner.createdAt)}</small>
+          </div>
+        `;
+      };
+
+      renderActiveBanner();
+    }
+
+    // Add contact info section
+    if (!qs('#contactInfoSection')) {
+      const contactSection = document.createElement('div');
+      contactSection.id = 'contactInfoSection';
+      contactSection.className = 'card mt-lg';
+      contactSection.innerHTML = `
+        <h3>Contact Information</h3>
+        <p class="muted small">Update contact details displayed on the public site.</p>
+        <form id="contactInfoForm" class="form-grid compact">
+          <div class="form-field">
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" type="email" value="${CONTACT.email}" />
+          </div>
+          <div class="form-field">
+            <label for="contactPhone">Phone</label>
+            <input id="contactPhone" type="tel" value="${CONTACT.phone}" />
+          </div>
+          <div class="form-field">
+            <label for="contactBkash">bKash Number</label>
+            <input id="contactBkash" type="tel" value="${BKASH_ACCOUNT}" />
+          </div>
+          <div class="form-field span-2">
+            <label for="contactAddress">Address</label>
+            <textarea id="contactAddress" rows="2">Markiety IT Institute, Dhaka, Bangladesh</textarea>
+          </div>
+          <div class="form-actions span-2">
+            <button type="button" class="btn btn-gradient" id="saveContactBtn">Save Contact Info</button>
+          </div>
+        </form>
+      `;
+      settingsContent.appendChild(contactSection);
+
+      qs('#saveContactBtn')?.addEventListener('click', () => {
+        const email = qs('#contactEmail')?.value.trim();
+        const phone = qs('#contactPhone')?.value.trim();
+        const bkash = qs('#contactBkash')?.value.trim();
+        const address = qs('#contactAddress')?.value.trim();
+
+        // Save to localStorage for reference
+        const contactInfo = { email, phone, bkash, address };
+        storage.set('mit_contact_info', contactInfo);
+
+        if (window.toast) window.toast.success('Contact info saved. Update code for public site reflection.');
+      });
+    }
+  };
+
+  const getExpenseEntries = () => {
+    return storage.get(LS_KEYS.expenses, []);
+  };
+
+  const addExpenseEntry = (amount, note) => {
+    const expenses = getExpenseEntries();
+    expenses.push({
+      amount,
+      note: note || 'General expense',
+      category: 'General',
+      date: new Date().toISOString()
+    });
+    storage.set(LS_KEYS.expenses, expenses);
+    updateExpenseTotal();
+  };
+
+  const getExpenseTotal = () => {
+    const expenses = getExpenseEntries();
+    return expenses.reduce((sum, exp) => sum + (exp.amount || 0), 0);
+  };
+
+  const updateExpenseTotal = () => {
+    const total = getExpenseTotal();
+    const el = qs('#expenseTotal');
+    if (el) el.textContent = formatPlainBDT(total);
+  };
+
+  const renderFinanceDetails = () => {
+    const incomeBody = qs('#incomeBreakdownBody');
+    const expenseBody = qs('#expenseBreakdownBody');
+    const incomeTotal = qs('#incomeTotal');
+    const expenseTotal = qs('#expenseTotal');
+
+    if (incomeBody) {
+      const students = getStudents().slice(-5).reverse();
+      incomeBody.innerHTML = students.map(s => `
+        <tr>
+          <td>
+            <strong>${s.studentNameEn || s.fullName || 'Unknown'}</strong>
+            <div class="student-meta">${s.courseTitle || 'N/A'}</div>
+          </td>
+          <td>${formatBDT(s.coursePayable || s.courseDiscount || s.courseFee)}</td>
+          <td>${s.payment || 'Cash'}</td>
+          <td>${formatDisplayDate(s.createdAt)}</td>
+        </tr>
+      `).join('') || '<tr><td colspan="4" class="muted">No recent admissions</td></tr>';
+    }
+
+    if (incomeTotal) {
+      const total = getStudents().reduce((sum, s) => sum + parseFloat(s.coursePayable || s.courseDiscount || s.courseFee || 0), 0);
+      incomeTotal.textContent = formatPlainBDT(total);
+    }
+
+    if (expenseBody) {
+      const expenses = getExpenseEntries().slice(-5).reverse();
+      expenseBody.innerHTML = expenses.map(e => `
+        <tr>
+          <td>${formatBDT(e.amount)}</td>
+          <td>${escapeHtml(e.note || '-')}</td>
+          <td>${formatDisplayDate(e.date)}</td>
+        </tr>
+      `).join('') || '<tr><td colspan="3" class="muted">No expenses recorded</td></tr>';
+    }
+
+    updateExpenseTotal();
+  };
 
 // ============================================================================
 // PREMIUM STATS COUNTER ANIMATION

@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="bn"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4F7CFF">
+  <title>কোর্স — মার্কিটি আইটি ইনস্টিটিউট (এমআইটি)</title>
+  <meta name="description" content="Browse Markiety IT Institute's courses in digital marketing, freelancing, graphic design, video editing, and basic computing. Learn from industry experts.">
+  <link rel="canonical" href="https://markietyitinstitute.netlify.app/courses.html">
+  <meta property="og:title" content="Courses — মার্কিটি আইটি ইনস্টিটিউট (এমআইটি)">
+  <meta property="og:description" content="Discover MIT's government-approved courses designed to help you learn, build, and earn with real-world projects.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://markietyitinstitute.netlify.app/courses.html">
+  <meta property="og:image" content="https://markietyitinstitute.netlify.app/assets/logo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/jpeg" href="/assets/logo.jpg">
+  <link rel="shortcut icon" href="/assets/logo.jpg">
+  <link rel="apple-touch-icon" href="/assets/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/advanced-features.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+
+<body data-theme="light" data-page="courses">
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a class="brand" href="index-bn.html">
+        <img src="assets/logo.jpg" alt="Markiety IT Institute logo" class="logo" width="44" height="44">
+        <div class="brand-copy">
+          <span class="brand-name">মার্কিটি আইটি ইনস্টিটিউট</span>
+          <span class="brand-tagline">শিখুন। গড়ে তুলুন। উপার্জন করুন।</span>
+        </div>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span class="sr-only">Toggle navigation</span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links" id="navMenu">
+          <li><a href="index-bn.html" data-nav="index">হোম</a></li>
+          <li><a href="about-bn.html" data-nav="about">সম্পর্কে</a></li>
+          <li><a href="courses-bn.html" data-nav="courses" class="is-active">কোর্স</a></li>
+          <li><a href="index.html#testimonials" data-nav="testimonials">সাফল্যের গল্প</a></li>
+          <li><a href="instructors-bn.html" data-nav="instructors">প্রশিক্ষকদের</a></li>
+          <li><a href="admission-bn.html" data-nav="admission">ভর্তি</a></li>
+          <li><a href="contact-bn.html" data-nav="contact">যোগাযোগ করুন</a></li>
+          <li class="nav-cta"><a class="btn btn-gradient btn-sm" href="admission-bn.html">এখনই আবেদন করুন</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="searchBtn" aria-label="অনুসন্ধান site (Ctrl+K)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <button type="button" class="lang-toggle" id="langToggle" aria-label="Toggle language" onclick="window.location.href='courses.html'">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-label">বাং</span>
+        </button>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle color theme">
+          <span class="icon-sun" aria-hidden="true"></span>
+          <span class="icon-moon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>এমআইটিতে কোর্সসমূহ</h1>
+        <p class="lead">Skill tracks tailored for digital careers — from foundational computing to growth
+          marketing, design, video editing, and freelancing mastery.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <form class="filters" id="courseFilters" aria-label="Filter কোর্স">
+          <label class="filter-field">
+            <span class="sr-only">কোর্স অনুসন্ধান করুন</span>
+            <input type="search" id="courseSearch" placeholder="শিরোনাম, বিষয় বা প্রশিক্ষক দ্বারা অনুসন্ধান করুন..." aria-label="কোর্স অনুসন্ধান করুন">
+          </label>
+          <label class="filter-field">
+            <span class="sr-only">প্রশিক্ষক দ্বারা ফিল্টার করুন</span>
+            <select id="courseInstructor">
+              <option value="">All instructors</option>
+            </select>
+          </label>
+          <label class="filter-field">
+            <span class="sr-only">কোর্স বাছাই করুন</span>
+            <select id="courseSort">
+              <option value="default">বৈশিষ্ট্য অনুসারে সাজান</option>
+              <option value="duration">Sort by duration</option>
+              <option value="fee">Sort by fee</option>
+            </select>
+          </label>
+          <button type="button" class="btn btn-outline" id="courseReset">রিসেট</button>
+        </form>
+        <div id="coursesSummary" class="muted small"></div>
+        <div class="card-grid" id="coursesGrid" aria-live="polite"></div>
+        <div id="coursesEmpty" class="empty-state" hidden="">
+          <p>No কোর্স match your filters. Try adjusting your search or viewing all কোর্স.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>সকল কোর্স তুলনা করুন</h2>
+          <p class="lead">Find the perfect course for your career goals</p>
+        </header>
+        <div class="table-wrap">
+          <table class="table comparison-table">
+            <thead>
+              <tr>
+                <th>বৈশিষ্ট্য</th>
+                <th>ডিজিটাল মার্কেটিং</th>
+                <th>গ্রাফিক্স ডিজাইন</th>
+                <th>ভিডিও সম্পাদনা</th>
+                <th>বেসিক কম্পিউটার</th>
+                <th>ফ্রিল্যান্সিং</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>সময়কাল</strong></td>
+                <td>3 months</td>
+                <td>3 months</td>
+                <td>2.৫ months</td>
+                <td>2 months</td>
+                <td>2 months</td>
+              </tr>
+              <tr>
+                <td><strong>ফি (বিডিটি)</strong></td>
+                <td>৳৫,৫00</td>
+                <td>৳4,৫00</td>
+                <td>৳4,000</td>
+                <td>৳2,৫00</td>
+                <td>৳3,000</td>
+              </tr>
+              <tr>
+                <td><strong>পূর্বশর্ত</strong></td>
+                <td>কম্পিউটারের প্রাথমিক দক্ষতা</td>
+                <td>কম্পিউটারের প্রাথমিক দক্ষতা</td>
+                <td>কম্পিউটারের প্রাথমিক দক্ষতা</td>
+                <td>কোনোটিই না</td>
+                <td>একটি দক্ষতা কোর্স</td>
+              </tr>
+              <tr>
+                <td><strong>সার্টিফিকেশন</strong></td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+                <td>✅ Government approved</td>
+              </tr>
+              <tr>
+                <td><strong>চাকরি স্থাপন</strong></td>
+                <td>✅ হ্যাঁ</td>
+                <td>✅ হ্যাঁ</td>
+                <td>✅ হ্যাঁ</td>
+                <td>সীমিত</td>
+                <td>✅ হ্যাঁ</td>
+              </tr>
+              <tr>
+                <td><strong>ফ্রিল্যান্স কাজের জন্য প্রস্তুত</strong></td>
+                <td>✅ ফাইভার, আপওয়ার্ক</td>
+                <td>✅ ফাইভার, আপওয়ার্ক, 99designs</td>
+                <td>✅ ফাইভার, আপওয়ার্ক</td>
+                <td>❌</td>
+                <td>✅ All platforms</td>
+              </tr>
+              <tr>
+                <td><strong>Software Covered</strong></td>
+                <td>মেটা অ্যাডস, গুগল অ্যাডস, অ্যানালিটিক্স</td>
+                <td>ফটোশপ, ইলাস্ট্রেটর, ক্যানভা</td>
+                <td>প্রিমিয়ার প্রো, আফটার ইফেক্টস</td>
+                <td>এমএস অফিস, উইন্ডোজ</td>
+                <td>Portfolio tools, client management</td>
+              </tr>
+              <tr>
+                <td><strong>প্রকল্প অন্তর্ভুক্ত</strong></td>
+                <td>৫ real campaigns</td>
+                <td>১০টিরও বেশি ডিজাইন প্রকল্প</td>
+                <td>৮টি ভিডিও প্রকল্প</td>
+                <td>৩টি অ্যাসাইনমেন্ট</td>
+                <td>পোর্টফোলিও বিল্ডিং</td>
+              </tr>
+              <tr>
+                <td><strong>আজীবন সহায়তা</strong></td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>✅</td>
+              </tr>
+              <tr>
+                <td><strong>সেরা</strong></td>
+                <td>Marketing professionals, entrepreneurs</td>
+                <td>Creative designers, brand makers</td>
+                <td>ভিডিও নির্মাতা, ইউটিউবার</td>
+                <td>Complete beginners</td>
+                <td>সকল দক্ষতাধারী</td>
+              </tr>
+              <tr>
+                <td><strong>গড় বেতন</strong></td>
+                <td>৳2৫,000 - ৳60,000/mo</td>
+                <td>৳20,000 - ৳৫0,000/mo</td>
+                <td>৳22,000 - ৳৫৫,000/mo</td>
+                <td>৳12,000 - ৳20,000/mo</td>
+                <td>$৫00 - $2,000/mo</td>
+              </tr>
+              <tr>
+                <td><strong>ভর্তি করুন</strong></td>
+                <td><a href="admission-bn.html" class="btn btn-sm btn-gradient">এখনই আবেদন করুন</a></td>
+                <td><a href="admission-bn.html" class="btn btn-sm btn-gradient">এখনই আবেদন করুন</a></td>
+                <td><a href="admission-bn.html" class="btn btn-sm btn-gradient">এখনই আবেদন করুন</a></td>
+                <td><a href="admission-bn.html" class="btn btn-sm btn-gradient">এখনই আবেদন করুন</a></td>
+                <td><a href="admission-bn.html" class="btn btn-sm btn-gradient">এখনই আবেদন করুন</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="container grid two">
+        <article>
+          <h2>এমআইটি প্রোগ্রামগুলো কীভাবে কাজ করে</h2>
+          <p>Each cohort blends instructor-led workshops, recorded lessons, and guided practice tasks. কোর্স
+            culminate
+            in capstone projects reviewed by mentors so you can showcase real work to clients and employers.</p>
+          <ul class="meta-list">
+            <li>Weekly accountability sessions</li>
+            <li>Freelance &amp; agency templates</li>
+            <li>Community mastermind access</li>
+            <li>সার্টিফিকেশন upon completion</li>
+          </ul>
+        </article>
+        <aside class="card highlight">
+          <h3>Need Help Choosing?</h3>
+          <p>Schedule a consultation to map the right track for your goals.</p>
+          <a class="btn btn-gradient" href="contact-bn.html">Talk to an advisor</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="index-bn.html">
+          <img src="assets/logo.jpg" alt="Markiety IT Institute logo" class="logo" width="44" height="44">
+          <div class="brand-copy">
+            <span class="brand-name">মার্কিটি আইটি ইনস্টিটিউট</span>
+            <span class="brand-tagline">শিখুন। গড়ে তুলুন। উপার্জন করুন।</span>
+          </div>
+        </a>
+        <p class="footer-text">A modern tech learning hub by Markiety, empowering Bangladeshi youth with globally
+          competitive skills.</p>
+      </div>
+      <div>
+        <h3>আমাদের সাথে দেখা করুন</h3>
+        <p>মার্কিটি আইটি ইনস্টিটিউট (এমআইটি)<br>মাধবদী, নরসিংদী - ১৬০৪, বাংলাদেশ</p>
+        <p><a id="contactEmailLink" href="mailto:markietyitinstitute@gmail.com">markietyitinstitute@gmail.com</a><br><a id="contactPhoneLink" href="tel:+8801624547667">+880 1624-৫47667</a></p>
+      </div>
+      <div>
+        <h3>দ্রুত লিঙ্ক</h3>
+        <ul class="footer-links">
+          <li><a href="index-bn.html">হোম</a></li>
+          <li><a href="about-bn.html">সম্পর্কে</a></li>
+          <li><a href="courses-bn.html">কোর্স</a></li>
+          <li><a href="index.html#testimonials">সাফল্যের গল্প</a></li>
+          <li><a href="admission-bn.html">ভর্তি</a></li>
+          <li><a href="contact-bn.html">যোগাযোগ করুন</a></li>
+          <li><a href="students/index-bn.html">ছাত্র লগইন</a></li>
+          <li><a href="privacy-bn.html">গোপনীয়তা নীতি</a></li>
+          <li><a href="terms-bn.html">শর্তাবলী</a></li>
+          <li><a href="refund-bn.html">ফেরত নীতি</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>এমআইটি অনুসরণ করুন</h3>
+        <ul class="social-links">
+          <li><a href="https://facebook.com/markietyitinstitute" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://instagram.com/markietyitinstitute" target="_blank" rel="noopener">Instagram</a>
+          </li>
+          <li><a href="https://linkedin.com/company/markietyitinstitute" target="_blank" rel="noopener">LinkedIn</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <p>© <span id="currentYear"></span> মার্কিটি আইটি ইনস্টিটিউট (এমআইটি). সর্বস্বত্ব সংরক্ষিত।</p>
+      <p class="footer-brand">Under <a href="https://markiety.netlify.app/" target="_blank" rel="noopener">Markiety</a>
+        • ২০২৫ সাল থেকে</p>
+    </div>
+  </footer>
+
+  <dialog id="courseModal" class="modal" aria-labelledby="courseModalTitle">
+    <form method="dialog" class="modal-inner">
+      <header class="modal-head">
+        <h2 id="courseModalTitle">কোর্স Details</h2>
+        <button type="submit" class="icon-btn" aria-label="Close course details">×</button>
+      </header>
+      <div class="modal-body" id="courseModalBody"></div>
+      <footer class="modal-foot">
+        <button type="submit" class="btn btn-outline">Close</button>
+        <a id="courseModalCta" class="btn btn-gradient" href="admission-bn.html">এখনই আবেদন করুন</a>
+      </footer>
+    </form>
+  </dialog>
+
+  <a href="https://wa.me/8801624547667?text=Hello%20MIT!%20I'm%20interested%20in%20your%20courses." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+    </svg>
+  </a>
+
+  <button type="button" id="backToTop" class="back-to-top" aria-label="Scroll back to top"></button>
+
+  <div id="coursesSchemaAnchor"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/services/supabase-service.js"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/seo-enhancement.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/enhancements.js"></script>
+  <script src="js/advanced-features.js"></script>
+  <script src="js/performance-optimizer.js"></script>
+  <script src="js/app.js" defer=""></script>
+
+
+
+</body></html>
