@@ -4,13 +4,16 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- ==================== HOME PAGES ==================== -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/index-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/index-bn.html"/>
     <image:image>
       <image:loc>https://markietyitinstitute.netlify.app/assets/og-image.png</image:loc>
       <image:title>Markiety IT Institute - Best IT Training in Madhabdi, Narsingdi</image:title>
@@ -18,12 +21,30 @@
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/index-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/index-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/index-bn.html"/>
+    <image:image>
+      <image:loc>https://markietyitinstitute.netlify.app/assets/og-image.png</image:loc>
+      <image:title>মার্কিটি আইটি ইনস্টিটিউট - মাধবদী, নরসিংদীর সেরা কম্পিউটার ট্রেনিং সেন্টার</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================== ABOUT PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/about.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/about.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/about.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/about-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/about-bn.html"/>
     <image:image>
       <image:loc>https://markietyitinstitute.netlify.app/assets/logo.jpg</image:loc>
       <image:title>About Markiety IT Institute - Our Story and Mission</image:title>
@@ -31,12 +52,30 @@
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/about-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/about.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/about-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/about-bn.html"/>
+    <image:image>
+      <image:loc>https://markietyitinstitute.netlify.app/assets/logo.jpg</image:loc>
+      <image:title>মার্কিটি আইটি ইনস্টিটিউট সম্পর্কে - আমাদের লক্ষ্য ও উদ্দেশ্য</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================== COURSES PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/courses.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/courses.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/courses.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/courses-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/courses-bn.html"/>
     <image:image>
       <image:loc>https://markietyitinstitute.netlify.app/assets/DIGITAL-MARKETING-COURSE.jpg</image:loc>
       <image:title>IT Courses at MIT - Digital Marketing, Graphics Design, Video Editing</image:title>
@@ -44,78 +83,223 @@
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/courses-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/courses.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/courses.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/courses-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/courses-bn.html"/>
+    <image:image>
+      <image:loc>https://markietyitinstitute.netlify.app/assets/DIGITAL-MARKETING-COURSE.jpg</image:loc>
+      <image:title>এমআইটি আইটি কোর্সসমূহ - ডিজিটাল মার্কেটিং, গ্রাফিক্স ডিজাইন, ভিডিও এডিটিং</image:title>
+    </image:image>
+  </url>
+
+  <!-- ==================== INSTRUCTORS PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/instructors.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/instructors.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/instructors.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/instructors-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/instructors-bn.html"/>
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/instructors-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/instructors.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/instructors.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/instructors-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/instructors-bn.html"/>
+  </url>
+
+  <!-- ==================== ADMISSION PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/admission.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/admission.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/admission.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/admission-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/admission-bn.html"/>
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/admission-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/admission.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/admission.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/admission-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/admission-bn.html"/>
+  </url>
+
+  <!-- ==================== CONTACT PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/contact.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/contact-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/contact-bn.html"/>
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/contact-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/contact-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/contact-bn.html"/>
+  </url>
+
+  <!-- ==================== BLOG PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/blog.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/blog.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/blog-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/blog-bn.html"/>
   </url>
 
   <url>
+    <loc>https://markietyitinstitute.netlify.app/blog-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/blog-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/blog-bn.html"/>
+  </url>
+
+  <!-- ==================== GALLERY PAGES ==================== -->
+  <url>
     <loc>https://markietyitinstitute.netlify.app/gallery.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/gallery.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/gallery.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/gallery-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/gallery-bn.html"/>
   </url>
 
   <url>
-    <loc>https://markietyitinstitute.netlify.app/privacy.html</loc>
-    <lastmod>2026-05-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <loc>https://markietyitinstitute.netlify.app/gallery-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/gallery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/gallery.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/gallery-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/gallery-bn.html"/>
   </url>
 
-  <url>
-    <loc>https://markietyitinstitute.netlify.app/terms.html</loc>
-    <lastmod>2026-05-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <url>
-    <loc>https://markietyitinstitute.netlify.app/refund.html</loc>
-    <lastmod>2026-05-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
+  <!-- ==================== VERIFY CERTIFICATE PAGES ==================== -->
   <url>
     <loc>https://markietyitinstitute.netlify.app/verify.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/verify.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/verify.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/verify-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/verify-bn.html"/>
+  </url>
+
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/verify-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/verify.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/verify.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/verify-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/verify-bn.html"/>
+  </url>
+
+  <!-- ==================== POLICY PAGES ==================== -->
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/privacy.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/privacy-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/privacy-bn.html"/>
+  </url>
+
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/privacy-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/privacy-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/privacy-bn.html"/>
+  </url>
+
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/terms.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/terms-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/terms-bn.html"/>
+  </url>
+
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/terms-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/terms-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/terms-bn.html"/>
+  </url>
+
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/refund.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/refund.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/refund.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/refund-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/refund-bn.html"/>
+  </url>
+
+  <url>
+    <loc>https://markietyitinstitute.netlify.app/refund-bn.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en-BD" href="https://markietyitinstitute.netlify.app/refund.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://markietyitinstitute.netlify.app/refund.html"/>
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://markietyitinstitute.netlify.app/refund-bn.html"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://markietyitinstitute.netlify.app/refund-bn.html"/>
   </url>
 
 </urlset>
